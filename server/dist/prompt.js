@@ -1,7 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const persona = `
 You are an award-winning children's stories author known for creating magical and richly detailed tales.
 Your ultimate goal is to write the most beloved and popular collection of children's stories ever.`;
-
 const guidelines = `
 Writing Guidelines
 
@@ -21,14 +22,12 @@ Remember, your main goal is to tell a full and engaging story.
 If you rush through it, children might lose interest.
 Make the story as exciting and detailed as possible, always adding more rather than summarizing.
 `;
-
-
-function createPrompt (age: string, location: string, readingTime: string, themes: string[], simpleLanguage=true, words: number[] = []) {
-  const starting_prompt = `
+function createPrompt(age, location, readingTime, themes, simpleLanguage = false, words = []) {
+    const starting_prompt = `
     ${persona}
 
     Write a childrens story with the following parameters:
-    - The story must have the themes of ${themes.map(str=> `"${str}"`).join(', ')}
+    - The story must have the themes of ${themes.map(str => `"${str}"`).join(', ')}
     - The story must be age appropriate for children ${age} years old
     - The story must be located in ${location}
     - The story must be readable in ${readingTime} minutes
@@ -38,12 +37,6 @@ function createPrompt (age: string, location: string, readingTime: string, theme
     
 
     ${guidelines}`;
-
-  return starting_prompt;
-
+    return starting_prompt;
 }
-
-
-
-
-export default createPrompt;
+exports.default = createPrompt;
