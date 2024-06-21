@@ -1,6 +1,7 @@
 import createPrompt from '../prompt';
 import model from '../gemini';
 
+// TODO: Add ctx type
 export default async function getStory(ctx: any) {
   if (!ctx.request.body) {
     ctx.status = 400;
@@ -22,6 +23,7 @@ export default async function getStory(ctx: any) {
   }
 
   const { age, location, readingTime, themes, simpleLanguage, words } = ctx.request.body as {
+  // TODO: extract types to seprate file
     age: string;
     location: string;
     readingTime: string;
