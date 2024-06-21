@@ -1,6 +1,6 @@
 import koa from 'koa';
 import router from './router';
-import { Middleware } from '@koa/router';
+
 
 const app = new koa();
 
