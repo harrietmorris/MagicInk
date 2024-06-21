@@ -18,9 +18,11 @@
     "@types/koa": "^2.15.0",
     "@types/koa__router": "^12.0.4",
     "dotenv": "^16.4.5",
-    "koa": "^2.15.3"
+    "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1"
   },
   "devDependencies": {
+    "@types/koa-bodyparser": "^4.3.12",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
