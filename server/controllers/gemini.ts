@@ -1,15 +1,16 @@
 import createPrompt from '../prompt';
 import model from '../gemini';
+import { StoryRequestBody } from '../types';
+import * as Koa from "koa"
 
-// TODO: Add ctx type
-export default async function getStory(ctx: any) {
+export default async function getStory(ctx: Koa.Context) {
   if (!ctx.request.body) {
     ctx.status = 400;
     ctx.body = 'Bad request';
     return;
   }
 
-  if (
+  if ( !(typeof ctx.request.body === 'object') ||
     !('age' in ctx.request.body) ||
     !('location' in ctx.request.body) ||
     !('readingTime' in ctx.request.body) ||
@@ -22,15 +23,7 @@ export default async function getStory(ctx: any) {
     return;
   }
 
-  const { age, location, readingTime, themes, simpleLanguage, words } = ctx.request.body as {
-  // TODO: extract types to seprate file
-    age: string;
-    location: string;
-    readingTime: string;
-    themes: string[];
-    simpleLanguage: boolean;
-    words: number[];
-  };
+  const { age, location, readingTime, themes, simpleLanguage, words } = ctx.request.body as StoryRequestBody
   try {
     const prompt = createPrompt(age, location, readingTime, themes, simpleLanguage, words);
     const result = await model.generateContent(prompt);
