@@ -13,10 +13,12 @@ app.use(bodyParser())
 const PORT = 3000;
 
 
+if (require.main === module) {
+  app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`)
+  })
+}
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
-})
-
+export default app;
 
 
