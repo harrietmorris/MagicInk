@@ -1,20 +1,35 @@
 const request = require('supertest');
-const app = require('../index');
+const { app } = require('../index');
+
+let server: any;
 
 
 beforeAll(async () => {
-  console.log('beforeAll');
+  server = app.listen(8888) 
 });
 
 afterAll(async () => {
-  console.log('afterAll');
-  
+  server.close()
 });
 
 describe('Story endpoint', () => {
   it('Should return a story', async () => {
-    console.log('test');
+    const response = await request(server)
+      .post('/story')
+      .send({
+        'age': 10,
+        'location': 'castle',
+        'readingTime': 10,
+        'themes': ['funny'],
+        'simpleLanguage': true,
+        'words': [10, 500] })
     
-  });
+    expect(response.status).toBe(200);
+    const story = response.text;
+    const words = story.split(' ').length;
+    expect(words).toBeGreaterThanOrEqual(10);
+    expect(words).toBeLessThanOrEqual(500);
+    expect(story).toContain('castle');
+  }, 1000 * 60 * 1);
 
 });
