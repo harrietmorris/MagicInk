@@ -5,8 +5,9 @@
       "strict": true,
       "esModuleInterop": true,
       "outDir": "./dist",
-      "rootDir": "./"
+      "rootDir": "./",
+      "types": ["node"]
     },
-    "include": ["index.ts"],
+    "include": ["**/*.ts"],
     "exclude": ["node_modules"]
   }
