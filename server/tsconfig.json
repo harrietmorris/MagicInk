@@ -4,11 +4,11 @@
       "module": "commonjs",
       "strict": true,
       "esModuleInterop": true,
-      "outDir": "./dist",
+      "outDir": "prisma/dist",
       "rootDir": "./",
       "types": ["node", "jest"]
     },
-    "include": ["index.ts"],
+    "include": ["./**/*.ts"],
     "exclude": ["node_modules", "**/*.test.ts"]
 }
 
