@@ -11,6 +11,9 @@ Senior thesis project - interactive storyteller app
 
 
 ### Server setup
+To run the backend:
+  npm run 
+
 create a `server/.env` file with the following content:
 ```
 GEMINI_API_KEY=your_gemini_api_key
