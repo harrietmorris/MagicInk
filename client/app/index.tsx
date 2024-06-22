@@ -1,16 +1,11 @@
-// import { Text, View } from '@/components/Themed';
 
-import { Link } from 'expo-router';
-import { View, Text, Pressable } from 'react-native';
+import React from 'react'
+import { Redirect } from 'expo-router'
 
-export default function loginScreen() {
+const index = () => {
   return (
-    <View>
-      <Link href='/homeScreen' asChild>
-        <Pressable>
-          <Text>Login Page</Text>
-        </Pressable>
-      </Link>
-    </View>
-  );
+    <Redirect href="/loginScreen"></Redirect>
+  )
 }
+
+export default index
