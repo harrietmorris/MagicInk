@@ -14,13 +14,13 @@ export const axiosUser = async (id: number): Promise<UserType> => {
   }
 };
 
-// export const axiosAllProfiles = async (userId: number): Promise<ProfileType[]> => {};
+// export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => {};
 
-// export const axiosSelectedProfile = async (profileId: number): Promise<ProfileType> => {};
+// export const getSelectedProfile = async (profileId: number): Promise<ProfileType> => {};
 
-// export const axiosStoriesByProfile = async (profileId: number): Promise<StoryType[]> => {};
+// export const getAllStoriesByProfile = async (profileId: number): Promise<StoryType[]> => {};
 
-export const axiosSelectedStory = async (storyId: number): Promise<StoryType> => {
+export const getSelectedStory = async (storyId: number): Promise<StoryType> => {
   try {
     const response = await axios.get(`${BASE_URL}/stories/${storyId}`);
     console.log('🚀 ~ getStoryById ~ res:', response.data);
@@ -31,7 +31,7 @@ export const axiosSelectedStory = async (storyId: number): Promise<StoryType> =>
   }
 };
 
-// export const axiosFavStories = async (profileId: number): Promise<StoryType[]> => {};
+// export const getFavStories = async (profileId: number): Promise<StoryType[]> => {};
 
 export const createStory = async (
   readingLevel: string,
