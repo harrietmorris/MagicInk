@@ -14,7 +14,16 @@ export const getUser = async (id: number): Promise<UserType> => {
   }
 };
 
-// export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => {};
+export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => {
+  try {
+    const response: AxiosResponse<ProfileType[]> = await axios.get(`${BASE_URL}/users/${userId}/profiles`);
+    console.log('getting all profiles:', response.data)
+    return response.data;
+} catch (e) {
+    console.log('error getting profiles', e);
+    throw e;
+}
+};
 
 // export const getSelectedProfile = async (profileId: number): Promise<ProfileType> => {};
 
