@@ -3,7 +3,7 @@ import { Text, View, TextInput, Button, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
 import { createStory } from '@/services/apiService';
-import { FormData } from '@/types';
+import { FormData } from '@/Types';
 import { router } from 'expo-router';
 
 export default function newStoryScreen () {

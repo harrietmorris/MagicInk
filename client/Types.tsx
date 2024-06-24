@@ -1,4 +1,3 @@
-import { StringLiteral } from "@babel/types";
 
 export interface UserType {
     id: number;
@@ -27,3 +26,10 @@ export interface StoryType {
     readingTime: string;
     theme: string[];
 }
+
+export type FormData = {
+    readingLevel: string[];
+    location: string[];
+    readingTime: string[];
+    themes: string[];
+  };
