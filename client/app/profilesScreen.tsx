@@ -2,21 +2,29 @@ import { View, Text, StyleSheet, SafeAreaView} from 'react-native'
 import React, { useEffect } from 'react'
 import { Link, router } from 'expo-router'
 import NewProfileButton from '../components/Profiles/NewProfileButton'
-import { useDataContext } from '../context/DataContext';
+import { useDataContext } from '@/context/globalContext'
+import { getUser } from '@/services/apiService'
+import ListedProfiles from '@/components/Profiles/ListedProfiles'
+
 
 
 
 const profilesScreen = () => {
-  const {user, profiles, setSelectedProfile, getUser, getAllProfiles } = useDataContext();
+  // const dataContext = useDataContext();
+  // if (!dataContext) return null;
+
+  const {user, setUser  } = useDataContext();
 
   useEffect(() => {
-    getAllProfiles(user.id);
-}, []);
+    const fetchUser = async () => {
+      const userId = 1; // Replace this with the dynamic user ID
+      const userData = await getUser(userId);
+      setUser(userData);
+    };
 
-const ProfilePress = (profile) => {
-  setSelectedProfile(profile);
-  router.push('/homeScreen'); 
-};
+    fetchUser();
+  }, []);
+
 
 
   return (
@@ -25,6 +33,8 @@ const ProfilePress = (profile) => {
         route="/newProfileScreen"
         buttonStyle={styles.buttonStyle}
         textStyle={styles.textStyle} />
+      
+      <ListedProfiles />
 
   
       <Link href='/homeScreen'>Profile 1</Link>

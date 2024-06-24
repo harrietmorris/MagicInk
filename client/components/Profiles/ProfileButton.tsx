@@ -1,35 +1,33 @@
-import { View, Text, TouchableOpacity, StyleSheet, TextStyle, ViewStyle } from 'react-native'
+import { Text, TouchableOpacity, StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router';
-import { ProfileType } from '@/Types';
-import axios, { AxiosResponse } from 'axios';
+
 
 
 interface ProfileButtonProps {
     route: string;
-    buttonStyle?: ViewStyle;
-    textStyle?: TextStyle; 
-    profileName: string;
-
+  buttonStyle?: ViewStyle;
+  textStyle?: TextStyle;
+  profileName: string;
+  onPress: () => void;
 }
 
 
 
-const ProfileButton = ({ route, buttonStyle, textStyle, profileName }: ProfileButtonProps) => {
-
+const ProfileButton = ({ route, buttonStyle, textStyle, profileName, onPress }: ProfileButtonProps) => {
     const router = useRouter();
 
     const reRouter = () => {
+        onPress();
         router.push(route);
     };
 
     return (
         <TouchableOpacity style={[styles.button, buttonStyle]} onPress={reRouter}>
-            <Text style={[styles.text, textStyle]}>{profileName}</Text>
+          <Text style={[styles.text, textStyle]}>{profileName}</Text>
         </TouchableOpacity>
-    );
-
-}
+      );
+    };
 
 const styles = StyleSheet.create({
     button: {

@@ -1,42 +1,60 @@
-import { View, Text } from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
-import { ProfileType } from '@/Types';
-import axios, { AxiosResponse } from 'axios';
 import { useDataContext } from '@/context/globalContext';
-
-// TODO: move axios into ApiService
-const API_URL = 'http://localhost:3000'
-export const axiosAllProfiles = async (userId: number): Promise<ProfileType[]> => {
-    try {
-        const response: AxiosResponse<ProfileType[]> = await axios.get(`${API_URL}/users/${userId}/profiles`);
-        return response.data;
-    } catch (e) {
-        console.log('error getting profiles', e);
-        throw e;
-    }
-};
-
+import { getAllProfiles } from '@/services/apiService';
+import ProfileButton from './ProfileButton';
+import { ProfileType } from '@/types';
 
 
 const ListedProfiles = () => {
-    const {user, profiles, setProfiles, setSelectedProfile } = useDataContext();
+    // const dataContext = useDataContext();
+    // if (!dataContext) return null;
+    const { user, profiles, setProfiles, setSelectedProfile } = useDataContext();;
 
-    if (!user) {
-        return null
-    }
 
     useEffect(()=> {
+        const getProfiles = async () => {
+            if (user) {
+              const profiles = await getAllProfiles(user.id);
+              setProfiles(profiles);
+            }
+        }
 
-    }, [])
+        getProfiles();
+    }, [user]);
 
-    setProfiles = axiosAllProfiles(user.id)
+    const handleProfilePress = (profile: ProfileType) => {
+        setSelectedProfile(profile);
+      };
 
 
   return (
-    <View>
-      <Text>ListedProfiles</Text>
-    </View>
+    <FlatList
+    data={profiles}
+    keyExtractor={(item) => item.id.toString()}
+    renderItem={({ item }) => (
+      <ProfileButton
+        profileName={item.name}
+        route="/homeScreen"
+        buttonStyle={styles.buttonStyle}
+        textStyle={styles.textStyle}
+        onPress={() => handleProfilePress(item)}
+      />
+    )}
+  />
   )
 }
+
+const styles = StyleSheet.create({
+    buttonStyle: {
+      backgroundColor: '#28a745',
+      padding: 15,
+      marginVertical: 5,
+    },
+    textStyle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+  });
 
 export default ListedProfiles
