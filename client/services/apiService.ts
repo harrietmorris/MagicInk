@@ -1,4 +1,4 @@
-import { ProfileType, StoryType, UserType } from '../Types';
+import { ProfileType, StoryType, UserType } from '../types';
 import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
 const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
