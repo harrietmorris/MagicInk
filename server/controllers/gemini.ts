@@ -1,10 +1,10 @@
 import createPrompt from '../prompt';
 import model from '../gemini';
-import { StoryRequestBody } from '../serverTypes';
+import { StoryRequestBody } from '../types';
 import * as Koa from "koa"
 import prisma from '../models';
 
-export default async function getStory(ctx: Koa.Context) {
+export default async function postNewStory(ctx: Koa.Context) {
   if (!ctx.request.body) {
     ctx.status = 400;
     ctx.body = 'Bad request';
@@ -48,7 +48,7 @@ export default async function getStory(ctx: Koa.Context) {
         // },
       }
     });
-    ctx.status = 200;
+    ctx.status = 201;
     ctx.body = { id: story.id, title};
   } catch (e) {
     console.error(e);

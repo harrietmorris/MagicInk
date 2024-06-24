@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateProfileRequestBody } from '../serverTypes';
+import { CreateProfileRequestBody } from '../types';
 
 export async function createProfile(ctx: Context) {
     const { userId } = ctx.params;
@@ -17,6 +17,7 @@ export async function createProfile(ctx: Context) {
             favs: { connect: [] },
           },
         });
+        ctx.status = 201;
         ctx.body = profile;
     } catch (error) {
         ctx.status = 400;
@@ -39,7 +40,7 @@ export async function addToFavs(ctx: Context) {
                 favs: true,
             },
         });
-
+        ctx.status = 201;
         ctx.body = updatedProfile;
     } catch (error) {
         ctx.status = 400;
@@ -103,7 +104,7 @@ export async function deleteProfile(ctx: Context) {
         const profile = await prisma.profile.delete({
             where: { id: parseInt(profileId, 10) },
         });
-
+        ctx.status = 201;
         ctx.body = { message: 'Profile deleted successfully', profile };
     } catch (error) {
         ctx.status = 400;
@@ -127,7 +128,7 @@ export async function removeFromFavs(ctx: Context) {
                 favs: true,
             },
         });
-
+        ctx.status = 201;
         ctx.body = updatedProfile;
     } catch (error) {
         ctx.status = 400;
