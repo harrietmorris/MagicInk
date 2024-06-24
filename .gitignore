@@ -1,3 +1,11 @@
 node_modules
 .env
 server/dist
+
+# Compiled output
+dist/
+build/
+
+# Prisma directories
+server/prisma/migrations/
+server/prisma/dist/

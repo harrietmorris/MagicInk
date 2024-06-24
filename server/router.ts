@@ -10,7 +10,7 @@ router.get('/', (ctx) => {
     ctx.body = 'Hello world!';
   });
 
-  //gemini
+//gemini
 router.post('/story', getStory);
 
 //prisma

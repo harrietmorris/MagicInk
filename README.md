@@ -12,15 +12,15 @@ Senior thesis project - interactive storyteller app
 
 ### Server setup
 To run the backend:
-  npm run 
+  npm run dev
 
 create a `server/.env` file with the following content:
 ```
 GEMINI_API_KEY=your_gemini_api_key
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/magicink?schema=SCHEMA"
+```
+Run the following commands to create the database and generate the prisma client:
 ```
 
-PostgreSQL set up:
- server/.env:
-    DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA"
-    example - DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
-    
+npx prisma generate
+npx prisma migrate dev --name magicink

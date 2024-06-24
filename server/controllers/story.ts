@@ -53,6 +53,7 @@ export async function recallStory(ctx: Context) {
 
         ctx.body = story;
     } catch (error) {
+        console.log(error);
         ctx.status = 400;
         ctx.body = { error: 'Error fetching story' };
     }
