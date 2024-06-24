@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
 import { createStory } from '@/services/apiService';
 import { FormData } from '@/types';
+import { router } from 'expo-router';
 
 export default function newStoryScreen () {
   const {
@@ -20,7 +21,7 @@ export default function newStoryScreen () {
   });
 
   async function onSubmit (data: FormData) {
-    console.log(data);
+    // TODO: Display loading spinner while story is being created
     createStory(
       readingLevelOptions[data.readingLevel],
       data.location,
@@ -29,8 +30,7 @@ export default function newStoryScreen () {
     ).then((story) => {
       const storyId = story.id;
       const title = story.title;
-      // redirect to story screen
-      
+      router.replace('/keepReadingScreen');
     }
     )
   }
