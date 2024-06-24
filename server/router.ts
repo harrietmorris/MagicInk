@@ -1,6 +1,6 @@
 import Router from '@koa/router';
 import getStory from './controllers/gemini';
-import { addToFavs, createProfile, getFavStories, getStoriesList } from './controllers/profile';
+import { addToFavs, createProfile, deleteProfile, getFavStories, getStoriesList, removeFromFavs } from './controllers/profile';
 import { createStory, recallStory } from './controllers/story';
 import { createUser, getUserInfo, getUserProfiles, loginUser } from './controllers/user';
 
@@ -10,7 +10,7 @@ router.get('/', (ctx) => {
     ctx.body = 'Hello world!';
   });
 
-  //gemini
+//gemini
 router.post('/story', getStory);
 
 //prisma
@@ -21,11 +21,14 @@ router.get('/users/:userId/profiles', getUserProfiles);
 
 router.post('/users/:userId/profiles', createProfile);
 router.post('/profiles/:profileId/stories', createStory);
-router.post('/profiles/:profileId/favs/:storyId', addToFavs);
+router.put('/profiles/:profileId/favs/:storyId', addToFavs);
+router.delete('/profiles/:profileId/favs/:storyId', removeFromFavs);
 
 router.get('/stories/:storyId', recallStory);
 router.get('/profiles/:profileId/storiesList', getStoriesList);
 router.get('/profiles/:profileId/favs', getFavStories);
+
+router.delete('/profiles/:profileId', deleteProfile);
 
 
 export default router;
