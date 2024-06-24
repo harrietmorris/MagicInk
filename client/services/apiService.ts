@@ -1,17 +1,48 @@
-import axios, {isCancel, AxiosError} from 'axios';
+import { ProfileType, StoryType, UserType } from '../types';
+import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
-const URL = 'http://localhost:3000';
+const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
 
-async function createStory (
+export const getUser = async (id: number): Promise<UserType> => {
+  try {
+    const response: AxiosResponse<UserType> = await axios.get(`${BASE_URL}/users/${id}`);
+    console.log('getting user:', response.data);
+    return response.data;
+  } catch (e) {
+    console.log('error getting user', e);
+    throw e;
+  }
+};
+
+// export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => {};
+
+// export const getSelectedProfile = async (profileId: number): Promise<ProfileType> => {};
+
+// export const getAllStoriesByProfile = async (profileId: number): Promise<StoryType[]> => {};
+
+export const getSelectedStory = async (storyId: number): Promise<StoryType> => {
+  try {
+    const response = await axios.get(`${BASE_URL}/stories/${storyId}`);
+    console.log('🚀 ~ getStoryById ~ res:', response.data);
+    return response.data;
+  } catch (error) {
+      console.error('Error creating story', error);
+      throw error;
+  }
+};
+
+// export const getFavStories = async (profileId: number): Promise<StoryType[]> => {};
+
+export const createStory = async (
   readingLevel: string,
   location: string,
   readingTime: number,
   themes: string[],
   simpleLanguage: boolean = false,
   words: number[] = [],
-) {
+) => {
   try {
-    const response = await axios.post(URL +'/story', {
+    const response = await axios.post(`${BASE_URL}/story`, {
       readingLevel,
       location,
       readingTime,
@@ -21,8 +52,7 @@ async function createStory (
     });
     return response.data;
   } catch (error) {
-    console.error('Error creating story', error);
+      console.error('Error creating story', error);
+      throw error;
   }
-}
-
-export {createStory};
+};

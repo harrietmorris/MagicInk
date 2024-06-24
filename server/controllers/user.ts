@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateUserRequestBody, LoginRequestBody } from '../serverTypes';
+import { CreateUserRequestBody, LoginRequestBody } from '../types';
 
 export async function createUser(ctx: Context) {
     const body = ctx.request.body as CreateUserRequestBody;
@@ -35,7 +35,7 @@ export async function loginUser(ctx: Context) {
             ctx.body = { error: 'Invalid credentials' };
             return;
         }
-
+        ctx.status = 201;
         ctx.body = user;
     } catch (error) {
         ctx.status = 400;
@@ -44,7 +44,7 @@ export async function loginUser(ctx: Context) {
 }
 
 export async function getUserInfo(ctx: Context) {
-    const { userId } = ctx.state.user; 
+    const { userId } = ctx.state.user;
 
     try {
         const user = await prisma.user.findUnique({
