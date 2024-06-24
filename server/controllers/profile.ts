@@ -5,17 +5,17 @@ import { CreateProfileRequestBody } from '../serverTypes';
 export async function createProfile(ctx: Context) {
     const { userId } = ctx.params;
     const body = ctx.request.body as CreateProfileRequestBody;
-    const { name, picture, readLev } = body;
+    const { name, picture, readingLevel } = body;
     try {
         const profile = await prisma.profile.create({
-            data: {
-                userId: parseInt(userId, 10),
-                name,
-                picture,
-                readLev,
-                storiesList: { create: [] },
-                favs: { connect: [] },
-            },
+          data: {
+            userId: parseInt(userId, 10),
+            name,
+            picture,
+            readingLevel,
+            storiesList: { create: [] },
+            favs: { connect: [] },
+          },
         });
         ctx.body = profile;
     } catch (error) {
@@ -36,7 +36,7 @@ export async function addToFavs(ctx: Context) {
                 },
             },
             include: {
-                favs: true, 
+                favs: true,
             },
         });
 
@@ -124,7 +124,7 @@ export async function removeFromFavs(ctx: Context) {
                 },
             },
             include: {
-                favs: true, 
+                favs: true,
             },
         });
 

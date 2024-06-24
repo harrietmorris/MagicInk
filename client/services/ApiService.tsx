@@ -23,7 +23,7 @@ export const axiosUser = async (id: number): Promise<UserType> => {
 export const axiosSelectedStory = async (storyId: number): Promise<StoryType> => {
   try {
     const response = await axios.get(`${BASE_URL}/stories/${storyId}`);
-    console.log('🚀 ~ getStoryById ~ res:', response);
+    console.log('🚀 ~ getStoryById ~ res:', response.data);
     return response.data;
   } catch (error) {
       console.error('Error creating story', error);
