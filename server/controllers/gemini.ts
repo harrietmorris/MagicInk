@@ -49,7 +49,7 @@ export default async function postNewStory(ctx: Koa.Context) {
       }
     });
     ctx.status = 201;
-    ctx.body = { id: story.id, title};
+    ctx.body = story;
   } catch (e) {
     console.error(e);
     ctx.status = 500;
