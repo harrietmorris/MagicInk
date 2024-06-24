@@ -5,12 +5,27 @@ type ProviderProps = {
   children: ReactNode;
 };
 
+const initialDataContext: DataContextProps = {
+  user: null,
+  setUser: () => {},
+  profiles: [],
+  setProfiles: () => [],
+  selectedProfile: null,
+  setSelectedProfile: () => {},
+  allStories: [],
+  setAllStories: () => { },
+  selectedStory: null,
+  setSelectedStory: () => {},
+  favStories: [],
+  setFavStories: () => {},
+};
+
 //TODO: review the default state of the context -> currently no meaningful default so using null
-const dataContext = createContext<DataContextProps | null>(null);
+const dataContext = createContext<DataContextProps>(initialDataContext);
 
 export const getUserProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<UserType | null>(null);
-  const [profiles, setProfiles] = useState<ProfileType[]>([]);
+  const [profiles, setProfiles] = useState<ProfileType[]>([])
   const [selectedProfile, setSelectedProfile] = useState<ProfileType | null>(null);
   const [allStories, setAllStories] = useState<StoryType[]>([]);
   const [selectedStory, setSelectedStory] = useState<StoryType | null>(null);
