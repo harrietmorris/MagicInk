@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
-import { ProfileType, StoryType, UserType, DataContextProps } from '../Types';
+import { ProfileType, StoryType, UserType, DataContextProps } from '../types';
 
 type ProviderProps = {
   children: ReactNode;
