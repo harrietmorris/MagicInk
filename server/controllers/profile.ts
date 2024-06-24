@@ -40,7 +40,7 @@ export async function addToFavs(ctx: Context) {
                 favs: true,
             },
         });
-        ctx.status = 201;
+        ctx.status = 200;
         ctx.body = updatedProfile;
     } catch (error) {
         ctx.status = 400;
@@ -104,7 +104,7 @@ export async function deleteProfile(ctx: Context) {
         const profile = await prisma.profile.delete({
             where: { id: parseInt(profileId, 10) },
         });
-        ctx.status = 201;
+        ctx.status = 204;
         ctx.body = { message: 'Profile deleted successfully', profile };
     } catch (error) {
         ctx.status = 400;
@@ -128,7 +128,7 @@ export async function removeFromFavs(ctx: Context) {
                 favs: true,
             },
         });
-        ctx.status = 201;
+        ctx.status = 204;
         ctx.body = updatedProfile;
     } catch (error) {
         ctx.status = 400;
