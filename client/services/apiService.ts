@@ -3,7 +3,7 @@ import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
 const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
 
-export const axiosUser = async (id: number): Promise<UserType> => {
+export const getUser = async (id: number): Promise<UserType> => {
   try {
     const response: AxiosResponse<UserType> = await axios.get(`${BASE_URL}/users/${id}`);
     console.log('getting user:', response.data);
