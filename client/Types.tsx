@@ -1,59 +1,53 @@
-
 export interface UserType {
-    id: number;
-    email: string;
-    password: string;
-  }
+  id: number;
+  email: string;
+  password: string;
+}
 
 export interface ProfileType {
-    id: number;
-    userId: number;
-    name: string;
-    picture?: string | null;
-    readLevel: number;
-    favs: StoryType[];
-    storiesList: StoryType[];
+  id: number;
+  userId: number;
+  name: string;
+  picture?: string | null;
+  readingLevel: string;
+  favs: StoryType[];
+  storiesList: StoryType[];
 }
 
 export interface StoryType {
-    id: number;
-    mainCharacter: string;
-    storyString: string;
-    prompt: string;
-    model: string;
-    rating: string;
-    plots: string;
-    readingTime: string;
-    theme: string[];
+  id: number;
+  title: string;
+  storyString: string;
+  prompt: string;
+  model?: string;
+  readingTime: number;
+  themes: string[];
 }
 
 export type FormData = {
-    readingLevel: string[];
-    location: string[];
-    readingTime: string[];
-    themes: string[];
+  readingLevel: string[];
+  location: string[];
+  readingTime: string[];
+  themes: string[];
 };
 
 export interface DataContextProps {
+  //TODO: remove nulls when app is working
   user: UserType | null;
-  setUser: (user: UserType | null) => void;
+  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
 
-  createProfile: (userId: number, profileData: Omit<ProfileType, 'id' | 'userId'>) => void;
-  getProfiles: (userId: number) => void;
-  setProfiles: (profiles: ProfileType[]) => void;
   profiles: ProfileType[];
-  setSelectedProfile: (profile: ProfileType) => void;
+  setProfiles: React.Dispatch<React.SetStateAction<ProfileType[]>>;
+
   selectedProfile: ProfileType | null;
+  setSelectedProfile: React.Dispatch<React.SetStateAction<ProfileType | null>>;
 
-  createStory: (profileId: number, storyData: Omit<StoryType, 'id'>) => void;
-  getStories: (profileId: number) => void;
-  stories: StoryType[];
-  setStories: (story: StoryType[]) => void;
-  setSelectedStory: (story: StoryType | null) => void;
+  allStories: StoryType[];
+  setAllStories: React.Dispatch<React.SetStateAction<StoryType[]>>;
+
   selectedStory: StoryType | null;
+  setSelectedStory: React.Dispatch<React.SetStateAction<StoryType | null>>;
 
-  getFavStories: (profileId: number) => void;
   favStories: StoryType[];
-  setFavStories: (story: StoryType[]) => void;
-  addToFavs: (profileId: number, storyId: number) => void;
+  setFavStories: React.Dispatch<React.SetStateAction<StoryType[]>>;
 }
