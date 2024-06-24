@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateProfileRequestBody } from '../types';
+import { CreateProfileRequestBody } from '../serverTypes';
 
 export async function createProfile(ctx: Context) {
     const { userId } = ctx.params;
