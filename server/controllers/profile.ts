@@ -95,3 +95,42 @@ export async function getFavStories(ctx: Context) {
         ctx.body = { error: 'Error fetching favorite stories' };
     }
 }
+
+export async function deleteProfile(ctx: Context) {
+    const { profileId } = ctx.params;
+
+    try {
+        const profile = await prisma.profile.delete({
+            where: { id: parseInt(profileId, 10) },
+        });
+
+        ctx.body = { message: 'Profile deleted successfully', profile };
+    } catch (error) {
+        ctx.status = 400;
+        ctx.body = { error: 'Error deleting profile' };
+    }
+}
+
+
+export async function removeFromFavs(ctx: Context) {
+    const { profileId, storyId } = ctx.params;
+
+    try {
+        const updatedProfile = await prisma.profile.update({
+            where: { id: parseInt(profileId, 10) },
+            data: {
+                favs: {
+                    disconnect: { id: parseInt(storyId, 10) },
+                },
+            },
+            include: {
+                favs: true, 
+            },
+        });
+
+        ctx.body = updatedProfile;
+    } catch (error) {
+        ctx.status = 400;
+        ctx.body = { error: 'Error removing story from favs' };
+    }
+}
