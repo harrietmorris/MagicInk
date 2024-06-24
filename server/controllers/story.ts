@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateStoryRequestBody } from '../types';
+import { CreateStoryRequestBody } from '../serverTypes';
 
 export async function createStory(ctx: Context) {
     const { profileId } = ctx.params;

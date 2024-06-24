@@ -1,6 +1,6 @@
 import createPrompt from '../prompt';
 import model from '../gemini';
-import { StoryRequestBody } from '../types';
+import { StoryRequestBody } from '../serverTypes';
 import * as Koa from "koa"
 import prisma from '../models';
 
