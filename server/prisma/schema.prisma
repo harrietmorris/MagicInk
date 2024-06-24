@@ -27,14 +27,14 @@ model Profile {
 
 model Story {
   id            Int       @id @default(autoincrement())
-  mainCharacter String?
-  storyString   String?
-  prompt        String?
+  title         String
+  storyString   String    @db.Text
+  prompt        String
+
   model         String?
   rating        Int?
-  plots         String?
   readingTime   Int?
-  theme         String[]
+  themes        String[]
   favs          Profile[] @relation("FavStories")
   profiles      Profile[] @relation("ProfileStories")
 }

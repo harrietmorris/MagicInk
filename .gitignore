@@ -6,6 +6,3 @@ server/dist
 dist/
 build/
 
-# Prisma directories
-server/prisma/migrations/
-server/prisma/dist/
