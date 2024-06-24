@@ -1,22 +1,23 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateProfileRequestBody } from '../serverTypes';
+import { CreateProfileRequestBody } from '../types';
 
 export async function createProfile(ctx: Context) {
     const { userId } = ctx.params;
     const body = ctx.request.body as CreateProfileRequestBody;
-    const { name, picture, readLev } = body;
+    const { name, picture, readingLevel } = body;
     try {
         const profile = await prisma.profile.create({
-            data: {
-                userId: parseInt(userId, 10),
-                name,
-                picture,
-                readLev,
-                storiesList: { create: [] },
-                favs: { connect: [] },
-            },
+          data: {
+            userId: parseInt(userId, 10),
+            name,
+            picture,
+            readingLevel,
+            storiesList: { create: [] },
+            favs: { connect: [] },
+          },
         });
+        ctx.status = 201;
         ctx.body = profile;
     } catch (error) {
         ctx.status = 400;
@@ -36,10 +37,10 @@ export async function addToFavs(ctx: Context) {
                 },
             },
             include: {
-                favs: true, 
+                favs: true,
             },
         });
-
+        ctx.status = 200;
         ctx.body = updatedProfile;
     } catch (error) {
         ctx.status = 400;
@@ -103,7 +104,7 @@ export async function deleteProfile(ctx: Context) {
         const profile = await prisma.profile.delete({
             where: { id: parseInt(profileId, 10) },
         });
-
+        ctx.status = 204;
         ctx.body = { message: 'Profile deleted successfully', profile };
     } catch (error) {
         ctx.status = 400;
@@ -124,10 +125,10 @@ export async function removeFromFavs(ctx: Context) {
                 },
             },
             include: {
-                favs: true, 
+                favs: true,
             },
         });
-
+        ctx.status = 204;
         ctx.body = updatedProfile;
     } catch (error) {
         ctx.status = 400;
