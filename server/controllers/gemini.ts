@@ -2,6 +2,7 @@ import createPrompt from '../prompt';
 import model from '../gemini';
 import { StoryRequestBody } from '../types';
 import * as Koa from "koa"
+import prisma from '../models';
 
 export default async function getStory(ctx: Koa.Context) {
   if (!ctx.request.body) {
@@ -11,7 +12,7 @@ export default async function getStory(ctx: Koa.Context) {
   }
 
   if ( !(typeof ctx.request.body === 'object') ||
-    !('age' in ctx.request.body) ||
+    !('readingLevel' in ctx.request.body) ||
     !('location' in ctx.request.body) ||
     !('readingTime' in ctx.request.body) ||
     !('themes' in ctx.request.body) ||
@@ -23,17 +24,35 @@ export default async function getStory(ctx: Koa.Context) {
     return;
   }
 
-  const { age, location, readingTime, themes, simpleLanguage, words } = ctx.request.body as StoryRequestBody
+  const { readingLevel, location, readingTime, themes, simpleLanguage, words } = ctx.request.body as StoryRequestBody
   try {
-    const prompt = createPrompt(age, location, readingTime, themes, simpleLanguage, words);
+    const prompt = createPrompt(readingLevel, location, readingTime, themes, simpleLanguage, words);
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
+    const title = text.split('\n')[0].replace('##', '').trim();
+
+    const story = await prisma.story.create({
+      data: {
+        title,
+        storyString: text,
+        prompt,
+        model: 'gemini-1.5-flash',
+        readingTime,
+        themes,
+        // TODO: connect to profile
+        // profiles: {
+        //   connect: {
+        //     id: parseInt(profileId, 10),
+        //   },
+        // },
+      }
+    });
     ctx.status = 200;
-    ctx.body = text;
+    ctx.body = { id: story.id, title};
   } catch (e) {
     console.error(e);
     ctx.status = 500;
-    ctx.body = 'Internal server error';
+    ctx.body = 'Error generating story';
   }
 }
