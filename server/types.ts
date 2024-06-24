@@ -1,7 +1,7 @@
 export type StoryRequestBody = {
-  age: string;
+  readingLevel: string;
   location: string;
-  readingTime: string;
+  readingTime: number;
   themes: string[];
   simpleLanguage: boolean;
   words: number[];
@@ -20,14 +20,12 @@ export interface CreateProfileRequestBody {
 }
 
 export interface CreateStoryRequestBody {
-  theme: string[];
-  mainCharacter?: string;
-  storyString?: string;
-  prompt?: string;
+  title: string;
+  storyString: string;
+  prompt: string;
   model?: string;
-  rating?: number;
-  plots?: string;
   readingTime?: number;
+  themes: string[];
 }
 
 export interface LoginRequestBody {
