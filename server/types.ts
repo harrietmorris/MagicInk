@@ -1,5 +1,5 @@
 export type StoryRequestBody = {
-  age: string;
+  readingLevel: string;
   location: string;
   readingTime: string;
   themes: string[];
@@ -20,14 +20,12 @@ export interface CreateProfileRequestBody {
 }
 
 export interface CreateStoryRequestBody {
-  theme: string[];
-  mainCharacter?: string;
-  storyString?: string;
-  prompt?: string;
+  title: string;
+  storyString: string;
+  prompt: string;
   model?: string;
-  rating?: number;
-  plots?: string;
   readingTime?: number;
+  themes: string[];
 }
 
 export interface LoginRequestBody {

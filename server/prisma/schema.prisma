@@ -32,7 +32,6 @@ model Story {
   prompt        String
 
   model         String?
-  rating        Int?
   readingTime   Int?
   themes        String[]
   favs          Profile[] @relation("FavStories")

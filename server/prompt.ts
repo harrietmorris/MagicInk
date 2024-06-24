@@ -23,13 +23,13 @@ Make the story as exciting and detailed as possible, always adding more rather t
 `;
 
 
-function createPrompt (age: string, location: string, readingTime: string, themes: string[], simpleLanguage=false, words: number[] = []) {
+function createPrompt (readingLevel: string, location: string, readingTime: string, themes: string[], simpleLanguage=false, words: number[] = []) {
   const starting_prompt = `
     ${persona}
 
     Write a childrens story with the following parameters:
     - The story must have the themes of ${themes.map(str=> `"${str}"`).join(', ')}
-    - The story must be age appropriate for children ${age} years old
+    - The story must be age appropriate for children with a Lexile reading level of ${readingLevel}
     - The story must be located in ${location}
     - The story must be readable in ${readingTime} minutes
     ${simpleLanguage ? '- The story must be written in simple language' : ''}

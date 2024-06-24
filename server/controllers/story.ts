@@ -5,24 +5,22 @@ import { CreateStoryRequestBody } from '../types';
 export async function createStory(ctx: Context) {
     const { profileId } = ctx.params;
     const body = ctx.request.body as CreateStoryRequestBody;
-    const { theme, mainCharacter, storyString, prompt, model, rating, plots, readingTime } = body;
+    const { title, storyString, prompt, model, readingTime, themes} = body;
 
     try {
         const story = await prisma.story.create({
             data: {
-                theme,
-                mainCharacter,
-                storyString,
-                prompt,
-                model,
-                rating,
-                plots,
-                readingTime,
-                profiles: {
-                    connect: {
-                        id: parseInt(profileId, 10),
-                    },
-                },
+              title,
+              storyString,
+              prompt,
+              model,
+              readingTime,
+              themes,
+              profiles: {
+                  connect: {
+                      id: parseInt(profileId, 10),
+                  },
+              },
             },
         });
 
