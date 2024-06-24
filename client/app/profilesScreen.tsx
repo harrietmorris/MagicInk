@@ -13,18 +13,17 @@ const profilesScreen = () => {
   // const dataContext = useDataContext();
   // if (!dataContext) return null;
 
-  const {user, setUser  } = useDataContext();
-
+  const { setUser, user  } = useDataContext();
+ 
   useEffect(() => {
     const fetchUser = async () => {
       const userId = 1; // Replace this with the dynamic user ID
-      const userData = await getUser(userId);
-      setUser(userData);
+      const userData =  await getUser(userId);
+      setUser( userData);
     };
 
     fetchUser();
   }, []);
-
 
 
   return (

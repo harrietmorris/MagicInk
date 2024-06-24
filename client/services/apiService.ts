@@ -6,9 +6,11 @@ const BASE_URL = 'http://localhost:3000'; //this may need to change to IP addres
 export const getUser = async (id: number): Promise<UserType> => {
   try {
     const response: AxiosResponse<UserType> = await axios.get(`${BASE_URL}/users/${id}`);
+    
     console.log('getting user:', response.data);
     return response.data;
   } catch (e) {
+    console.log(`${BASE_URL}/users/${id}`)
     console.log('error getting user', e);
     throw e;
   }
