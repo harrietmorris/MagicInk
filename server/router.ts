@@ -6,6 +6,8 @@ import { createUser, getUserInfo, getUserProfiles, loginUser } from './controlle
 
 const router = new Router();
 
+//TODO: define ctx.status -> successful post=201 / get=200
+
 router.get('/', (ctx) => {
     ctx.body = 'Hello world!';
   });
@@ -15,8 +17,8 @@ router.post('/story', getStory);
 
 //prisma
 router.post('/user', createUser)
-router.post('/users/login', loginUser); //checks that login is correct, we may not need this though with oAuth? 
-router.get('/users/:userId', getUserInfo); 
+router.post('/users/login', loginUser); //checks that login is correct, we may not need this though with oAuth?
+router.get('/users/:userId', getUserInfo);
 router.get('/users/:userId/profiles', getUserProfiles);
 
 router.post('/users/:userId/profiles', createProfile);
