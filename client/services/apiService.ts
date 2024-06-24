@@ -25,4 +25,15 @@ async function createStory (
   }
 }
 
-export {createStory};
+const getStoryById = async (id: string) => {
+  try {
+    const response = await axios.get(`${URL}/stories/${id}`);
+    console.log('🚀 ~ getStoryById ~ res:', response);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating story', error);
+    return error;
+  }
+};
+
+export { createStory, getStoryById };
