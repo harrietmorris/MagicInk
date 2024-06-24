@@ -19,7 +19,7 @@ model Profile {
   userId      Int
   name        String
   picture     String?
-  readLev     Int
+  readingLevel     String
   user        User    @relation(fields: [userId], references: [id])
   favs        Story[] @relation("FavStories")
   storiesList Story[] @relation("ProfileStories")
@@ -32,7 +32,7 @@ model Story {
   prompt        String    @db.Text
 
   model         String?
-  readingTime   Int?
+  readingTime   Int
   themes        String[]
   favs          Profile[] @relation("FavStories")
   profiles      Profile[] @relation("ProfileStories")

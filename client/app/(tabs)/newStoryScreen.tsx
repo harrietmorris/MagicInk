@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
 import { Text, View, TextInput, Button, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
-import { createStory } from '@/services/apiService';
-import { FormData } from '@/Types';
+import { createStory } from '@/services/ApiService';
+import { FormData } from '@/types';
 import { router } from 'expo-router';
 
 export default function newStoryScreen () {
@@ -76,7 +76,7 @@ export default function newStoryScreen () {
 
   return (
     <View style={styles.container}>
-      
+
       {/* TODO: Make this button functional */}
       <Button title='Suprise me!'/>
 
@@ -99,7 +99,7 @@ export default function newStoryScreen () {
         )}
       />
 
-      <Text style={styles.title}>How long do you want to read for?</Text>    
+      <Text style={styles.title}>How long do you want to read for?</Text>
       <Controller
         name="readingTime"
         control={control}
