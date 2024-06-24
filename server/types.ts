@@ -1,7 +1,7 @@
 export type StoryRequestBody = {
   readingLevel: string;
   location: string;
-  readingTime: string;
+  readingTime: number;
   themes: string[];
   simpleLanguage: boolean;
   words: number[];

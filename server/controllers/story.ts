@@ -8,21 +8,21 @@ export async function createStory(ctx: Context) {
     const { title, storyString, prompt, model, readingTime, themes} = body;
 
     try {
-        const story = await prisma.story.create({
-            data: {
-              title,
-              storyString,
-              prompt,
-              model,
-              readingTime,
-              themes,
-              profiles: {
-                  connect: {
-                      id: parseInt(profileId, 10),
-                  },
-              },
+      const story = await prisma.story.create({
+          data: {
+            title,
+            storyString,
+            prompt,
+            model,
+            readingTime,
+            themes,
+            profiles: {
+                connect: {
+                    id: parseInt(profileId, 10),
+                },
             },
-        });
+          },
+      });
 
         ctx.body = story;
     } catch (error) {

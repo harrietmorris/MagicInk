@@ -27,6 +27,7 @@ describe('Story endpoint', () => {
     expect(response.status).toBe(200);
     const story = response.text;
     const words = story.split(' ').length;
+    // TODO: test that the first line of the story is a title
     expect(words).toBeGreaterThanOrEqual(10);
     expect(words).toBeLessThanOrEqual(500);
     expect(story).toContain('castle');
