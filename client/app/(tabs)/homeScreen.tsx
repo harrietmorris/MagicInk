@@ -1,23 +1,27 @@
-import { View, Text, Button, StyleSheet, Dimensions, ViewStyle } from 'react-native'
+import { View, Text, Button, StyleSheet, Dimensions, Pressable } from 'react-native'
 import { Link } from 'expo-router';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useRouter } from 'expo-router';
+import { StoryType } from '@/Types';
 
-const screenWidth = Dimensions.get('window').width; 
+const screenWidth = Dimensions.get('window').width;
 const homeScreen = () => {
 
   //temporary endpoint:
   const endpoint = 'http://localhost:3000/'
-
-
-  const [stories, setStories] = useState([]); // State to store fetched data
+  const squareSize = screenWidth / 2.5;
+  const router = useRouter()
+const profileId = "Here will go the profile id from the context"
   const [error, setError] = useState('')
-  const thing = ['1', '2', '3', ' 4', '5']
+  const thing = ['1', '2', '3', ' 4', '5', '6']
+
+  const [stories, setStories] = useState<StoryType[]>([]); // actual state
 
   useEffect(() => {
     const renderStories = async () => {
       try {
-        const response = await axios.get(`${endpoint}/profiles/:profileId/storiesList`);
+        const response = await axios.get(`${endpoint}/profiles/${profileId}/storiesList`);
         if (response.status === 200) {
           setStories(response.data);
         }
@@ -26,19 +30,43 @@ const homeScreen = () => {
       }
     };
 
-    renderStories(); 
+    renderStories();
   }, [stories]);
+
+  //should take an argument 'storyId"
+  function handlePress() {
+    router.push("/keepReadingScreen")
+    //should also update context used for keep reading page
+  }
+
+// Real component:
+//   <View>
+// <Text>homeScreen</Text>
+// <View style={styles.container}>
+//   {stories.map((element) => (
+//     <Pressable key={element.id} onPress={() => handlePress(element.id)} style={[styles.square, { width: squareSize, height: squareSize }]}>
+//       <Text style={styles.text}>{element.title}</Text>
+//     </Pressable>
+
+//   ))}
+// </View>
+
+// </View>
 
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text>homeScreen</Text>
-      <Link href="/keepReadingScreen">Keep Reading</Link>
-      {thing.map((element) => (
-        <Button  
-         title={element}
-                 />
-      ))}
+      <View style={styles.container}>
+        {thing.map((element) => (
+
+          <Pressable onPress={() => handlePress()} style={[styles.square, { width: squareSize, height: squareSize }]}>
+            <Text style={styles.text}>{element}</Text>
+          </Pressable>
+
+        ))}
+      </View>
+
     </View>
   )
 }
@@ -52,11 +80,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around', // Distribute buttons evenly
     alignItems: 'center',
   },
-  button: {
-    height: (screenWidth - 20) / 2, // Match width for square shape
-    backgroundColor: '#4CAF50', // Example color
-    padding: 10,
-    borderRadius: 0, // Remove rounded corners for square shape
+  square: {
+    backgroundColor: '#add8e6', // Change background color as desired
+    borderRadius: 5,
+    margin: 10, // Adjust margin for spacing
+    justifyContent: 'center', // Center text vertically
+    alignItems: 'center', // Center text horizontally
+  },
+  text: {
+    fontSize: 16, // Adjust font size as desired
+    color: '#000', // Text color
   },
 });
 
