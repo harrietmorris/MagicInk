@@ -23,9 +23,9 @@ export default function newStoryScreen () {
   async function onSubmit (data: FormData) {
     // TODO: Display loading spinner while story is being created
     createStory(
-      readingLevelOptions[data.readingLevel],
-      data.location,
-      readingTimeOptions[data.readingTime],
+      readingLevelOptions[data.readingLevel[0]],
+      data.location[0],
+      readingTimeOptions[data.readingTime[0]],
       data.themes,
     ).then((story) => {
       const storyId = story.id;
