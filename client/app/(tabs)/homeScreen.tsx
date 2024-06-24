@@ -35,7 +35,7 @@ const homeScreen = () => {
       <Text>homeScreen</Text>
       <Link href="/keepReadingScreen">Keep Reading</Link>
       {thing.map((element) => (
-        <Button  style={(styles.button as ViewStyle) ?? { width: (screenWidth - 40) / 2 }} 
+        <Button  
          title={element}
                  />
       ))}
