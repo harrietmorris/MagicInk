@@ -3,7 +3,7 @@ import { Link } from 'expo-router';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'expo-router';
-import { StoryType } from '@/Types';
+import { StoryType } from '@/types';
 
 const screenWidth = Dimensions.get('window').width;
 const homeScreen = () => {
