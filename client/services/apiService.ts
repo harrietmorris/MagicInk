@@ -55,4 +55,14 @@ export const createStory = async (
       console.error('Error creating story', error);
       throw error;
   }
-};
+}
+
+export async function updateProfile (profile: ProfileType) {
+  try {
+    const response = await axios.put(URL +'/profile', profile);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating profile', error);
+  }
+
+}

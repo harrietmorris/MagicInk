@@ -25,6 +25,21 @@ export async function createProfile(ctx: Context) {
     }
 }
 
+export async function updateProfile(ctx: Context) {
+    const { profileId } = ctx.params;
+    const body = ctx.request.body;
+    try {
+        const profile = await prisma.profile.update({
+            where: { id: parseInt(profileId, 10) },
+            data: body,
+        });
+        ctx.body = profile;
+    } catch (error) {
+        ctx.status = 400;
+        ctx.body = { error: 'Error updating profile' };
+    }
+}
+
 export async function addToFavs(ctx: Context) {
     const { profileId, storyId } = ctx.params;
 

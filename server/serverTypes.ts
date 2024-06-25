@@ -19,12 +19,18 @@ export interface CreateProfileRequestBody {
   readingLevel: string;
 }
 
+export interface updatedProfileRequestBody {
+  name: string;
+  picture?: string;
+  readingLevel: string;
+}
+
 export interface CreateStoryRequestBody {
   title: string;
   storyString: string;
   prompt: string;
   model?: string;
-  readingTime: number;
+  readingTime?: number;
   themes: string[];
 }
 

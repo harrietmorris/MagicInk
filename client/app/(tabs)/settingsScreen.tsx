@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 import { useDataContext } from '../../context/globalContext';
 import { router } from 'expo-router'
 import { ProfileType } from '../../types';
+import { updateProfile } from '@/services/apiService';
 
 
 const readingLevelOptions = [
@@ -20,13 +21,14 @@ const readingLevelOptions = [
 const settingsScreen = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
 
-  function handleReadingLevelChange (readingLevel: string) {
+  async function handleReadingLevelChange (readingLevel: string) {
     const newProfile = {
       ...selectedProfile,
       readingLevel,
     };
-
+    await updateProfile(newProfile);
     setSelectedProfile(newProfile);
+    setProfiles(profiles.map((profile: ProfileType) => profile.id === newProfile.id ? newProfile : profile));
   }
     
 
