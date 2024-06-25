@@ -13,6 +13,7 @@ const profilesScreen = () => {
   const { setUser  } = useDataContext();
  
   useEffect(() => {
+    //TODO: Change hard-coded userId to be from the logged in user
     const fetchUser = async () => {
       const userId = 1; // Replace with dynamic once login is working correctly
       const userData =  await getUser(userId);
