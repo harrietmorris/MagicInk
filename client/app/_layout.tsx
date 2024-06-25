@@ -1,9 +1,12 @@
+import { GetUserProvider } from '@/context/globalContext';
 import { Stack } from 'expo-router/stack';
-//this is a test
+
 export default function Layout() {
   return (
-    <Stack>
-      <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-    </Stack>
+    <GetUserProvider>
+      <Stack>
+        <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+      </Stack>
+    </GetUserProvider>
   );
 }

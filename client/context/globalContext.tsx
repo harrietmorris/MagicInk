@@ -8,7 +8,7 @@ type ProviderProps = {
 //TODO: review the default state of the context -> currently no meaningful default so using null
 const dataContext = createContext<DataContextProps | null>(null);
 
-export const getUserProvider = ({ children }: ProviderProps) => {
+export const GetUserProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [profiles, setProfiles] = useState<ProfileType[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<ProfileType | null>(null);
