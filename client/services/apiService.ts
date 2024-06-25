@@ -1,15 +1,15 @@
 import { ProfileType, StoryType, UserType } from '../types';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
-//const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
-const BASE_URL = 'http://10.0.2.2:3000'; //this is the URL used for android simulator
+const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
 
 export const getUser = async (id: number): Promise<UserType> => {
   try {
     const response: AxiosResponse<UserType> = await axios.get(`${BASE_URL}/users/${id}`);
+    console.log('getting user:', response.data);
     return response.data;
   } catch (e) {
-    console.error('error getting user', e);
+    console.log('error getting user', e);
     throw e;
   }
 };
@@ -21,15 +21,13 @@ export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => 
     return response.data;
   } catch (e) {
     console.error('Error getting profiles', e);
-    return []
-
+    throw e;
   }
 };
 
 export const getSelectedProfile = async (profileId: number): Promise<ProfileType> => {
   try {
     const response = await axios.get(`${BASE_URL}/profiles/${profileId}`);
-    console.log('getting profile:', response.data);
     return response.data;
   } catch (e) {
     console.error('Error getting profile', e);
@@ -37,7 +35,7 @@ export const getSelectedProfile = async (profileId: number): Promise<ProfileType
   }
 };
 
-export const getAllStoriesByProfile = async (profileId?: number): Promise<StoryType[]> => {
+export const getAllStoriesByProfile = async (profileId: number): Promise<StoryType[]> => {
   try {
     const response = await axios.get(`${BASE_URL}/profiles/${profileId}/storiesList`);
     console.log('all stories by profile:', response.data)

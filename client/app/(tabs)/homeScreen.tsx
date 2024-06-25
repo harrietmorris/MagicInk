@@ -30,8 +30,6 @@ const homeScreen = () => {
     renderStoriesbyProfile();
   }, [allStories]);
 
-  //might be innefficient to unmount and remount component everytime a story is added.
-
   //should take an argument 'storyId"
   function handlePress(story: StoryType) {
     setSelectedStory(story)
