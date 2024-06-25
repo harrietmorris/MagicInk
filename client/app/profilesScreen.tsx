@@ -10,14 +10,11 @@ import ListedProfiles from '@/components/Profiles/ListedProfiles'
 
 
 const profilesScreen = () => {
-  // const dataContext = useDataContext();
-  // if (!dataContext) return null;
-
-  const { setUser, user  } = useDataContext();
+  const { setUser  } = useDataContext();
  
   useEffect(() => {
     const fetchUser = async () => {
-      const userId = 1; // Replace this with the dynamic user ID
+      const userId = 1; // Replace with dynamic once login is working correctly
       const userData =  await getUser(userId);
       setUser( userData);
     };
@@ -35,8 +32,7 @@ const profilesScreen = () => {
       
       <ListedProfiles />
 
-  
-      <Link href='/homeScreen'>Profile 1</Link>
+
     </SafeAreaView>
   );
 }

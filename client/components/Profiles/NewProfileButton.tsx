@@ -9,7 +9,6 @@ interface NewProfileButtonProps {
 }
 
 
-
 function NewProfileButton({ route, buttonStyle, textStyle }: NewProfileButtonProps) {
     const router = useRouter();
 

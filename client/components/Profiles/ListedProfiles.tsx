@@ -7,17 +7,13 @@ import { ProfileType } from '@/types';
 
 
 const ListedProfiles = () => {
-    // const dataContext = useDataContext();
-    // if (!dataContext) return null;
     const { user, profiles, setProfiles, setSelectedProfile } = useDataContext();;
-
 
     useEffect(()=> {
         const getProfiles = async () => {
             if (user) {
               const profiles = await getAllProfiles(user.id);
-              console.log('user.id', user.id)
-              console.log('profiles', profiles)
+              console.log('user id connected:', user.id)
               setProfiles(profiles);
             }
         }
@@ -26,20 +22,18 @@ const ListedProfiles = () => {
     }, [user]);
 
 
-
-
     const handleProfilePress = (profile: ProfileType) => {
         setSelectedProfile(profile);
         console.log('profile selected:', profile)
       };
 
-    // if (!user) {
-    //     return <Text>Loading user data...</Text>
-    // }
+    if (!user) {
+        return <Text>Loading user data...</Text>
+    }
 
-    // if (!profiles || profiles.length === 0) {
-    //     return <Text>No profiles available, please create new profile.</Text>
-    // }
+    if (!profiles || profiles.length === 0) {
+        return <Text>No profiles available, please create new profile.</Text>
+    }
 
 
   return (    
