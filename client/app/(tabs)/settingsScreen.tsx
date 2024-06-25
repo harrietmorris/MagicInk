@@ -1,25 +1,40 @@
-import { View, Text, Button, Picker } from 'react-native'
-import React from 'react'
+import { View, Text, Button, Picker, TextInput } from 'react-native'
+import React, { useState } from 'react'
 import { StyleSheet } from 'react-native';
 import { useDataContext } from '../../context/globalContext';
 import { router } from 'expo-router'
 import { ProfileType } from '../../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
 import { readingLevelOptions } from '@/constants';
+import { set } from 'react-hook-form';
 
 
 const settingsScreen = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
+  const [profileName, setProfileName] = useState(selectedProfile?.name);
 
-  async function handleReadingLevelChange (readingLevel: string) {
+  async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
     const newProfile = {
       ...selectedProfile,
-      readingLevel,
+      [prop]: value,
     };
-    await updateProfile(newProfile);
-    setSelectedProfile(newProfile);
-    setProfiles(profiles.map((profile: ProfileType) => profile.id === newProfile.id ? newProfile : profile));
+    try {
+      await updateProfile(newProfile);
+      setSelectedProfile(newProfile);
+      setProfiles(profiles.map((profile: ProfileType) => profile.id === newProfile.id ? newProfile : profile));
+    
+    } catch (error) {
+      console.error('Error updating profile', error);
+    }
+  }
+
+  async function handleReadingLevelChange (readingLevel: string) {
+    handleProfileUpdate('readingLevel', readingLevel);
+  }
+
+  async function handleUpdateName () {
+    handleProfileUpdate('name', profileName || '');
   }
     
 
@@ -29,7 +44,6 @@ const settingsScreen = () => {
   }
 
   function handleNewProfile () {
-    // TODO: Implement new profile logic
     router.replace('/newProfileScreen');
   }
 
@@ -40,7 +54,6 @@ const settingsScreen = () => {
     }
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
     const id = selectedProfile.id;
-    // TODO: delete profile logic (delete from db)
     try {
       await deleteProfile(id);
       const newProfiles = profiles.filter( (profile: ProfileType) => profile.id !== id);
@@ -53,7 +66,13 @@ const settingsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile name: {selectedProfile?.name}</Text>
+      <Text style={styles.title}>Profile name:</Text>
+      <TextInput
+        placeholder={profileName}
+        value={profileName}
+        onChangeText={setProfileName}
+      />
+      <Button title='Update name' onPress={handleUpdateName}/>
 
       <Text style={styles.title}>Choose reading level: {selectedProfile?.readingLevel}</Text>
       <Picker
@@ -68,7 +87,7 @@ const settingsScreen = () => {
 
       <Button title='Delete profile' onPress={handleDeleteProfile}/>
       <Text style={styles.title}>Email: {user?.email}</Text>
-      <Button title='Create new profile' onPress={handleNewProfile}/>
+      <Button title='Create new profile' onPress={handleNewProfile}/> 
       <Button title='Logout' onPress={handleLogout}/>
     </View>
   )
