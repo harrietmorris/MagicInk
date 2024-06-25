@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Text, View, TextInput, Button, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
-import { createStory } from '@/services/ApiService';
+import { createStory } from '@/services/apiService';
 import { FormData } from '@/types';
 import { router } from 'expo-router';
 import { useDataContext } from '@/context/globalContext';
@@ -38,7 +38,7 @@ export default function newStoryScreen() {
   }
 
   const readingLevelOptions: { [key: string]: string } = {
-    Kindergarten: 'BR40L - 230L',
+    'Kindergarten': 'BR40L - 230L',
     '1st Grade': 'BR120L - 295L',
     '2nd Grade': '107L - 545L',
     '3rd Grade': '415L - 760L',
