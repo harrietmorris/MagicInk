@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { useDataContext } from '../../context/globalContext';
 import { router } from 'expo-router'
 import { ProfileType } from '../../types';
-import { updateProfile } from '@/services/apiService';
+import { deleteProfile, updateProfile } from '@/services/apiService';
 import { readingLevelOptions } from '@/constants';
 
 
@@ -33,7 +33,7 @@ const settingsScreen = () => {
     router.replace('/newProfileScreen');
   }
 
-  function handleDeleteProfile () {
+  async function handleDeleteProfile () {
     if (profiles.length === 1) {
       alert('You must have at least one profile');
       return;
@@ -41,9 +41,14 @@ const settingsScreen = () => {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
     const id = selectedProfile.id;
     // TODO: delete profile logic (delete from db)
-    const newProfiles = profiles.filter( (profile: ProfileType) => profile.id !== id);
-    setProfiles(newProfiles);
-    setSelectedProfile(profiles[0]);
+    try {
+      await deleteProfile(id);
+      const newProfiles = profiles.filter( (profile: ProfileType) => profile.id !== id);
+      setProfiles(newProfiles);
+      setSelectedProfile(newProfiles[0]);
+    } catch (error) {
+      console.error('Error deleting profile', error);
+    }
   }
 
   return (
