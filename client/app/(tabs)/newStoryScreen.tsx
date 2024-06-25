@@ -8,9 +8,7 @@ import { router } from 'expo-router';
 import { useDataContext } from '@/context/globalContext';
 
 export default function newStoryScreen() {
-  const dataContext = useDataContext()
-  if (!dataContext) return null; //TODO: review null state of dataContext
-  const { setSelectedStory } = dataContext;
+  const { setSelectedStory } = useDataContext();
 
   const {
     control,
