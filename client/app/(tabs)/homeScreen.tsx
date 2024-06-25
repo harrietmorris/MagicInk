@@ -1,9 +1,8 @@
 import { View, Text, StyleSheet, Dimensions, Pressable } from 'react-native'
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
-import { getAllProfiles, getSelectedProfile, getUser, getAllStoriesByProfile } from '@/services/apiService';
+import { getAllStoriesByProfile } from '@/services/apiService';
 import { useDataContext } from '@/context/globalContext';
-import axios from 'axios';
 import { StoryType } from '@/types';
 
 
@@ -13,10 +12,7 @@ const homeScreen = () => {
   const squareSize = screenWidth / 2.5;
   const router = useRouter()
 
-  // const [stories, setStories] = useState<StoryType[]>([]); // actual state
-
   const { allStories, setAllStories, setSelectedStory, selectedProfile } = useDataContext();
-  // TODO: remove this one authentication is implemented
 
 
   useEffect(() => {
@@ -30,7 +26,6 @@ const homeScreen = () => {
     renderStoriesbyProfile();
   }, [allStories]);
 
-  //should take an argument 'storyId"
   function handlePress(story: StoryType) {
     setSelectedStory(story)
     router.push("/keepReadingScreen")
