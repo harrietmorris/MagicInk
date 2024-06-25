@@ -1,4 +1,5 @@
-import { View, Text, Button, Picker, TextInput } from 'react-native'
+import { View, Text, Button, TextInput } from 'react-native'
+import {Picker} from '@react-native-picker/picker';
 import React, { useState } from 'react'
 import { StyleSheet } from 'react-native';
 import { useDataContext } from '../../context/globalContext';
