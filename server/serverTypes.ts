@@ -36,7 +36,16 @@ export interface CreateStoryRequestBody {
   themes: string[];
 }
 
+
+//TODO: Duplicate of above
 export interface LoginRequestBody {
   email: string;
   password: string;
+}
+
+export interface getUserRequestBody {
+  id: number;
+  email: string;
+  password: string;
+
 }

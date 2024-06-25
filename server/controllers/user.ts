@@ -52,6 +52,7 @@ export async function getUserInfo(ctx: Context) {
             select: {
                 id: true,
                 email: true,
+                password: true,
             },
         });
 
