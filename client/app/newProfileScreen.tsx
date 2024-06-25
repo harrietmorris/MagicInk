@@ -5,6 +5,7 @@ const newProfile = () => {
   return (
     <View>
       <Text>newProfile</Text>
+      
     </View>
   )
 }
