@@ -12,6 +12,8 @@ model User {
   email    String    @unique
   password String
   profiles Profile[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 model Profile {
@@ -23,6 +25,8 @@ model Profile {
   user        User    @relation(fields: [userId], references: [id])
   favs        Story[] @relation("FavStories")
   storiesList Story[] @relation("ProfileStories")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 model Story {
@@ -30,10 +34,11 @@ model Story {
   title         String
   storyString   String    @db.Text
   prompt        String    @db.Text
-
   model         String?
   readingTime   Int
   themes        String[]
   favs          Profile[] @relation("FavStories")
   profiles      Profile[] @relation("ProfileStories")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }

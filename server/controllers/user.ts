@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateUserRequestBody, LoginRequestBody } from '../types';
+import { CreateUserRequestBody, LoginRequestBody } from '../serverTypes';
 
 export async function createUser(ctx: Context) {
     const body = ctx.request.body as CreateUserRequestBody;
@@ -44,7 +44,7 @@ export async function loginUser(ctx: Context) {
 }
 
 export async function getUserInfo(ctx: Context) {
-    const { userId } = ctx.state.user;
+    const userId = parseInt(ctx.params.userId);
 
     try {
         const user = await prisma.user.findUnique({

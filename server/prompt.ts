@@ -35,7 +35,7 @@ function createPrompt (readingLevel: string, location: string, readingTime: numb
     ${simpleLanguage ? '- The story must be written in simple language' : ''}
 
     Write the story. ${words.length == 2 ? `Try to write AT MINIMUM ${words[0]} WORDS and MAXIMUM ${words[1]} WORDS.` : ''}
-    The line of text should be the title of the story.
+    The first line of text should be the title of the story.
 
     ${guidelines}`;
 
