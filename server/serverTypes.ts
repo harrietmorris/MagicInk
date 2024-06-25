@@ -19,6 +19,14 @@ export interface CreateProfileRequestBody {
   readingLevel: string;
 }
 
+export interface updatedProfileRequestBody {
+  id: number;
+  userId: number;
+  name: string;
+  picture?: string;
+  readingLevel: string;
+}
+
 export interface CreateStoryRequestBody {
   title: string;
   storyString: string;

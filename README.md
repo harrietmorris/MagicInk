@@ -17,7 +17,7 @@ To run the backend:
 create a `server/.env` file with the following content:
 ```
 GEMINI_API_KEY=your_gemini_api_key
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/magicink?schema=SCHEMA"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/magicink?schema=public"
 ```
 Run the following commands to create the database and generate the prisma client:
 ```

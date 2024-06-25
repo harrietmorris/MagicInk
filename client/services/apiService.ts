@@ -14,9 +14,27 @@ export const getUser = async (id: number): Promise<UserType> => {
   }
 };
 
-// export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => {};
+export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => {
+  try {
+    const response = await axios.get(`${BASE_URL}/users/${userId}/profiles`);
+    console.log('getting profiles:', response.data);
+    return response.data;
+  } catch (e) {
+    console.error('Error getting profiles', e);
+    throw e;
+  }
+};
 
-// export const getSelectedProfile = async (profileId: number): Promise<ProfileType> => {};
+export const getSelectedProfile = async (profileId: number): Promise<ProfileType> => {
+  try {
+    const response = await axios.get(`${BASE_URL}/profiles/${profileId}`);
+    console.log('getting profile:', response.data);
+    return response.data;
+  } catch (e) {
+    console.error('Error getting profile', e);
+    throw e;
+  }
+};
 
 // export const getAllStoriesByProfile = async (profileId: number): Promise<StoryType[]> => {};
 
@@ -55,4 +73,22 @@ export const createStory = async (
       console.error('Error creating story', error);
       throw error;
   }
-};
+}
+
+export async function updateProfile (profile: ProfileType) {
+  try {
+    const response = await axios.patch(BASE_URL +`/profiles/${profile.id}`, profile);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating profile', error);
+  }
+}
+
+export async function deleteProfile (profileId: number) {
+  try {
+    const response = await axios.delete(BASE_URL +`/profiles/${profileId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting profile', error);
+  }
+}
