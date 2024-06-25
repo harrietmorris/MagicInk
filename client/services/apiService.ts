@@ -22,6 +22,7 @@ export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => 
   } catch (e) {
     console.error('Error getting profiles', e);
     return []
+
   }
 };
 
