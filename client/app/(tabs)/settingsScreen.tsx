@@ -5,18 +5,8 @@ import { useDataContext } from '../../context/globalContext';
 import { router } from 'expo-router'
 import { ProfileType } from '../../types';
 import { updateProfile } from '@/services/apiService';
+import { readingLevelOptions } from '@/constants';
 
-
-const readingLevelOptions = [
-  'Kindergarten',
-  '1st Grade',
-  '2nd Grade',
-  '3rd Grade',
-  '4th Grade',
-  '5th Grade',
-  '6th Grade',
-  '7th Grade',
-];
 
 const settingsScreen = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
@@ -66,8 +56,8 @@ const settingsScreen = () => {
         style={styles.picker}
         onValueChange={handleReadingLevelChange}
       >
-      {readingLevelOptions.map((readingLevel) => (
-        <Picker.Item key={readingLevel} label={readingLevel} value={readingLevel} />  
+      {Object.keys(readingLevelOptions).map((readingLevel) => (
+        <Picker.Item key={readingLevel} label={readingLevel} value={readingLevelOptions[readingLevel]} />  
       ))}
       </Picker>
 
