@@ -22,6 +22,7 @@ const settingsScreen = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
 
   async function handleReadingLevelChange (readingLevel: string) {
+    if (!selectedProfile) return; // TODO: we should always have a selected profile?
     const newProfile = {
       ...selectedProfile,
       readingLevel,
@@ -47,6 +48,7 @@ const settingsScreen = () => {
       alert('You must have at least one profile');
       return;
     }
+    if (!selectedProfile) return; // TODO: we should always have a selected profile?
     const id = selectedProfile.id;
     // TODO: delete profile logic (delete from db)
     const newProfiles = profiles.filter( (profile: ProfileType) => profile.id !== id);
