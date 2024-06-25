@@ -93,3 +93,13 @@ export async function deleteProfile (profileId: number) {
     console.error('Error deleting profile', error);
   }
 }
+
+export const newProfile  = async (profileData: ProfileType, userId: number): Promise<ProfileType> => {
+  try {
+    const response: AxiosResponse<ProfileType> = await axios.post(`${BASE_URL}/users/${userId}/profiles`, profileData);
+    return response.data;
+  } catch (e) {
+    console.error('Error creating profile', e);
+    throw e;
+  }
+}
