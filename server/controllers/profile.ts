@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateProfileRequestBody } from '../types';
+import { CreateProfileRequestBody, updatedProfileRequestBody } from '../serverTypes';
 
 export async function createProfile(ctx: Context) {
     const { userId } = ctx.params;
@@ -22,6 +22,39 @@ export async function createProfile(ctx: Context) {
     } catch (error) {
         ctx.status = 400;
         ctx.body = { error: 'Error creating profile' };
+    }
+}
+
+export async function getProfile(ctx: Context) {
+    const { profileId } = ctx.params;
+    try {
+        const profile = await prisma.profile.findUnique({
+            where: { id: parseInt(profileId, 10) },
+        });
+        if (!profile) {
+            ctx.status = 404;
+            ctx.body = { error: 'Profile not found' };
+            return;
+        }
+        ctx.body = profile;
+    } catch (error) {
+        ctx.status = 400;
+        ctx.body = { error: 'Error fetching profile' };
+    }
+}
+
+export async function updateProfile(ctx: Context) {
+    const { profileId } = ctx.params;
+    const body = ctx.request.body as updatedProfileRequestBody
+    try {
+        const profile = await prisma.profile.update({
+            where: { id: parseInt(profileId, 10) },
+            data: body,
+        });
+        ctx.body = profile;
+    } catch (error) {
+        ctx.status = 400;
+        ctx.body = { error: 'Error updating profile' };
     }
 }
 

@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { Text, View, TextInput, Button, Alert } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
 import { createStory } from '@/services/apiService';
 import { FormData } from '@/types';
 import { router } from 'expo-router';
 import { useDataContext } from '@/context/globalContext';
+import { readingLevelOptions } from '@/constants';
 
 export default function newStoryScreen() {
   const dataContext = useDataContext()
@@ -36,17 +37,6 @@ export default function newStoryScreen() {
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
   }
-
-  const readingLevelOptions: { [key: string]: string } = {
-    'Kindergarten': 'BR40L - 230L',
-    '1st Grade': 'BR120L - 295L',
-    '2nd Grade': '107L - 545L',
-    '3rd Grade': '415L - 760L',
-    '4th Grade': '635L - 950L',
-    '5th Grade': '770L - 1080L',
-    '6th Grade': '855L - 1165L',
-    '7th Grade': '925L +',
-  };
 
   const locationOptions = ['Castle', 'Jungle', 'Mountains', 'Ocean', 'City', 'Space', 'Underwater'];
 

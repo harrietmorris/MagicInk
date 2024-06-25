@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateUserRequestBody, LoginRequestBody, getUserRequestBody } from '../types';
+import { CreateUserRequestBody, LoginRequestBody } from '../serverTypes';
 
 export async function createUser(ctx: Context) {
     const body = ctx.request.body as CreateUserRequestBody;

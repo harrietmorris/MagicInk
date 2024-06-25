@@ -1,8 +1,6 @@
-import { Text, TouchableOpacity, StyleSheet, TextStyle, ViewStyle, Pressable } from 'react-native'
+import { Text, StyleSheet, TextStyle, ViewStyle, Pressable } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router';
-
-
 
 interface ProfileButtonProps {
     route: string;
@@ -11,8 +9,6 @@ interface ProfileButtonProps {
   profileName: string;
   onPress: () => void;
 }
-
-
 
 const ProfileButton = ({ route, buttonStyle, textStyle, profileName, onPress }: ProfileButtonProps) => {
     const router = useRouter();

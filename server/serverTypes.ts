@@ -16,7 +16,15 @@ export interface CreateUserRequestBody {
 export interface CreateProfileRequestBody {
   name: string;
   picture?: string;
-  readLev: number;
+  readingLevel: string;
+}
+
+export interface updatedProfileRequestBody {
+  id: number;
+  userId: number;
+  name: string;
+  picture?: string;
+  readingLevel: string;
 }
 
 export interface CreateStoryRequestBody {
@@ -24,11 +32,18 @@ export interface CreateStoryRequestBody {
   storyString: string;
   prompt: string;
   model?: string;
-  readingTime?: number;
+  readingTime: number;
   themes: string[];
 }
 
+//TODO: Duplicate of above
 export interface LoginRequestBody {
+  email: string;
+  password: string;
+}
+
+export interface getUserRequestBody {
+  id: number;
   email: string;
   password: string;
 }

@@ -6,9 +6,6 @@ import { useDataContext } from '@/context/globalContext'
 import { getUser } from '@/services/apiService'
 import ListedProfiles from '@/components/Profiles/ListedProfiles'
 
-
-
-
 const profilesScreen = () => {
   const { setUser  } = useDataContext();
  
@@ -26,13 +23,13 @@ const profilesScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      
       < NewProfileButton 
         route="/newProfileScreen"
         buttonStyle={styles.buttonStyle}
         textStyle={styles.textStyle} />
       
       <ListedProfiles />
-
 
     </SafeAreaView>
   );
