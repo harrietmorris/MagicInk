@@ -1,14 +1,44 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
+import React, { useEffect } from 'react'
+import { Link, router } from 'expo-router'
+import NewProfileButton from '../components/Profiles/NewProfileButton'
+import ListedProfiles from '@/components/Profiles/ListedProfiles'
 
 const profilesScreen = () => {
+
+
   return (
-    <View>
-      <Link href='/newProfileScreen'>Create New Profile</Link>
-      <Link href='/homeScreen'>Profile 1</Link>
-    </View>
+    <SafeAreaView style={styles.container}>
+
+      < NewProfileButton
+        route="/newProfileScreen"
+        buttonStyle={styles.buttonStyle}
+        textStyle={styles.textStyle} />
+
+      <ListedProfiles />
+
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  buttonStyle: {
+    backgroundColor: '#28a745',
+    padding: 15,
+  },
+  textStyle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
 
 export default profilesScreen

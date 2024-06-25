@@ -31,11 +31,13 @@ export default async function postNewStory(ctx: Koa.Context) {
     const response = await result.response;
     const text = response.text();
     const title = text.split('\n')[0].replace('##', '').trim();
+    const rx = new RegExp("##[\\d\\D]*?\n\n", "g");
+    const storyText = text.replace(rx, '');
 
     const story = await prisma.story.create({
       data: {
         title,
-        storyString: text,
+        storyString: storyText,
         prompt,
         model: 'gemini-1.5-flash',
         readingTime,
@@ -46,7 +48,7 @@ export default async function postNewStory(ctx: Koa.Context) {
         //     id: parseInt(profileId, 10),
         //   },
         // },
-      }
+      },
     });
     ctx.status = 201;
     ctx.body = story;
