@@ -38,7 +38,7 @@ export default function newStoryScreen() {
   }
 
   const readingLevelOptions: { [key: string]: string } = {
-    Kindergarten: 'BR40L - 230L',
+    'Kindergarten': 'BR40L - 230L',
     '1st Grade': 'BR120L - 295L',
     '2nd Grade': '107L - 545L',
     '3rd Grade': '415L - 760L',
