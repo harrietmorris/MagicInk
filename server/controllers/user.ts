@@ -44,7 +44,7 @@ export async function loginUser(ctx: Context) {
 }
 
 export async function getUserInfo(ctx: Context) {
-    const { userId } = ctx.state.user;
+    const userId = parseInt(ctx.params.userId);
 
     try {
         const user = await prisma.user.findUnique({

@@ -1,6 +1,6 @@
 import Router from '@koa/router';
 import postNewStory from './controllers/gemini';
-import { addToFavs, createProfile, updateProfile, deleteProfile, getFavStories, getStoriesList, removeFromFavs } from './controllers/profile';
+import { addToFavs, createProfile, getProfile, updateProfile, deleteProfile, getFavStories, getStoriesList, removeFromFavs } from './controllers/profile';
 import { createStory, getStoryById } from './controllers/story';
 import { createUser, getUserInfo, getUserProfiles, loginUser } from './controllers/user';
 
@@ -16,6 +16,7 @@ router.get('/users/:userId', getUserInfo);
 router.get('/users/:userId/profiles', getUserProfiles);
 
 router.post('/users/:userId/profiles', createProfile);
+router.get('/profiles/:profileId', getProfile);
 router.post('/profiles/:profileId/stories', createStory);
 router.patch('/profiles/:profileId', updateProfile);
 router.put('/profiles/:profileId/favs/:storyId', addToFavs);
