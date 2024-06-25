@@ -10,7 +10,6 @@ import { readingLevelOptions } from '@/constants';
 
 export default function NewStory() {
   const dataContext = useDataContext()
-  if (!dataContext) return null; //TODO: review null state of dataContext
   const { setSelectedStory } = dataContext;
 
   const {
