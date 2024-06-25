@@ -36,7 +36,7 @@ export const getSelectedProfile = async (profileId: number): Promise<ProfileType
   }
 };
 
-export const getAllStoriesByProfile = async (profileId: number): Promise<StoryType[]> => {
+export const getAllStoriesByProfile = async (profileId?: number): Promise<StoryType[]> => {
   try {
     const response = await axios.get(`${BASE_URL}/profiles/${profileId}/storiesList`);
     console.log('all stories by profile:', response.data)

@@ -12,9 +12,10 @@ const homeScreen = () => {
   const screenWidth = Dimensions.get('window').width;
   const squareSize = screenWidth / 2.5;
   const router = useRouter()
-  const [stories, setStories] = useState<StoryType[]>([]); // actual state
 
-  const { setUser, setSelectedProfile, setProfiles, selectedProfile } = useDataContext();
+  // const [stories, setStories] = useState<StoryType[]>([]); // actual state
+
+  const { allStories, setAllStories, setUser, setSelectedProfile, setProfiles, setSelectedStory, selectedProfile } = useDataContext();
   // TODO: remove this one authentication is implemented
   useEffect(() => {
     async function setup() {
@@ -29,27 +30,27 @@ const homeScreen = () => {
 
   useEffect(() => {
     async function renderStoriesbyProfile() {
-      const storiesByProfile = await getAllStoriesByProfile(1);
-      setStories(storiesByProfile)
+      const storiesByProfile = await getAllStoriesByProfile(selectedProfile.id);
+      setAllStories(storiesByProfile)
     };
 
     renderStoriesbyProfile();
-  }, [stories]);
+  }, [allStories]);
 
   //might be innefficient to unmount and remount component everytime a story is added.
 
   //should take an argument 'storyId"
-  function handlePress(storyId: number) {
+  function handlePress(story: StoryType) {
+    setSelectedStory(story)
     router.push("/keepReadingScreen")
-    //should also update context used for keep reading page
   }
 
   return (
     <View>
       <Text>homeScreen</Text>
       <View style={styles.container}>
-        {stories.map((element) => (
-          <Pressable key={element.id} onPress={() => handlePress(element.id)} style={[styles.square, { width: squareSize, height: squareSize }]}>
+        {allStories.map((element) => (
+          <Pressable key={element.id} onPress={() => handlePress(element)} style={[styles.square, { width: squareSize, height: squareSize }]}>
             <Text style={styles.text}>{element.title}</Text>
           </Pressable>
         ))}
