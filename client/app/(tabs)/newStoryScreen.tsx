@@ -4,7 +4,6 @@ import { View } from 'react-native';
 
 
 export default function newStoryScreen() {
-
   return (
     <View style={styles.container}>
       <NewStory />

@@ -38,6 +38,33 @@ export default function NewStory() {
     router.replace('/keepReadingScreen');
   }
 
+  async function handleSuprise() {
+    const readingLevels = Object.keys(readingLevelOptions);
+    const randomReadingLevel = readingLevels[Math.floor(Math.random() * readingLevels.length)];
+    const randomLocation = locationOptions[Math.floor(Math.random() * locationOptions.length)];
+    const readingTimes = Object.keys(readingTimeOptions);
+    const randomReadingTime = readingTimes[Math.floor(Math.random() * readingTimes.length)];
+    // pick two random themes that are not the same
+    const randomThemes = [themeOptions[Math.floor(Math.random() * themeOptions.length)]]; 
+    let randomTheme = themeOptions[Math.floor(Math.random() * themeOptions.length)];
+    while (randomThemes.includes(randomTheme)) {
+      randomTheme = themeOptions[Math.floor(Math.random() * themeOptions.length)];
+    }
+    randomThemes.push(randomTheme);
+    // console.log({randomReadingLevel, randomLocation, randomReadingTime, randomThemes});
+    // TODO: Display loading spinner while story is being created
+    const storyDetails = await createStory(
+      readingLevelOptions[randomReadingLevel],
+      randomLocation,
+      readingTimeOptions[randomReadingTime],
+      randomThemes,
+    );
+    setSelectedStory(storyDetails);
+    router.replace('/keepReadingScreen');
+    
+  
+  }
+
   const locationOptions = ['Castle', 'Jungle', 'Mountains', 'Ocean', 'City', 'Space', 'Underwater'];
 
   const themeOptions = ['Adventure', 'Scary', 'Pirates', 'Cowboys', 'Magic', 'Mystical', 'Vampires'];
@@ -53,7 +80,7 @@ export default function NewStory() {
   return (
     <>
       {/* TODO: Make this button functional */}
-      <Button title='Suprise me!' />
+      <Button title='Suprise me!' onPress={handleSuprise}/>
 
       <Text style={styles.title}>Your reading level</Text>
       <Controller
