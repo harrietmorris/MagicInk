@@ -5,7 +5,7 @@ import { Link } from 'expo-router';
 
 const StoryDetails = () => {
   const dataContext = useDataContext();
-  // if (!dataContext) return null; //TODO: review null state of dataContext
+  if (!dataContext) return null; //TODO: review null state of dataContext
   const { selectedStory } = dataContext;
 
   //TODO: setSelectedStory in the storyItem (on submit get story by id)
