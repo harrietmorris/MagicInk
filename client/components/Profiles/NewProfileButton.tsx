@@ -1,4 +1,4 @@
-import { ViewStyle, TextStyle, TouchableOpacity, StyleSheet, Text } from 'react-native'
+import { ViewStyle, TextStyle, TouchableOpacity, StyleSheet, Text, Pressable } from 'react-native'
 import React from 'react'
 import { useRouter } from 'expo-router';
 
@@ -18,9 +18,9 @@ function NewProfileButton({ route, buttonStyle, textStyle }: NewProfileButtonPro
     };
 
     return (
-        <TouchableOpacity style={[styles.button, buttonStyle]} onPress={reRouter}>
+        <Pressable style={[styles.button, buttonStyle]} onPress={reRouter}>
             <Text style={[styles.text, textStyle]}>Create new profile</Text>
-        </TouchableOpacity>
+        </Pressable>
     );
 }
 

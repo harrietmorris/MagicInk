@@ -16,6 +16,8 @@ const ListedProfiles = () => {
         const getProfiles = async () => {
             if (user) {
               const profiles = await getAllProfiles(user.id);
+              console.log('user.id', user.id)
+              console.log('profiles', profiles)
               setProfiles(profiles);
             }
         }
@@ -23,12 +25,24 @@ const ListedProfiles = () => {
         getProfiles();
     }, [user]);
 
+
+
+
     const handleProfilePress = (profile: ProfileType) => {
         setSelectedProfile(profile);
+        console.log('profile selected:', profile)
       };
 
+    // if (!user) {
+    //     return <Text>Loading user data...</Text>
+    // }
 
-  return (
+    // if (!profiles || profiles.length === 0) {
+    //     return <Text>No profiles available, please create new profile.</Text>
+    // }
+
+
+  return (    
     <FlatList
     data={profiles}
     keyExtractor={(item) => item.id.toString()}
