@@ -9,8 +9,7 @@ import { useDataContext } from '@/context/globalContext';
 import { readingLevelOptions } from '@/constants';
 
 export default function NewStory() {
-  const dataContext = useDataContext()
-  const { setSelectedStory } = dataContext;
+  const { setSelectedStory } = useDataContext();
 
   const {
     control,
