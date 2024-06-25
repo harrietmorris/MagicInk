@@ -17,7 +17,7 @@ router.get('/users/:userId/profiles', getUserProfiles);
 
 router.post('/users/:userId/profiles', createProfile);
 router.post('/profiles/:profileId/stories', createStory);
-router.put('/profiles/:profileId', updateProfile);
+router.patch('/profiles/:profileId', updateProfile);
 router.put('/profiles/:profileId/favs/:storyId', addToFavs);
 router.delete('/profiles/:profileId/favs/:storyId', removeFromFavs);
 

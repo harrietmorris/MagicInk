@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateProfileRequestBody } from '../types';
+import { CreateProfileRequestBody, updatedProfileRequestBody } from '../serverTypes';
 
 export async function createProfile(ctx: Context) {
     const { userId } = ctx.params;
@@ -27,7 +27,7 @@ export async function createProfile(ctx: Context) {
 
 export async function updateProfile(ctx: Context) {
     const { profileId } = ctx.params;
-    const body = ctx.request.body;
+    const body = ctx.request.body as updatedProfileRequestBody
     try {
         const profile = await prisma.profile.update({
             where: { id: parseInt(profileId, 10) },

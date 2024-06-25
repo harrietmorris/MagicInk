@@ -20,6 +20,8 @@ export interface CreateProfileRequestBody {
 }
 
 export interface updatedProfileRequestBody {
+  id: number;
+  userId: number;
   name: string;
   picture?: string;
   readingLevel: string;
@@ -30,7 +32,7 @@ export interface CreateStoryRequestBody {
   storyString: string;
   prompt: string;
   model?: string;
-  readingTime?: number;
+  readingTime: number;
   themes: string[];
 }
 
