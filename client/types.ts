@@ -1,7 +1,7 @@
 export interface UserType {
   id: number;
   email: string;
-  password: string;
+  password?: string;
 }
 
 export interface ProfileType {
