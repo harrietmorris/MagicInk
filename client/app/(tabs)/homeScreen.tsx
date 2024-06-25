@@ -15,23 +15,16 @@ const homeScreen = () => {
 
   // const [stories, setStories] = useState<StoryType[]>([]); // actual state
 
-  const { allStories, setAllStories, setUser, setSelectedProfile, setProfiles, setSelectedStory, selectedProfile } = useDataContext();
+  const { allStories, setAllStories, setSelectedStory, selectedProfile } = useDataContext();
   // TODO: remove this one authentication is implemented
-  useEffect(() => {
-    async function setup() {
-      const user = await getUser(1);
-      setUser(user);
-      const profiles = await getAllProfiles(user.id);
-      setProfiles(profiles);
-      setSelectedProfile(profiles[0]);
-    }
-    setup();
-  }, [])
+
 
   useEffect(() => {
     async function renderStoriesbyProfile() {
-      const storiesByProfile = await getAllStoriesByProfile(selectedProfile.id);
-      setAllStories(storiesByProfile)
+      if (selectedProfile) {
+        const storiesByProfile = await getAllStoriesByProfile(selectedProfile.id);
+        setAllStories(storiesByProfile)
+      }
     };
 
     renderStoriesbyProfile();
