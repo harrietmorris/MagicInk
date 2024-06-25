@@ -1,7 +1,10 @@
 export interface UserType {
-  id: number;
+  id: string;
+  name: string | null;
   email: string;
-  password?: string;
+  photo: string | null;
+  familyName: string | null;
+  givenName: string | null;
 }
 
 export interface ProfileType {
@@ -33,8 +36,8 @@ export type FormData = {
 
 export interface DataContextProps {
   //TODO: remove nulls when app is working
-  user: UserType | null;
-  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
+  user: UserType | undefined;
+  setUser: React.Dispatch<React.SetStateAction<UserType | undefined>>;
 
   profiles: ProfileType[];
   setProfiles: React.Dispatch<React.SetStateAction<ProfileType[]>>;
