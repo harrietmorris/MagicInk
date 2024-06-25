@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Text, View, Button } from 'react-native';
+import { Text, Pressable } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
 import { createStory } from '@/services/apiService';
@@ -51,7 +51,7 @@ export default function NewStory() {
       randomTheme = themeOptions[Math.floor(Math.random() * themeOptions.length)];
     }
     randomThemes.push(randomTheme);
-    // console.log({randomReadingLevel, randomLocation, randomReadingTime, randomThemes});
+
     // TODO: Display loading spinner while story is being created
     const storyDetails = await createStory(
       readingLevelOptions[randomReadingLevel],
@@ -79,8 +79,9 @@ export default function NewStory() {
 
   return (
     <>
-      {/* TODO: Make this button functional */}
-      <Button title='Suprise me!' onPress={handleSuprise}/>
+      <Pressable style={styles.button} onPress={handleSuprise}>
+        <Text style={styles.buttonText}>Suprise me!</Text>
+      </Pressable>
 
       <Text style={styles.title}>Your reading level</Text>
       <Controller
@@ -129,7 +130,9 @@ export default function NewStory() {
           <MultiSelectComponent itemOptions={themeOptions} value={value} onChange={onChange} />
         )}
       />
-      <Button title='Create your story' onPress={handleSubmit(onSubmit)} />
+      <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
+        <Text style={styles.buttonText}>Create your story</Text>
+      </Pressable>
     </>
   );
 }
@@ -150,5 +153,18 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  button: {
+    backgroundColor: '#007BFF',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+    elevation: 3,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });

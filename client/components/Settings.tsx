@@ -1,4 +1,4 @@
-import { Text, Button, TextInput } from 'react-native'
+import { Text, Pressable, TextInput, View } from 'react-native'
 import {Picker} from '@react-native-picker/picker';
 import React, { useState } from 'react'
 import { StyleSheet } from 'react-native';
@@ -66,34 +66,62 @@ const Settings = () => {
 
   return (
     <>
-      <Text style={styles.title}>Profile name:</Text>
-      <TextInput
-        placeholder={profileName}
-        value={profileName}
-        onChangeText={setProfileName}
-      />
-      <Button title='Update name' onPress={handleUpdateName}/>
+      <View style={styles.container}>
+        <Text style={styles.title}>Profile name:</Text>
+        <TextInput
+          placeholder={profileName}
+          value={profileName}
+          onChangeText={setProfileName}
+          />
+      </View>
+      <View style={styles.container2}>
+        <Pressable style={styles.button} onPress={handleUpdateName}>
+          <Text style={styles.buttonText}>Update name</Text>
+        </Pressable>
 
-      <Text style={styles.title}>Choose reading level: {selectedProfile?.readingLevel}</Text>
-      <Picker
-        selectedValue={selectedProfile?.readingLevel}
-        style={styles.picker}
-        onValueChange={handleReadingLevelChange}
-      >
-      {Object.keys(readingLevelOptions).map((readingLevel) => (
-        <Picker.Item key={readingLevel} label={readingLevel} value={readingLevelOptions[readingLevel]} />  
-      ))}
-      </Picker>
+        <Text style={styles.title}>Choose reading level: {selectedProfile?.readingLevel}</Text>
+        <Picker
+          selectedValue={selectedProfile?.readingLevel}
+          style={styles.picker}
+          onValueChange={handleReadingLevelChange}
+        >
+        {Object.keys(readingLevelOptions).map((readingLevel) => (
+          <Picker.Item key={readingLevel} label={readingLevel} value={readingLevelOptions[readingLevel]} />  
+        ))}
+        </Picker>
 
-      <Button title='Delete profile' onPress={handleDeleteProfile}/>
-      <Text style={styles.title}>Email: {user?.email}</Text>
-      <Button title='Create new profile' onPress={handleNewProfile}/> 
-      <Button title='Logout' onPress={handleLogout}/>
+        <Pressable style={styles.button} onPress={handleDeleteProfile}>
+          <Text style={styles.buttonText}>Delete profile</Text>
+        </Pressable>
+
+        <Text style={styles.title}>Email: {user?.email}</Text>
+
+        <Pressable style={styles.button} onPress={handleNewProfile}>
+          <Text style={styles.buttonText}>Create new profile</Text>
+        </Pressable>
+
+        <Pressable style={styles.button} onPress={handleLogout}>
+          <Text style={styles.buttonText}>Logout</Text>
+        </Pressable>
+      </View>
     </>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    maxHeight: 80,
+  },
+  container2: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
   picker: {
     height: 50,
     width: 200,
@@ -101,6 +129,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  button: {
+    backgroundColor: '#007BFF',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+    elevation: 3,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
   },
 })
 
