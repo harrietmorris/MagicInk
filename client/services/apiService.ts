@@ -16,7 +16,16 @@ export const getUser = async (id: number): Promise<UserType> => {
 
 // export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => {};
 
-// export const getSelectedProfile = async (profileId: number): Promise<ProfileType> => {};
+export const getSelectedProfile = async (profileId: number): Promise<ProfileType> => {
+  try {
+    const response = await axios.get(`${BASE_URL}/profiles/${profileId}`);
+    console.log('getting profile:', response.data);
+    return response.data;
+  } catch (e) {
+    console.error('Error getting profile', e);
+    throw e;
+  }
+};
 
 // export const getAllStoriesByProfile = async (profileId: number): Promise<StoryType[]> => {};
 
@@ -59,7 +68,7 @@ export const createStory = async (
 
 export async function updateProfile (profile: ProfileType) {
   try {
-    const response = await axios.put(URL +'/profile', profile);
+    const response = await axios.patch(BASE_URL +`/profiles/${profile.id}`, profile);
     return response.data;
   } catch (error) {
     console.error('Error updating profile', error);
