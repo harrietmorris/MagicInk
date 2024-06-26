@@ -1,94 +1,53 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateUserRequestBody, LoginRequestBody } from '../serverTypes';
-
-export async function createUser(ctx: Context) {
-    const body = ctx.request.body as CreateUserRequestBody;
-    const { email, password } = body;
-    try {
-        const user = await prisma.user.create({
-            data: {
-                email,
-                password,
-            },
-        });
-        ctx.body = user;
-    } catch (error) {
-        ctx.status = 400;
-        ctx.body = { error: 'Error creating user' };
-    }
-}
+import { LoginRequestBody } from '../serverTypes';
 
 export async function loginUser(ctx: Context) {
-    const { email, password } = ctx.request.body as LoginRequestBody;
+  const { id, email, givenName, familyName, name } = ctx.request.body as LoginRequestBody;
 
-    try {
-        const user = await prisma.user.findUnique({
-            where: { email },
-            include: {
-                profiles: true,
-            },
-        });
-
-        if (!user || user.password !== password) {
-            ctx.status = 401;
-            ctx.body = { error: 'Invalid credentials' };
-            return;
-        }
-        ctx.status = 201;
-        ctx.body = user;
-    } catch (error) {
-        ctx.status = 400;
-        ctx.body = { error: 'Error logging in user' };
-    }
-}
-
-export async function getUserInfo(ctx: Context) {
-    const userId = parseInt(ctx.params.userId);
-
-    try {
-        const user = await prisma.user.findUnique({
-            where: { id: userId },
-            select: {
-                id: true,
-                email: true,
-                password: true,
-            },
-        });
-
-        if (!user) {
-            ctx.status = 404;
-            ctx.body = { error: 'User not found' };
-            return;
-        }
-
-        ctx.body = user;
-    } catch (error) {
-        ctx.status = 400;
-        ctx.body = { error: 'Error fetching user information' };
-    }
+  try {
+    const user = await prisma.user.upsert({
+      where: { id: id },
+      update: {},
+      create: {
+        id,
+        email,
+        givenName,
+        familyName,
+        name,
+      },
+      include: {
+        profiles: true,
+      },
+    });
+    ctx.status = 201;
+    ctx.body = { id, email, givenName, familyName, name };
+  } catch (error) {
+    ctx.status = 400;
+    ctx.body = { error: error };
+  }
 }
 
 export async function getUserProfiles(ctx: Context) {
-    const userId = parseInt(ctx.params.userId);
+  const { userId } = ctx.params;
 
-    try {
-        const user = await prisma.user.findUnique({
-            where: { id: userId },
-            include: {
-                profiles: true,
-            },
-        });
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        profiles: true,
+      },
+    });
 
-        if (!user) {
-            ctx.status = 404;
-            ctx.body = { error: 'User not found' };
-            return;
-        }
-
-        ctx.body = user.profiles;
-    } catch (error) {
-        ctx.status = 400;
-        ctx.body = { error: 'Error fetching user profiles' };
+    if (!user) {
+      ctx.status = 404;
+      ctx.body = { error: 'User not found' };
+      return;
     }
+    ctx.status = 200;
+    ctx.body = user.profiles;
+  } catch (error) {
+    ctx.status = 400;
+    ctx.body = { error: 'Error fetching user profiles' };
+  }
 }
