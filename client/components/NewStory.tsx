@@ -40,7 +40,6 @@ export default function NewStory() {
   async function handleSuprise() {
     if (!selectedProfile) return;
     const readingLevels = selectedProfile.readingLevel;
-    // const randomReadingLevel = readingLevels[Math.floor(Math.random() * readingLevels.length)];
     const randomLocation = locationOptions[Math.floor(Math.random() * locationOptions.length)];
     const readingTimes = Object.keys(readingTimeOptions);
     const randomReadingTime = readingTimes[Math.floor(Math.random() * readingTimes.length)];
