@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
-import React, { useEffect } from 'react'
-import { Link, router } from 'expo-router'
+import { StyleSheet, SafeAreaView } from 'react-native'
+import React from 'react'
 import NewProfileButton from '../components/Profiles/NewProfileButton'
 import ListedProfiles from '@/components/Profiles/ListedProfiles'
 

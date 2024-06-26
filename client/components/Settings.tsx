@@ -6,7 +6,7 @@ import { useDataContext } from '../context/globalContext';
 import { router } from 'expo-router';
 import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
-import { readingLevelOptions } from '@/constants';
+import { readingLevelOptions } from '@/constants/readingLevels';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Settings = () => {
@@ -82,9 +82,9 @@ const Settings = () => {
           style={styles.picker}
           onValueChange={handleReadingLevelChange}
         >
-          {Object.keys(readingLevelOptions).map((readingLevel) => (
-            <Picker.Item key={readingLevel} label={readingLevel} value={readingLevelOptions[readingLevel]} />
-          ))}
+        {Object.keys(readingLevelOptions).map((readingLevel) => (
+          <Picker.Item key={readingLevel} label={readingLevel} value={readingLevelOptions[readingLevel]} />
+        ))}
         </Picker>
 
         <Pressable style={styles.button} onPress={handleDeleteProfile}>
