@@ -27,7 +27,9 @@ export default function NewStory() {
 
   async function onSubmit(data: FormData) {
     // TODO: Display loading spinner while story is being created
+    const profId = selectedProfile?.id ? selectedProfile.id: 1;
     const storyDetails = await createStory(
+      profId,
       readingLevelOptions[data.readingLevel[0]],
       data.location[0],
       readingTimeOptions[data.readingTime[0]],
@@ -52,7 +54,9 @@ export default function NewStory() {
     randomThemes.push(randomTheme);
 
     // TODO: Display loading spinner while story is being created
+    const profId = selectedProfile?.id ? selectedProfile.id: 1;
     const storyDetails = await createStory(
+      profId,
       readingLevels,
       randomLocation,
       readingTimeOptions[randomReadingTime],
