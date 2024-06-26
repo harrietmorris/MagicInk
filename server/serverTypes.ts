@@ -8,11 +8,6 @@ export type StoryRequestBody = {
 };
 
 
-export interface CreateUserRequestBody {
-  email: string;
-  password: string;
-}
-
 export interface CreateProfileRequestBody {
   name: string;
   picture?: string;
@@ -21,7 +16,7 @@ export interface CreateProfileRequestBody {
 
 export interface updatedProfileRequestBody {
   id: number;
-  userId: number;
+  userId: string;
   name: string;
   picture?: string;
   readingLevel: string;
@@ -37,15 +32,11 @@ export interface CreateStoryRequestBody {
 }
 
 
-//TODO: Duplicate of above
 export interface LoginRequestBody {
+  id: string;
   email: string;
-  password: string;
-}
-
-export interface getUserRequestBody {
-  id: number;
-  email: string;
-  password: string;
-
+  givenName: string;
+  familyName: string;
+  name: string;
+  photo: string | null;
 }
