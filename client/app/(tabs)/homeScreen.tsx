@@ -24,7 +24,7 @@ const homeScreen = () => {
     };
 
     renderStoriesbyProfile();
-  }, [allStories]);
+  }, []);
 
   function handlePress(story: StoryType) {
     setSelectedStory(story)
