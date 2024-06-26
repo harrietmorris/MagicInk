@@ -9,7 +9,7 @@ export interface UserType {
 
 export interface ProfileType {
   id: number;
-  userId: number;
+  userId: string;
   name: string;
   picture?: string | null;
   readingLevel: string;
