@@ -1,7 +1,7 @@
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
 import { useDataContext } from '@/context/globalContext'
-import { readingLevelOptions } from '@/constants'
+import { readingLevelOptions } from '@/constants/readingLevels'
 import { Controller, useForm } from 'react-hook-form'
 import { ProfileType } from '@/types'
 import { newProfile } from '@/services/apiService'
@@ -60,7 +60,7 @@ const ProfileForm = () => {
                   onValueChange={(itemValue) => onChange(itemValue)}
                   style={{ height: 50, width: 200 }}
               >
-                  {Object.entries(readingLevelOptions).map(([level]) => (
+                  {Object.keys(readingLevelOptions).map((level) => (
                       <Picker.Item key={level} label={`${level}`} value={level} />
                   ))}
               </Picker>

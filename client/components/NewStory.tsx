@@ -6,10 +6,10 @@ import { createStory } from '@/services/apiService';
 import { FormData } from '@/types';
 import { router } from 'expo-router';
 import { useDataContext } from '@/context/globalContext';
-import { readingLevelOptions } from '@/constants';
+import { readingLevelOptions } from '@/constants/readingLevels';
 
 export default function NewStory() {
-  const { setSelectedStory } = useDataContext();
+  const { setSelectedStory, selectedProfile } = useDataContext();
 
   const {
     control,
@@ -17,7 +17,8 @@ export default function NewStory() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      readingLevel: ['Kindergarten'],
+      //TODO: when i go to settings once, the default readinglevel changes appropriately, but if i do it twice it won't change again
+      readingLevel: selectedProfile?.readingLevel ? [selectedProfile.readingLevel] : ['Kindergarten'],
       location: ['anywhere'],
       readingTime: ['5 minutes'],
       themes: [],
@@ -37,8 +38,9 @@ export default function NewStory() {
   }
 
   async function handleSuprise() {
-    const readingLevels = Object.keys(readingLevelOptions);
-    const randomReadingLevel = readingLevels[Math.floor(Math.random() * readingLevels.length)];
+    if (!selectedProfile) return;
+    const readingLevels = selectedProfile.readingLevel;
+    // const randomReadingLevel = readingLevels[Math.floor(Math.random() * readingLevels.length)];
     const randomLocation = locationOptions[Math.floor(Math.random() * locationOptions.length)];
     const readingTimes = Object.keys(readingTimeOptions);
     const randomReadingTime = readingTimes[Math.floor(Math.random() * readingTimes.length)];
@@ -52,7 +54,7 @@ export default function NewStory() {
 
     // TODO: Display loading spinner while story is being created
     const storyDetails = await createStory(
-      readingLevelOptions[randomReadingLevel],
+      readingLevels,
       randomLocation,
       readingTimeOptions[randomReadingTime],
       randomThemes,
