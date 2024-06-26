@@ -7,7 +7,7 @@ import { createUser, getUserInfo, getUserProfiles, loginUser } from './controlle
 const router = new Router();
 
 //gemini
-router.post('/story', postNewStory);
+router.post('/profiles/:profId/story', postNewStory);
 
 //prisma
 router.post('/user', createUser)

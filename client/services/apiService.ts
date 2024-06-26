@@ -1,8 +1,8 @@
 import { ProfileType, StoryType, UserType } from '../types';
 import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
-// const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
-const BASE_URL = 'http://10.0.2.2:3000'; //this is the URL used for android simulator
+const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
+// const BASE_URL = 'http://10.0.2.2:3000'; //this is the URL used for android simulator
 
 export const getUser = async (id: number): Promise<UserType> => {
   try {
@@ -58,6 +58,7 @@ export const getSelectedStory = async (storyId: number): Promise<StoryType> => {
 // export const getFavStories = async (profileId: number): Promise<StoryType[]> => {};
 
 export const createStory = async (
+  profId:number,
   readingLevel: string,
   location: string,
   readingTime: number,
@@ -66,13 +67,14 @@ export const createStory = async (
   words: number[] = [],
 ) => {
   try {
-    const response = await axios.post(`${BASE_URL}/story`, {
+    const response = await axios.post(`${BASE_URL}/profiles/${profId}/story`, {
       readingLevel,
       location,
       readingTime,
       themes,
       simpleLanguage,
       words,
+      profId,
     });
     return response.data;
   } catch (error) {
