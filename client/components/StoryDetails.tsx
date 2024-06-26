@@ -5,15 +5,12 @@ import { Link } from 'expo-router';
 import { getLastReadLocation, saveLastReadLocation } from '@/storage';
 
 const StoryDetails = () => {
-  const [lastReadLocation, setLastReadLocation] = useState(0);
   const { selectedProfile, selectedStory } = useDataContext();
   const scrollViewRef = useRef(null);
 
-  //TODO: review whether to save selected story to database - when app closes/refreshes, user loses KeepReading story
   useEffect(() => {
     if (!selectedStory || !selectedProfile) return;
     const location = getLastReadLocation(selectedProfile.id, selectedStory.id);
-    setLastReadLocation(location || 0);
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollTo({ y: location, animated: false });
     }
@@ -22,7 +19,6 @@ const StoryDetails = () => {
   function handleRead(location: number) {
     if (!selectedStory || !selectedProfile) return;
     saveLastReadLocation(selectedProfile.id, selectedStory.id, location);
-    setLastReadLocation(location);
   }
 
   return (
