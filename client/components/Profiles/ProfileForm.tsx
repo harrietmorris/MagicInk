@@ -17,7 +17,7 @@ const ProfileForm = () => {
       try {
           if (!user) return;
           data.userId = user.id;
-          const addProfile = await newProfile(user.id, data as ProfileType);
+          const addProfile = await newProfile(data as ProfileType, user.id);
           setProfiles([...profiles, addProfile]);
           setSelectedProfile(addProfile);
           router.replace('/homeScreen');
@@ -28,7 +28,7 @@ const ProfileForm = () => {
 
   return (
     <View>
-      
+
       <Text>Name:</Text>
       <Controller
           control={control}
