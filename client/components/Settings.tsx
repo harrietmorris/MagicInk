@@ -1,16 +1,16 @@
-import { Text, Pressable, TextInput, View } from 'react-native'
-import {Picker} from '@react-native-picker/picker';
-import React, { useState } from 'react'
+import { Text, Pressable, TextInput, View } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { useDataContext } from '../context/globalContext';
-import { router } from 'expo-router'
+import { router } from 'expo-router';
 import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
 import { readingLevelOptions } from '@/constants';
-
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Settings = () => {
-  const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
+  const { user, profiles, setProfiles, selectedProfile, setSelectedProfile, setUser } = useDataContext();
   const [profileName, setProfileName] = useState(selectedProfile?.name);
 
   async function handleProfileUpdate(prop: string, value: string) {
@@ -22,32 +22,33 @@ const Settings = () => {
     try {
       await updateProfile(newProfile);
       setSelectedProfile(newProfile);
-      setProfiles(profiles.map((profile: ProfileType) => profile.id === newProfile.id ? newProfile : profile));
-    
+      setProfiles(profiles.map((profile: ProfileType) => (profile.id === newProfile.id ? newProfile : profile)));
     } catch (error) {
       console.error('Error updating profile', error);
     }
   }
 
-  async function handleReadingLevelChange (readingLevel: string) {
+  async function handleReadingLevelChange(readingLevel: string) {
     handleProfileUpdate('readingLevel', readingLevel);
   }
 
-  async function handleUpdateName () {
+  async function handleUpdateName() {
     handleProfileUpdate('name', profileName || '');
   }
-    
 
-  function handleLogout () {
+  function handleLogout() {
     // TODO: Implement logout logic
+    setUser(undefined);
+    GoogleSignin.revokeAccess();
+    GoogleSignin.signOut();
     router.replace('/loginScreen');
   }
 
-  function handleNewProfile () {
+  function handleNewProfile() {
     router.replace('/newProfileScreen');
   }
 
-  async function handleDeleteProfile () {
+  async function handleDeleteProfile() {
     if (profiles.length === 1) {
       alert('You must have at least one profile');
       return;
@@ -56,7 +57,7 @@ const Settings = () => {
     const id = selectedProfile.id;
     try {
       await deleteProfile(id);
-      const newProfiles = profiles.filter( (profile: ProfileType) => profile.id !== id);
+      const newProfiles = profiles.filter((profile: ProfileType) => profile.id !== id);
       setProfiles(newProfiles);
       setSelectedProfile(newProfiles[0]);
     } catch (error) {
@@ -68,11 +69,7 @@ const Settings = () => {
     <>
       <View style={styles.container}>
         <Text style={styles.title}>Profile name:</Text>
-        <TextInput
-          placeholder={profileName}
-          value={profileName}
-          onChangeText={setProfileName}
-          />
+        <TextInput placeholder={profileName} value={profileName} onChangeText={setProfileName} />
       </View>
       <View style={styles.container2}>
         <Pressable style={styles.button} onPress={handleUpdateName}>
@@ -85,9 +82,9 @@ const Settings = () => {
           style={styles.picker}
           onValueChange={handleReadingLevelChange}
         >
-        {Object.keys(readingLevelOptions).map((readingLevel) => (
-          <Picker.Item key={readingLevel} label={readingLevel} value={readingLevelOptions[readingLevel]} />  
-        ))}
+          {Object.keys(readingLevelOptions).map((readingLevel) => (
+            <Picker.Item key={readingLevel} label={readingLevel} value={readingLevelOptions[readingLevel]} />
+          ))}
         </Picker>
 
         <Pressable style={styles.button} onPress={handleDeleteProfile}>
@@ -105,8 +102,8 @@ const Settings = () => {
         </Pressable>
       </View>
     </>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -143,6 +140,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   },
-})
+});
 
-export default Settings
+export default Settings;
