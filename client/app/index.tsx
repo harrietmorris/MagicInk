@@ -4,12 +4,13 @@ import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { useDataContext } from '@/context/globalContext';
 import { loginUser } from '@/services/apiService';
-
+import BypassLoginButton from '@/components/BypassLoginButton';
 
 const index = () => {
   const { user, setUser } = useDataContext();
 
   const configGoogleSignIn = () => {
+    //TODO: review how to use androidClientId instead of builtin webClientId
     GoogleSignin.configure({
       webClientId: process.env.WEB_CLIENT_ID,
       // androidClientId: process.env.ANDROID_CLIENT_ID,
@@ -25,8 +26,6 @@ const index = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userResult = await GoogleSignin.signIn();
-      console.log("🚀 ~ signIn ~ userResult:", userResult)
-
       const userInfo = await loginUser(userResult.user);
       setUser(userInfo);
     } catch (err) {
@@ -37,13 +36,6 @@ const index = () => {
 
   //TODO: implement: checkIfUserIsValid -> GoogleSignin.signInSilently();
 
-  //TODO: move this functionality to the profile/ settings page & Logout button
-  const logout = () => {
-    setUser(undefined);
-    GoogleSignin.revokeAccess();
-    GoogleSignin.signOut();
-  };
-
   return (
     <View style={styles.container}>
       {user ? (
@@ -51,15 +43,15 @@ const index = () => {
           <Redirect href='/profilesScreen'></Redirect>
         </>
       ) : (
-        <GoogleSigninButton
-          size={GoogleSigninButton.Size.Standard}
-          color={GoogleSigninButton.Color.Light}
-          onPress={signIn}
-        />
+        <>
+          <GoogleSigninButton
+            size={GoogleSigninButton.Size.Standard}
+            color={GoogleSigninButton.Color.Light}
+            onPress={signIn}
+          />
+          <BypassLoginButton />
+        </>
       )}
-      <Pressable onPress={logout}>
-        <Text>Logout</Text>
-      </Pressable>
     </View>
   );
 };
