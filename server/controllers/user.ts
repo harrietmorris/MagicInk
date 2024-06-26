@@ -28,6 +28,34 @@ export async function loginUser(ctx: Context) {
   }
 }
 
+export async function getUserInfo(ctx: Context) {
+  const { userId } = ctx.params;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        givenName: true,
+        familyName: true,
+        name: true,
+      },
+    });
+
+    if (!user) {
+      ctx.status = 404;
+      ctx.body = { error: 'User not found' };
+      return;
+    }
+    ctx.status = 200;
+    ctx.body = user;
+  } catch (error) {
+    ctx.status = 400;
+    ctx.body = { error: 'Error fetching user information' };
+  }
+}
+
 export async function getUserProfiles(ctx: Context) {
   const { userId } = ctx.params;
 

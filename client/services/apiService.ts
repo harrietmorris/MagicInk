@@ -15,6 +15,16 @@ export const loginUser = async (userData: UserType): Promise<UserType> => {
   }
 }
 
+export const getUser = async (userId: string): Promise<UserType> => {
+  try {
+    const response: AxiosResponse<UserType> = await axios.get(`${BASE_URL}/users/${userId}`);
+    return response.data;
+  } catch (e) {
+    console.error('error getting user', e);
+    throw e;
+  }
+};
+
 export const getAllProfiles = async (userId: string): Promise<ProfileType[]> => {
   try {
     const response = await axios.get(`${BASE_URL}/users/${userId}/profiles`);

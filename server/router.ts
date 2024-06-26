@@ -2,7 +2,7 @@ import Router from '@koa/router';
 import postNewStory from './controllers/gemini';
 import { addToFavs, createProfile, getProfile, updateProfile, deleteProfile, getFavStories, getStoriesList, removeFromFavs } from './controllers/profile';
 import { createStory, getStoryById } from './controllers/story';
-import { getUserProfiles, loginUser } from './controllers/user';
+import { getUserInfo, getUserProfiles, loginUser } from './controllers/user';
 
 const router = new Router();
 
@@ -11,6 +11,7 @@ router.post('/story', postNewStory);
 
 //prisma
 router.post('/users/login', loginUser);
+router.get('/users/:userId', getUserInfo);
 router.get('/users/:userId/profiles', getUserProfiles);
 
 router.post('/users/:userId/profiles', createProfile);
