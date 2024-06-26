@@ -6,7 +6,7 @@ import { useDataContext } from '../context/globalContext';
 import { router } from 'expo-router'
 import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
-import { readingLevelOptions } from '@/constants';
+import { readingLevelOptions } from '@/constants/readingLevels';
 
 
 const Settings = () => {
@@ -85,8 +85,8 @@ const Settings = () => {
           style={styles.picker}
           onValueChange={handleReadingLevelChange}
         >
-        {Object.keys(readingLevelOptions).map((readingLevel) => (
-          <Picker.Item key={readingLevel} label={readingLevel} value={readingLevelOptions[readingLevel]} />  
+        {Object.keys(readingLevelOptions).map((level) => (
+          <Picker.Item key={level} label={`${level}`} value={level} />  
         ))}
         </Picker>
 
