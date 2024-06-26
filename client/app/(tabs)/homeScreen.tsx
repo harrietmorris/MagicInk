@@ -12,7 +12,7 @@ const homeScreen = () => {
   const squareSize = screenWidth / 2.5;
   const router = useRouter()
 
-  const { allStories, setAllStories, setSelectedStory, selectedProfile } = useDataContext();
+  const { allStories, setAllStories, setSelectedStory, selectedProfile ,selectedStory} = useDataContext();
 
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const homeScreen = () => {
     };
 
     renderStoriesbyProfile();
-  }, []);
+  }, [selectedStory,selectedProfile]);
 
   function handlePress(story: StoryType) {
     setSelectedStory(story)
