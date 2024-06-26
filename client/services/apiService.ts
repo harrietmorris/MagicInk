@@ -3,6 +3,8 @@ import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
 // const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
 const BASE_URL = 'http://10.0.2.2:3000'; //this is the URL used for android simulator
+// const BASE_URL = 'http://192.168.0.22:3000'; //this is the URL used for ios
+
 
 export const loginUser = async (userData: UserType): Promise<UserType> => {
   try {
