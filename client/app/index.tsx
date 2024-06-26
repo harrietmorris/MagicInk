@@ -3,15 +3,8 @@ import { Redirect } from 'expo-router';
 import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import { useDataContext } from '@/context/globalContext';
+import { loginUser } from '@/services/apiService';
 
-interface userInfo {
-  id: string;
-  name: string | null;
-  email: string;
-  photo: string | null;
-  familyName: string | null;
-  givenName: string | null;
-}
 
 const index = () => {
   const { user, setUser } = useDataContext();
@@ -25,14 +18,16 @@ const index = () => {
   };
 
   useEffect(() => {
-    configGoogleSignIn(); // will execute everytime the component mounts
+    configGoogleSignIn();
   }, []);
 
   const signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userResult = await GoogleSignin.signIn();
-      const userInfo = userResult.user;
+      console.log("🚀 ~ signIn ~ userResult:", userResult)
+
+      const userInfo = await loginUser(userResult.user);
       setUser(userInfo);
     } catch (err) {
       //TODO: Add errors based on react-native-google status codes
@@ -40,16 +35,7 @@ const index = () => {
     }
   };
 
-  //TODO: implement this logic
-  const checkIfUserIsValid = async () => {
-    try {
-      const userResult = await GoogleSignin.signInSilently();
-      const userInfo = userResult.user;
-      setUser(userInfo);
-    } catch (err) {
-      console.log('Error', err);
-    }
-  };
+  //TODO: implement: checkIfUserIsValid -> GoogleSignin.signInSilently();
 
   //TODO: move this functionality to the profile/ settings page & Logout button
   const logout = () => {
