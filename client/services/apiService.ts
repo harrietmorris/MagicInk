@@ -99,7 +99,7 @@ export async function deleteProfile(profileId: number) {
   }
 }
 
-export const newProfile  = async (profileData: ProfileType, userId: number): Promise<ProfileType> => {
+export const newProfile  = async (userId: number, profileData: ProfileType): Promise<ProfileType> => {
   try {
     const response: AxiosResponse<ProfileType> = await axios.post(`${BASE_URL}/users/${userId}/profiles`, profileData);
     return response.data;
