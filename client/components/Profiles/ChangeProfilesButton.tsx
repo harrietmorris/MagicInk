@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const ChangeProfilesButton = () => {
     const { profiles, selectedProfile, setSelectedProfile } = useDataContext();
     const [modalVisible, setModalVisible] = useState(false);
-    
+
     const handleProfilePress = (profile: ProfileType) => {
         setSelectedProfile(profile);
         setModalVisible(false);
@@ -16,10 +16,10 @@ const ChangeProfilesButton = () => {
 
   return (
     <SafeAreaView>
-      <Pressable 
-        style={styles.circleButton} 
+      <Pressable
+        style={styles.circleButton}
         onPress={() => setModalVisible(true)}
-      > 
+      >
       {selectedProfile ? (
           selectedProfile.picture ? (
             <Image source={{ uri: selectedProfile.picture }} style={styles.profileImage} />
@@ -47,8 +47,8 @@ const ChangeProfilesButton = () => {
                     profileName={item.name}
                     buttonStyle={styles.profileButton}
                     textStyle={styles.profileButtonText}
-                    onPress={() => handleProfilePress(item)} 
-                    route={'/homeScreen'}             
+                    onPress={() => handleProfilePress(item)}
+                    route={'/homeScreen'}
                 />
             )}
           />
@@ -60,43 +60,43 @@ const ChangeProfilesButton = () => {
 
 const styles = StyleSheet.create({
     circleButton: {
-        backgroundColor: '#28a745',
-        borderRadius: 50,
-        width: 50,
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // backgroundColor: '#28a745',
+        // borderRadius: 50,
+        // width: 50,
+        // height: 50,
+        // justifyContent: 'center',
+        // alignItems: 'center',
       },
       profileImage: {
-        width: 50,
-        height: 50,
-        borderRadius: 50,
+        // width: 50,
+        // height: 50,
+        // borderRadius: 50,
       },
       profileInitial: {
-        color: '#fff',
-        fontSize: 24,
+        // color: '#fff',
+        // fontSize: 24,
       },
       circleButtonText: {
-        color: '#fff',
-        fontSize: 24,
+        // color: '#fff',
+        // fontSize: 24,
       },
       modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        // flex: 1,
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // backgroundColor: 'rgba(0,0,0,0.5)',
       },
       profileButton: {
-        backgroundColor: '#fff',
-        padding: 15,
-        marginVertical: 5,
-        width: 200,
-        borderRadius: 5,
+        // backgroundColor: '#fff',
+        // padding: 15,
+        // marginVertical: 5,
+        // width: 200,
+        // borderRadius: 5,
       },
       profileButtonText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#000',
+        // fontSize: 18,
+        // fontWeight: 'bold',
+        // color: '#000',
       },
     });
 
