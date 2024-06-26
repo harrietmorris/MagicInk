@@ -9,7 +9,7 @@ export async function createProfile(ctx: Context) {
     try {
         const profile = await prisma.profile.create({
           data: {
-            userId: parseInt(userId, 10),
+            userId: userId,
             name,
             picture,
             readingLevel,
@@ -36,6 +36,7 @@ export async function getProfile(ctx: Context) {
             ctx.body = { error: 'Profile not found' };
             return;
         }
+        ctx.status = 200;
         ctx.body = profile;
     } catch (error) {
         ctx.status = 400;
@@ -51,6 +52,7 @@ export async function updateProfile(ctx: Context) {
             where: { id: parseInt(profileId, 10) },
             data: body,
         });
+        ctx.status = 201;
         ctx.body = profile;
     } catch (error) {
         ctx.status = 400;
@@ -73,7 +75,7 @@ export async function addToFavs(ctx: Context) {
                 favs: true,
             },
         });
-        ctx.status = 200;
+        ctx.status = 201;
         ctx.body = updatedProfile;
     } catch (error) {
         ctx.status = 400;
@@ -97,7 +99,7 @@ export async function getStoriesList(ctx: Context) {
             ctx.body = { error: 'Profile not found' };
             return;
         }
-
+        ctx.status = 200;
         ctx.body = profile.storiesList;
     } catch (error) {
         ctx.status = 400;
@@ -122,7 +124,7 @@ export async function getFavStories(ctx: Context) {
             ctx.body = { error: 'Profile not found' };
             return;
         }
-
+        ctx.status = 200;
         ctx.body = profile.favs;
     } catch (error) {
         ctx.status = 400;
