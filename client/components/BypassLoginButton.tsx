@@ -11,7 +11,7 @@ const defaultUser: UserType = {
   email: 'example@email.com',
   familyName: 'Doe',
   givenName: 'Jane',
-  photo: null,
+  photo: "photostring"
 };
 
 const BypassLoginButton = () => {

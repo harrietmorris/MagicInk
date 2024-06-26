@@ -36,6 +36,13 @@ const index = () => {
 
   //TODO: implement: checkIfUserIsValid -> GoogleSignin.signInSilently();
 
+  //TODO: remove logout once dev complete
+  const handleLogout = () => {
+    setUser(undefined);
+    GoogleSignin.revokeAccess();
+    GoogleSignin.signOut();
+  };
+
   return (
     <View style={styles.container}>
       {user ? (
@@ -49,7 +56,10 @@ const index = () => {
             color={GoogleSigninButton.Color.Light}
             onPress={signIn}
           />
-          <BypassLoginButton />
+          {/* <BypassLoginButton /> */}
+          <Pressable onPress={handleLogout}>
+            <Text>Logout</Text>
+          </Pressable>
         </>
       )}
     </View>
