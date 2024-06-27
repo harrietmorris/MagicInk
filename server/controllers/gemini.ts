@@ -32,8 +32,7 @@ export default async function postNewStory(ctx: Koa.Context) {
     const text = response.text();
 
     if (text.includes('ERROR: could not write the story')) {
-      ctx.body = 'Error generating story';
-      ctx.status = 500;
+      ctx.status = 204;
       return;
     }
 

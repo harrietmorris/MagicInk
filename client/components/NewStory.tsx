@@ -27,13 +27,18 @@ export default function NewStory() {
   async function onSubmit(data: FormData) {
     // TODO: Display loading spinner while story is being created
     const profId = selectedProfile?.id ? selectedProfile.id: 1;
-    const storyDetails = await createStory(
+    const {status, storyDetails} = await createStory(
       profId,
       readingLevelOptions[data.readingLevel[0]],
       data.location[0],
       readingTimeOptions[data.readingTime[0]],
       data.themes,
     );
+    if (status === 204) {
+      alert('Error creating story. please review your inputs and try again.');
+      return;
+    }
+
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
   }
@@ -54,7 +59,7 @@ export default function NewStory() {
 
     // TODO: Display loading spinner while story is being created
     const profId = selectedProfile?.id ? selectedProfile.id: 1;
-    const storyDetails = await createStory(
+    const {storyDetails} = await createStory(
       profId,
       readingLevels,
       randomLocation,

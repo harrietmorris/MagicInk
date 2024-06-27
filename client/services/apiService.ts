@@ -76,7 +76,7 @@ export const createStory = async (
       words,
       profId,
     });
-    return response.data;
+    return {status: response.status, storyDetails: response.data};
   } catch (error) {
     console.error('Error creating story', error);
     throw error;
