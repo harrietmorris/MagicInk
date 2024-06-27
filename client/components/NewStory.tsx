@@ -1,5 +1,5 @@
 import { StyleSheet, TextInput } from 'react-native';
-import { Text, Pressable } from 'react-native';
+import { Text, Pressable, View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
 import { createStory } from '@/services/apiService';
@@ -60,7 +60,7 @@ export default function NewStory() {
       readingLevels,
       randomLocation,
       readingTimeOptions[randomReadingTime],
-      randomThemes,
+      randomThemes.join(', ')
     );
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
@@ -164,19 +164,27 @@ export default function NewStory() {
           />
         )}
       />
-
+      <View style={styles.container}>
       <Text style={styles.title}>Choose your own adventure</Text>
       <Controller
         name='themes'
         control={control}
+        rules={{
+          maxLength: {value: 100, message: 'Maximum length is 100 characters!'},
+        }}
         render={({ field: { onChange, value } }) => (
           <TextInput
-            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, margin: 5 }}
             onChangeText={onChange}
             value={value}
+            placeholder='Type what you want your story to be about here'
           />
         )}
       />
+      {errors.themes && (
+        <Text>{errors.themes.message}</Text>
+      )}
+      </View>
       <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
         <Text style={styles.buttonText}>Create your story</Text>
       </Pressable>
