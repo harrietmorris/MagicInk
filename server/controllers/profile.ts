@@ -20,6 +20,7 @@ export async function createProfile(ctx: Context) {
         ctx.status = 201;
         ctx.body = profile;
     } catch (error) {
+        console.error('Error creating profile', error);
         ctx.status = 400;
         ctx.body = { error: 'Error creating profile' };
     }
@@ -38,6 +39,7 @@ export async function getProfile(ctx: Context) {
         }
         ctx.body = profile;
     } catch (error) {
+        console.error('Error fetching profile', error);
         ctx.status = 400;
         ctx.body = { error: 'Error fetching profile' };
     }
@@ -53,6 +55,7 @@ export async function updateProfile(ctx: Context) {
         });
         ctx.body = profile;
     } catch (error) {
+        console.error('Error updating profile', error);
         ctx.status = 400;
         ctx.body = { error: 'Error updating profile' };
     }
@@ -76,6 +79,7 @@ export async function addToFavs(ctx: Context) {
         ctx.status = 200;
         ctx.body = updatedProfile;
     } catch (error) {
+        console.error('Error adding story to favs', error);
         ctx.status = 400;
         ctx.body = { error: 'Error adding story to favs' };
     }
@@ -100,6 +104,7 @@ export async function getStoriesList(ctx: Context) {
 
         ctx.body = profile.storiesList;
     } catch (error) {
+        console.error('Error fetching stories list', error);
         ctx.status = 400;
         ctx.body = { error: 'Error fetching stories list' };
     }
@@ -125,6 +130,7 @@ export async function getFavStories(ctx: Context) {
 
         ctx.body = profile.favs;
     } catch (error) {
+        console.error('Error fetching favorite stories', error);
         ctx.status = 400;
         ctx.body = { error: 'Error fetching favorite stories' };
     }
@@ -140,6 +146,7 @@ export async function deleteProfile(ctx: Context) {
         ctx.status = 204;
         ctx.body = { message: 'Profile deleted successfully', profile };
     } catch (error) {
+        console.error('Error deleting profile', error);
         ctx.status = 400;
         ctx.body = { error: 'Error deleting profile' };
     }
@@ -164,6 +171,7 @@ export async function removeFromFavs(ctx: Context) {
         ctx.status = 204;
         ctx.body = updatedProfile;
     } catch (error) {
+        console.error('Error removing story from favs', error);
         ctx.status = 400;
         ctx.body = { error: 'Error removing story from favs' };
     }

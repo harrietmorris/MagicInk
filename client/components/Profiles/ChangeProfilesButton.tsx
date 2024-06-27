@@ -6,10 +6,11 @@ import ProfileButton from './ProfileButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ChangeProfilesButton = () => {
-    const { profiles, selectedProfile, setSelectedProfile } = useDataContext();
+    const { profiles, selectedProfile, setSelectedProfile, setSelectedStory } = useDataContext();
     const [modalVisible, setModalVisible] = useState(false);
     
     const handleProfilePress = (profile: ProfileType) => {
+        setSelectedStory(null);
         setSelectedProfile(profile);
         setModalVisible(false);
       };
