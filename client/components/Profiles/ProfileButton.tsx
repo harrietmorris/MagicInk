@@ -27,15 +27,15 @@ const ProfileButton = ({ route, buttonStyle, textStyle, profileName, onPress }: 
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#000000',
-        padding: 10,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
+        // backgroundColor: '#000000',
+        // padding: 10,
+        // borderRadius: 10,
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
     text: {
-        color: '#fff',
-        fontSize: 16,
+        // color: '#fff',
+        // fontSize: 16,
     },
 });
 

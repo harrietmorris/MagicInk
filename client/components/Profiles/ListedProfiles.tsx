@@ -36,7 +36,7 @@ const ListedProfiles = () => {
     }
 
 
-  return (    
+  return (
     <FlatList
     data={profiles}
     keyExtractor={(item) => item.id.toString()}
@@ -55,13 +55,13 @@ const ListedProfiles = () => {
 
 const styles = StyleSheet.create({
     buttonStyle: {
-      backgroundColor: '#28a745',
-      padding: 15,
-      marginVertical: 5,
+      // backgroundColor: '#28a745',
+      // padding: 15,
+      // marginVertical: 5,
     },
     textStyle: {
-      fontSize: 18,
-      fontWeight: 'bold',
+      // fontSize: 18,
+      // fontWeight: 'bold',
     },
   });
 

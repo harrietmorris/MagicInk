@@ -28,7 +28,7 @@ const ProfileForm = () => {
 
   return (
     <View>
-      
+
       <Text>Name:</Text>
       <Controller
           control={control}
@@ -79,19 +79,19 @@ const ProfileForm = () => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#007BFF',
-    padding: 10,
-    alignItems: 'center',
-    borderRadius: 5,
-    marginTop: 10,
+    // backgroundColor: '#007BFF',
+    // padding: 10,
+    // alignItems: 'center',
+    // borderRadius: 5,
+    // marginTop: 10,
 },
 buttonText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+    // color: '#FFFFFF',
+    // fontWeight: 'bold',
 },
 errorText: {
-    color: 'red',
-    marginTop: 5,
+    // color: 'red',
+    // marginTop: 5,
 },
 });
 
