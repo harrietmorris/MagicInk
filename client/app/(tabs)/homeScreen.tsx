@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Dimensions, Pressable } from 'react-native'
 import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
-import { getAllStoriesByProfile } from '@/services/apiService';
+import { getAllStoriesByProfile, getSelectedProfile } from '@/services/apiService';
 import { useDataContext } from '@/context/globalContext';
 import { StoryType } from '@/types';
 import FavButton from '@/components/buttons/favButton';
@@ -13,19 +13,26 @@ const homeScreen = () => {
   const squareSize = screenWidth / 2.5;
   const router = useRouter()
 
-  const { allStories, setAllStories, setSelectedStory, selectedProfile ,selectedStory} = useDataContext();
+  const { allStories, setAllStories, setSelectedStory, setSelectedProfile, selectedProfile, selectedStory} = useDataContext();
 
 
   useEffect(() => {
-    async function renderStoriesbyProfile() {
+    const fetchProfile = async () => {
       if (selectedProfile) {
+        const updatedProfile = await getSelectedProfile(selectedProfile.id);
         const storiesByProfile = await getAllStoriesByProfile(selectedProfile.id);
-        setAllStories(storiesByProfile)
-      }
-    };
+        setSelectedProfile(updatedProfile);
+        setAllStories(storiesByProfile); 
+      }}
 
-    renderStoriesbyProfile();
-  }, [selectedStory,selectedProfile]);
+    fetchProfile();
+  
+  }, [selectedStory, selectedProfile?.id]);
+
+
+  
+    
+
 
   function handlePress(story: StoryType) {
     setSelectedStory(story)

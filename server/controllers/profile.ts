@@ -30,6 +30,9 @@ export async function getProfile(ctx: Context) {
     try {
         const profile = await prisma.profile.findUnique({
             where: { id: parseInt(profileId, 10) },
+            include: {
+                favs: true,
+            },
         });
         if (!profile) {
             ctx.status = 404;
@@ -152,7 +155,7 @@ export async function removeFromFavs(ctx: Context) {
     try {
         const updatedProfile = await prisma.profile.update({
             where: { id: parseInt(profileId, 10) },
-            data: {
+                data: {
                 favs: {
                     disconnect: { id: parseInt(storyId, 10) },
                 },
@@ -161,8 +164,9 @@ export async function removeFromFavs(ctx: Context) {
                 favs: true,
             },
         });
-        ctx.status = 204;
+        ctx.status = 200;
         ctx.body = updatedProfile;
+
     } catch (error) {
         ctx.status = 400;
         ctx.body = { error: 'Error removing story from favs' };

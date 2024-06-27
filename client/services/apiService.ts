@@ -1,8 +1,8 @@
 import { ProfileType, StoryType, UserType } from '../types';
 import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
-const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
-// const BASE_URL = 'http://10.0.2.2:3000'; //this is the URL used for android simulator
+// const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
+const BASE_URL = 'http://10.0.2.2:3000'; //this is the URL used for android simulator
 
 export const getUser = async (id: number): Promise<UserType> => {
   try {
@@ -110,3 +110,24 @@ export const newProfile  = async (userId: number, profileData: ProfileType): Pro
     throw e;
   }
 }
+
+export const addToFavs = async (profileId: number, storyId: number): Promise<ProfileType> => {
+  try {
+    const response: AxiosResponse<ProfileType> = await axios.put(`${BASE_URL}/profiles/${profileId}/favs/${storyId}`);
+    // console.log('adding to favs', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding story to favorites', error);
+    throw error;
+  }
+};
+
+export const removeFromFavs = async (profileId: number, storyId: number): Promise<ProfileType> => {
+  try {
+    const response: AxiosResponse<ProfileType> = await axios.delete(`${BASE_URL}/profiles/${profileId}/favs/${storyId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error removing story from favorites', error);
+    throw error;
+  }
+};

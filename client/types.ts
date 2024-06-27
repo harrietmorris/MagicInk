@@ -47,7 +47,4 @@ export interface DataContextProps {
 
   selectedStory: StoryType | null;
   setSelectedStory: React.Dispatch<React.SetStateAction<StoryType | null>>;
-
-  favStories: StoryType[];
-  setFavStories: React.Dispatch<React.SetStateAction<StoryType[]>>;
 }
