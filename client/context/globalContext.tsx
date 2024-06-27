@@ -9,15 +9,12 @@ const initialDataContext: DataContextProps = {
   user: null,
   setUser: () => {},
   profiles: [],
-  setProfiles: () => [],
+  setProfiles: () => {},
   selectedProfile: null,
   setSelectedProfile: () => {},
-  allStories: [],
-  setAllStories: () => {},
   selectedStory: null,
   setSelectedStory: () => {},
-  favStories: [],
-  setFavStories: () => {},
+  
 };
 
 //TODO: review the default state of the context -> currently no meaningful default so using null
@@ -27,9 +24,8 @@ export const GetUserProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [profiles, setProfiles] = useState<ProfileType[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<ProfileType | null>(null);
-  const [allStories, setAllStories] = useState<StoryType[]>([]);
   const [selectedStory, setSelectedStory] = useState<StoryType | null>(null);
-  const [favStories, setFavStories] = useState<StoryType[]>([]);
+  
 
   return (
     <dataContext.Provider
@@ -40,12 +36,8 @@ export const GetUserProvider = ({ children }: ProviderProps) => {
         setProfiles,
         selectedProfile,
         setSelectedProfile,
-        allStories,
-        setAllStories,
         selectedStory,
         setSelectedStory,
-        favStories,
-        setFavStories,
       }}
     >
       {children}

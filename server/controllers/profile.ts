@@ -31,6 +31,10 @@ export async function getProfile(ctx: Context) {
     try {
         const profile = await prisma.profile.findUnique({
             where: { id: parseInt(profileId, 10) },
+            include: {
+                favs: true,
+                storiesList: true,
+            },
         });
         if (!profile) {
             ctx.status = 404;
@@ -85,56 +89,6 @@ export async function addToFavs(ctx: Context) {
     }
 }
 
-export async function getStoriesList(ctx: Context) {
-    const { profileId } = ctx.params;
-
-    try {
-        const profile = await prisma.profile.findUnique({
-            where: { id: parseInt(profileId, 10) },
-            include: {
-                storiesList: true,
-            },
-        });
-
-        if (!profile) {
-            ctx.status = 404;
-            ctx.body = { error: 'Profile not found' };
-            return;
-        }
-
-        ctx.body = profile.storiesList;
-    } catch (error) {
-        console.error('Error fetching stories list', error);
-        ctx.status = 400;
-        ctx.body = { error: 'Error fetching stories list' };
-    }
-}
-
-
-export async function getFavStories(ctx: Context) {
-    const { profileId } = ctx.params;
-
-    try {
-        const profile = await prisma.profile.findUnique({
-            where: { id: parseInt(profileId, 10) },
-            include: {
-                favs: true,
-            },
-        });
-
-        if (!profile) {
-            ctx.status = 404;
-            ctx.body = { error: 'Profile not found' };
-            return;
-        }
-
-        ctx.body = profile.favs;
-    } catch (error) {
-        console.error('Error fetching favorite stories', error);
-        ctx.status = 400;
-        ctx.body = { error: 'Error fetching favorite stories' };
-    }
-}
 
 export async function deleteProfile(ctx: Context) {
     const { profileId } = ctx.params;
@@ -159,7 +113,7 @@ export async function removeFromFavs(ctx: Context) {
     try {
         const updatedProfile = await prisma.profile.update({
             where: { id: parseInt(profileId, 10) },
-            data: {
+                data: {
                 favs: {
                     disconnect: { id: parseInt(storyId, 10) },
                 },
@@ -168,8 +122,9 @@ export async function removeFromFavs(ctx: Context) {
                 favs: true,
             },
         });
-        ctx.status = 204;
+        ctx.status = 200;
         ctx.body = updatedProfile;
+
     } catch (error) {
         console.error('Error removing story from favs', error);
         ctx.status = 400;

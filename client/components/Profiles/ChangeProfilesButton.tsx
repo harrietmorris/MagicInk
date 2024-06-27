@@ -4,15 +4,21 @@ import { useDataContext } from '@/context/globalContext';
 import { ProfileType } from '@/types';
 import ProfileButton from './ProfileButton';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { getSelectedProfile } from '@/services/apiService';
 
 const ChangeProfilesButton = () => {
     const { profiles, selectedProfile, setSelectedProfile, setSelectedStory } = useDataContext();
     const [modalVisible, setModalVisible] = useState(false);
     
-    const handleProfilePress = (profile: ProfileType) => {
-        setSelectedStory(null);
-        setSelectedProfile(profile);
+    const handleProfilePress = async (profile: ProfileType) => {
+      try {
+        let profileId = profile.id
+        const fetchedProfile = await getSelectedProfile(profileId);
+        setSelectedProfile(fetchedProfile);
         setModalVisible(false);
+      } catch (error) {
+          console.error('Error fetching profile', error)
+      }
       };
 
   return (
