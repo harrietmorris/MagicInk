@@ -7,6 +7,7 @@ import { router } from 'expo-router'
 import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
 import { readingLevelOptions } from '@/constants/readingLevels';
+import OrangeButton from './style/OrangeButton';
 
 
 const Settings = () => {
@@ -100,9 +101,8 @@ const Settings = () => {
           <Text style={styles.buttonText}>Create new profile</Text>
         </Pressable>
 
-        <Pressable style={styles.button} onPress={handleLogout}>
-          <Text style={styles.buttonText}>Logout</Text>
-        </Pressable>
+        <OrangeButton title="Logout" onPress={handleLogout}/>
+        
       </View>
     </>
   )
