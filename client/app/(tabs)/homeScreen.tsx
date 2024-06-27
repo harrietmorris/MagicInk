@@ -33,7 +33,6 @@ const homeScreen = () => {
 
   return (
     <View>
-      <Text>homeScreen</Text>
       <View style={styles.container}>
         {allStories.map((element) => (
           <Pressable key={element.id} onPress={() => handlePress(element)} style={[styles.square, { width: squareSize, height: squareSize }]}>
