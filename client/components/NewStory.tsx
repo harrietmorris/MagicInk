@@ -68,9 +68,49 @@ export default function NewStory() {
   
   }
 
-  const locationOptions = ['Castle', 'Jungle', 'Mountains', 'Ocean', 'City', 'Space', 'Underwater'];
+  const locationOptions = [
+    'Ancient Ruins',
+    'Enchanted Forest',
+    'Castle',
+    'Cave',
+    'City',
+    'Desert',
+    'Haunted House',
+    'Island',
+    'Jungle',
+    'Mountains',
+    'Ocean',
+    'Pirate Ship',
+    'School',
+    'Sky',
+    'Space',
+    'Space Station',
+    'Underwater',
+    'Village'
+  ];
 
-  const themeOptions = ['Adventure', 'Scary', 'Pirates', 'Cowboys', 'Magic', 'Mystical', 'Vampires'];
+  const themeOptions = [
+    'Adventure',
+    'Animal Friends',
+    'Dinosaurs',
+    'Fairy Tales',
+    'Friendship',
+    'Funny',
+    'Knights',
+    'Magic',
+    'Mystery',
+    'Mystical Creatures',
+    'Pirates',
+    'Princesses',
+    'Robots',
+    'Scary',
+    'Space Exploration',
+    'Superheroes',
+    'Time Travel',
+    'Toy Stories',
+    'Vampires',
+    'Witches'
+];
 
   const readingTimeOptions: { [key: string]: number } = {
     '5 minutes': 5,
