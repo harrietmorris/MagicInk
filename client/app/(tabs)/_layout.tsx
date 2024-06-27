@@ -20,7 +20,7 @@ export default function TabLayout() {
         name='newStoryScreen'
         options={{
           title: 'Create Story',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name='cog' color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name='pencil' color={color} />,
           headerShown: false
         }}
       />
@@ -28,7 +28,7 @@ export default function TabLayout() {
         name='keepReadingScreen'
         options={{
           title: 'Keep Reading',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name='cog' color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name='book' color={color} />,
           headerShown: false
         }}
       />
