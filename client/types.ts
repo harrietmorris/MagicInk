@@ -42,12 +42,7 @@ export interface DataContextProps {
   selectedProfile: ProfileType | null;
   setSelectedProfile: React.Dispatch<React.SetStateAction<ProfileType | null>>;
 
-  allStories: StoryType[];
-  setAllStories: React.Dispatch<React.SetStateAction<StoryType[]>>;
 
   selectedStory: StoryType | null;
   setSelectedStory: React.Dispatch<React.SetStateAction<StoryType | null>>;
-
-  favStories: StoryType[];
-  setFavStories: React.Dispatch<React.SetStateAction<StoryType[]>>;
 }
