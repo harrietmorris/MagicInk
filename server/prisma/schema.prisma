@@ -36,6 +36,7 @@ model Story {
   prompt        String    @db.Text
   model         String?
   readingTime   Int
+  readingLevel  String
   themes        String
   favs          Profile[] @relation("FavStories")
   profiles      Profile[] @relation("ProfileStories")

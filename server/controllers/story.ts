@@ -1,35 +1,5 @@
 import { Context } from 'koa';
 import prisma from '../models';
-import { CreateStoryRequestBody } from '../serverTypes';
-
-export async function createStory(ctx: Context) {
-  const { profileId } = ctx.params;
-  const body = ctx.request.body as CreateStoryRequestBody;
-  const { title, storyString, prompt, model, readingTime, themes } = body;
-
-  try {
-    const story = await prisma.story.create({
-      data: {
-        title,
-        storyString,
-        prompt,
-        model,
-        readingTime,
-        themes,
-        profiles: {
-          connect: {
-            id: parseInt(profileId, 10),
-          },
-        },
-      },
-    });
-    ctx.status = 201;
-    ctx.body = story;
-  } catch (error) {
-    ctx.status = 400;
-    ctx.body = { error: 'Error creating story' };
-  }
-}
 
 export async function getStoryById(ctx: Context) {
   const { storyId } = ctx.params;
