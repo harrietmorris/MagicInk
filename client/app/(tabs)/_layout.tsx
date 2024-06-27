@@ -21,6 +21,7 @@ export default function TabLayout() {
         options={{
           title: 'Create Story',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name='cog' color={color} />,
+          headerShown: false
         }}
       />
       <Tabs.Screen
@@ -28,6 +29,7 @@ export default function TabLayout() {
         options={{
           title: 'Keep Reading',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name='cog' color={color} />,
+          headerShown: false
         }}
       />
       <Tabs.Screen
