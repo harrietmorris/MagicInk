@@ -41,7 +41,7 @@ export default async function postNewStory(ctx: Koa.Context) {
         prompt,
         model: 'gemini-1.5-flash',
         readingTime,
-        themes,
+        themes: [themes],
         profiles: {
           connect: {
             id: parseInt(profId, 10),

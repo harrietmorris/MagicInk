@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 import { Text, Pressable } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
@@ -21,7 +21,7 @@ export default function NewStory() {
       readingLevel: selectedProfile?.readingLevel ? [selectedProfile.readingLevel] : ['Kindergarten'],
       location: ['anywhere'],
       readingTime: ['5 minutes'],
-      themes: [],
+      themes: '',
     },
   });
 
@@ -170,7 +170,11 @@ export default function NewStory() {
         name='themes'
         control={control}
         render={({ field: { onChange, value } }) => (
-          <MultiSelectComponent itemOptions={themeOptions} value={value} onChange={onChange} />
+          <TextInput
+            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }}
+            onChangeText={onChange}
+            value={value}
+          />
         )}
       />
       <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>

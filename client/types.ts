@@ -28,7 +28,7 @@ export type FormData = {
   readingLevel: string[];
   location: string[];
   readingTime: string[];
-  themes: string[];
+  themes: string;
 };
 
 export interface DataContextProps {

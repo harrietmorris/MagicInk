@@ -2,7 +2,7 @@ export type StoryRequestBody = {
   readingLevel: string;
   location: string;
   readingTime: number;
-  themes: string[];
+  themes: string;
   simpleLanguage: boolean;
   words: number[];
 };
