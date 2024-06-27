@@ -38,7 +38,6 @@ const homeScreen = () => {
 
   return (
     <View>
-      <Text>homeScreen</Text>
       <View style={styles.container}>
       {selectedProfile?.storiesList?.map((story) => (
           <Pressable key={story.id} onPress={() => handlePress(story)} style={[styles.square, { width: squareSize, height: squareSize }]}>

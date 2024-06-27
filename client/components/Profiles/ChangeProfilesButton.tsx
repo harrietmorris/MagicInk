@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { getSelectedProfile } from '@/services/apiService';
 
 const ChangeProfilesButton = () => {
-    const { profiles, selectedProfile, setSelectedProfile } = useDataContext();
+    const { profiles, selectedProfile, setSelectedProfile, setSelectedStory } = useDataContext();
     const [modalVisible, setModalVisible] = useState(false);
     
     const handleProfilePress = async (profile: ProfileType) => {
