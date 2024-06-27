@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, Text, StyleProp, ViewStyle } from 'react-native';
 import { styled } from 'nativewind';
 
-interface CustomButtonProps {
+interface OrangeButtonProps {
     onPress: () => void;
     title: string;
     style?: StyleProp<ViewStyle>;
@@ -11,7 +11,7 @@ interface CustomButtonProps {
 const StyledPressable = styled(Pressable);
 const StyledText = styled(Text);
 
-const CustomButton: React.FC<CustomButtonProps> = ({ onPress, title, style }) => {
+const OrangeButton: React.FC<OrangeButtonProps> = ({ onPress, title, style }) => {
     return (
         <StyledPressable
             onPress={onPress}
@@ -25,4 +25,4 @@ const CustomButton: React.FC<CustomButtonProps> = ({ onPress, title, style }) =>
     );
 };
 
-export default CustomButton;
+export default OrangeButton;
