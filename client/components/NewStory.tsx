@@ -1,5 +1,4 @@
-import { StyleSheet } from 'react-native';
-import { Text, Pressable } from 'react-native';
+import { StyleSheet, TextInput, Text, Pressable, View  } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
 import { createStory } from '@/services/apiService';
@@ -21,20 +20,25 @@ export default function NewStory() {
       readingLevel: selectedProfile?.readingLevel ? [selectedProfile.readingLevel] : ['Kindergarten'],
       location: ['anywhere'],
       readingTime: ['5 minutes'],
-      themes: [],
+      themes: '',
     },
   });
 
   async function onSubmit(data: FormData) {
     // TODO: Display loading spinner while story is being created
     const profId = selectedProfile?.id ? selectedProfile.id: 1;
-    const storyDetails = await createStory(
+    const {status, storyDetails} = await createStory(
       profId,
       readingLevelOptions[data.readingLevel[0]],
       data.location[0],
       readingTimeOptions[data.readingTime[0]],
       data.themes,
     );
+    if (status === 204) {
+      alert('Error creating story. please review your inputs and try again.');
+      return;
+    }
+
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
   }
@@ -55,12 +59,12 @@ export default function NewStory() {
 
     // TODO: Display loading spinner while story is being created
     const profId = selectedProfile?.id ? selectedProfile.id: 1;
-    const storyDetails = await createStory(
+    const {storyDetails} = await createStory(
       profId,
       readingLevels,
       randomLocation,
       readingTimeOptions[randomReadingTime],
-      randomThemes,
+      randomThemes.join(', ')
     );
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
@@ -164,15 +168,27 @@ export default function NewStory() {
           />
         )}
       />
-
+      <View style={styles.container}>
       <Text style={styles.title}>Choose your own adventure</Text>
       <Controller
         name='themes'
         control={control}
+        rules={{
+          maxLength: {value: 100, message: 'Maximum length is 100 characters!'},
+        }}
         render={({ field: { onChange, value } }) => (
-          <MultiSelectComponent itemOptions={themeOptions} value={value} onChange={onChange} />
+          <TextInput
+            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, margin: 5 }}
+            onChangeText={onChange}
+            value={value}
+            placeholder='Type what you want your story to be about here'
+          />
         )}
       />
+      {errors.themes && (
+        <Text>{errors.themes.message}</Text>
+      )}
+      </View>
       <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
         <Text style={styles.buttonText}>Create your story</Text>
       </Pressable>

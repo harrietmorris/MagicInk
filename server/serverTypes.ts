@@ -2,7 +2,7 @@ export type StoryRequestBody = {
   readingLevel: string;
   location: string;
   readingTime: number;
-  themes: string[];
+  themes: string;
   simpleLanguage: boolean;
   words: number[];
 };
@@ -33,7 +33,8 @@ export interface CreateStoryRequestBody {
   prompt: string;
   model?: string;
   readingTime: number;
-  themes: string[];
+  readingLevel: string;
+  themes: string;
 }
 
 

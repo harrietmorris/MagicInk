@@ -30,6 +30,12 @@ export default async function postNewStory(ctx: Koa.Context) {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
+
+    if (text.includes('ERROR: could not write the story')) {
+      ctx.status = 204;
+      return;
+    }
+
     const title = text.split('\n')[0].replace('##', '').trim();
     const rx = new RegExp("##[\\d\\D]*?\n\n", "g");
     const storyText = text.replace(rx, '');
@@ -41,6 +47,7 @@ export default async function postNewStory(ctx: Koa.Context) {
         prompt,
         model: 'gemini-1.5-flash',
         readingTime,
+        readingLevel,
         themes,
         profiles: {
           connect: {

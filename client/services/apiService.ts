@@ -1,8 +1,8 @@
 import { ProfileType, StoryType, UserType } from '../types';
 import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
-const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
-// const BASE_URL = 'http://10.0.2.2:3000'; //this is the URL used for android simulator
+// const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
+const BASE_URL = 'http://10.0.2.2:3000'; //this is the URL used for android simulator
 
 export const getUser = async (id: number): Promise<UserType> => {
   try {
@@ -62,7 +62,7 @@ export const createStory = async (
   readingLevel: string,
   location: string,
   readingTime: number,
-  themes: string[],
+  themes: string,
   simpleLanguage: boolean = false,
   words: number[] = [],
 ) => {
@@ -76,7 +76,7 @@ export const createStory = async (
       words,
       profId,
     });
-    return response.data;
+    return {status: response.status, storyDetails: response.data};
   } catch (error) {
     console.error('Error creating story', error);
     throw error;
