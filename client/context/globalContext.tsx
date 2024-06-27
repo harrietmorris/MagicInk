@@ -12,8 +12,6 @@ const initialDataContext: DataContextProps = {
   setProfiles: () => {},
   selectedProfile: null,
   setSelectedProfile: () => {},
-  allStories: [],
-  setAllStories: () => {},
   selectedStory: null,
   setSelectedStory: () => {},
   
@@ -26,7 +24,6 @@ export const GetUserProvider = ({ children }: ProviderProps) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [profiles, setProfiles] = useState<ProfileType[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<ProfileType | null>(null);
-  const [allStories, setAllStories] = useState<StoryType[]>([]);
   const [selectedStory, setSelectedStory] = useState<StoryType | null>(null);
   
 
@@ -39,8 +36,8 @@ export const GetUserProvider = ({ children }: ProviderProps) => {
         setProfiles,
         selectedProfile,
         setSelectedProfile,
-        allStories,
-        setAllStories,
+        // allStories,
+        // setAllStories,
         selectedStory,
         setSelectedStory,
   

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Dimensions, Pressable } from 'react-native'
 import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
-import { getAllStoriesByProfile, getSelectedProfile } from '@/services/apiService';
+import { getSelectedProfile } from '@/services/apiService';
 import { useDataContext } from '@/context/globalContext';
 import { StoryType } from '@/types';
 import FavButton from '@/components/buttons/favButton';
@@ -13,16 +13,15 @@ const homeScreen = () => {
   const squareSize = screenWidth / 2.5;
   const router = useRouter()
 
-  const { allStories, setAllStories, setSelectedStory, setSelectedProfile, selectedProfile, selectedStory} = useDataContext();
+  const { setSelectedStory, setSelectedProfile, selectedProfile, selectedStory} = useDataContext();
 
 
   useEffect(() => {
     const fetchProfile = async () => {
       if (selectedProfile) {
         const updatedProfile = await getSelectedProfile(selectedProfile.id);
-        const storiesByProfile = await getAllStoriesByProfile(selectedProfile.id);
         setSelectedProfile(updatedProfile);
-        setAllStories(storiesByProfile); 
+  
       }}
 
     fetchProfile();
@@ -31,8 +30,6 @@ const homeScreen = () => {
 
 
   
-    
-
 
   function handlePress(story: StoryType) {
     setSelectedStory(story)
@@ -43,12 +40,12 @@ const homeScreen = () => {
     <View>
       <Text>homeScreen</Text>
       <View style={styles.container}>
-        {allStories.map((element) => (
-          <Pressable key={element.id} onPress={() => handlePress(element)} style={[styles.square, { width: squareSize, height: squareSize }]}>
-            <Text style={styles.text}>{element.title}</Text>
-            <FavButton storyId={element.id} />
+      {selectedProfile?.storiesList?.map((story) => (
+          <Pressable key={story.id} onPress={() => handlePress(story)} style={[styles.square, { width: squareSize, height: squareSize }]}>
+            <Text style={styles.text}>{story.title}</Text>
+            <FavButton storyId={story.id} />
           </Pressable>
-        ))}
+        )) || <Text>No stories available</Text>}
       </View>
     </View>
   )

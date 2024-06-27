@@ -32,6 +32,7 @@ export async function getProfile(ctx: Context) {
             where: { id: parseInt(profileId, 10) },
             include: {
                 favs: true,
+                storiesList: true,
             },
         });
         if (!profile) {
@@ -84,54 +85,6 @@ export async function addToFavs(ctx: Context) {
     }
 }
 
-export async function getStoriesList(ctx: Context) {
-    const { profileId } = ctx.params;
-
-    try {
-        const profile = await prisma.profile.findUnique({
-            where: { id: parseInt(profileId, 10) },
-            include: {
-                storiesList: true,
-            },
-        });
-
-        if (!profile) {
-            ctx.status = 404;
-            ctx.body = { error: 'Profile not found' };
-            return;
-        }
-
-        ctx.body = profile.storiesList;
-    } catch (error) {
-        ctx.status = 400;
-        ctx.body = { error: 'Error fetching stories list' };
-    }
-}
-
-
-export async function getFavStories(ctx: Context) {
-    const { profileId } = ctx.params;
-
-    try {
-        const profile = await prisma.profile.findUnique({
-            where: { id: parseInt(profileId, 10) },
-            include: {
-                favs: true,
-            },
-        });
-
-        if (!profile) {
-            ctx.status = 404;
-            ctx.body = { error: 'Profile not found' };
-            return;
-        }
-
-        ctx.body = profile.favs;
-    } catch (error) {
-        ctx.status = 400;
-        ctx.body = { error: 'Error fetching favorite stories' };
-    }
-}
 
 export async function deleteProfile(ctx: Context) {
     const { profileId } = ctx.params;

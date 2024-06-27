@@ -34,17 +34,6 @@ export const getSelectedProfile = async (profileId: number): Promise<ProfileType
   }
 };
 
-export const getAllStoriesByProfile = async (profileId: number): Promise<StoryType[]> => {
-  try {
-    const response = await axios.get(`${BASE_URL}/profiles/${profileId}/storiesList`);
-    return response.data
-  }
-  catch (e) {
-    console.error('Error getting stories by profile', e);
-    throw e;
-  }
-}
-
 export const getSelectedStory = async (storyId: number): Promise<StoryType> => {
   try {
     const response = await axios.get(`${BASE_URL}/stories/${storyId}`);
@@ -54,8 +43,6 @@ export const getSelectedStory = async (storyId: number): Promise<StoryType> => {
     throw error;
   }
 };
-
-// export const getFavStories = async (profileId: number): Promise<StoryType[]> => {};
 
 export const createStory = async (
   profId:number,
