@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { getAllStoriesByProfile } from '@/services/apiService';
 import { useDataContext } from '@/context/globalContext';
 import { StoryType } from '@/types';
+import FavButton from '@/components/buttons/favButton';
 
 
 
@@ -38,6 +39,7 @@ const homeScreen = () => {
         {allStories.map((element) => (
           <Pressable key={element.id} onPress={() => handlePress(element)} style={[styles.square, { width: squareSize, height: squareSize }]}>
             <Text style={styles.text}>{element.title}</Text>
+            <FavButton storyId={element.id} />
           </Pressable>
         ))}
       </View>
