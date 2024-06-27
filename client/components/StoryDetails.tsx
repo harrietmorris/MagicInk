@@ -2,6 +2,7 @@ import { Text, ScrollView, SafeAreaView, StyleSheet } from 'react-native';
 import React from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { Link } from 'expo-router';
+import FavButton from './buttons/favButton';
 
 const StoryDetails = () => {
   const { selectedStory } = useDataContext();
@@ -15,6 +16,7 @@ const StoryDetails = () => {
           <ScrollView style={styles.scrollView}>
             <Text style={styles.title}>{selectedStory.title}</Text>
             <Text style={styles.text}>{selectedStory.storyString}</Text>
+            <FavButton storyId={selectedStory.id} />
           </ScrollView>
         </>
       ) : (
