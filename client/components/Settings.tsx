@@ -7,7 +7,6 @@ import { router } from 'expo-router'
 import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
 import { readingLevelOptions } from '@/constants/readingLevels';
-import CustomButton from './style/OrangeButton';
 import OrangeButton from './style/OrangeButton';
 
 
