@@ -20,6 +20,8 @@ Avoid wrapping up the plot too quickly.
 Remember, your main goal is to tell a full and engaging story.
 If you rush through it, children might lose interest.
 Make the story as exciting and detailed as possible, always adding more rather than summarizing.
+
+If you are not able to write the story for whatever reason you should return this message: "ERROR: could not write the story"
 `;
 
 

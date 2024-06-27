@@ -33,7 +33,7 @@ export interface CreateStoryRequestBody {
   prompt: string;
   model?: string;
   readingTime: number;
-  themes: string[];
+  themes: string;
 }
 
 
