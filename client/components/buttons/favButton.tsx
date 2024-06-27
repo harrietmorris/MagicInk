@@ -34,18 +34,6 @@ const FavButton: React.FC<FavButtonProps> =  ({storyId}) => {
         }
       };
 
-
-    // const isFav = selectedProfile.favs.some(fav => fav.id === storyId);
-
-    // const toggleFavorite = () => {
-    //     const updatedFav = isFav
-    //         ? selectedProfile.favs.filter(story => story.id !== storyId)
-    //         : [...selectedProfile.favs, { id: storyId } as StoryType]; 
-
-    //     setSelectedProfile({ ...selectedProfile, favs: updatedFav });
-    // };
-
-
     return (
         <Pressable
         style={[styles.button, isFav ? styles.fav : styles.notFav]}

@@ -101,7 +101,6 @@ export const newProfile  = async (userId: number, profileData: ProfileType): Pro
 export const addToFavs = async (profileId: number, storyId: number): Promise<ProfileType> => {
   try {
     const response: AxiosResponse<ProfileType> = await axios.put(`${BASE_URL}/profiles/${profileId}/favs/${storyId}`);
-    // console.log('adding to favs', response.data);
     return response.data;
   } catch (error) {
     console.error('Error adding story to favorites', error);

@@ -36,11 +36,8 @@ export const GetUserProvider = ({ children }: ProviderProps) => {
         setProfiles,
         selectedProfile,
         setSelectedProfile,
-        // allStories,
-        // setAllStories,
         selectedStory,
         setSelectedStory,
-  
       }}
     >
       {children}
