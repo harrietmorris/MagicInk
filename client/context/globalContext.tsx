@@ -55,7 +55,6 @@ export const GetUserProvider = ({ children }: ProviderProps) => {
 
 export const useDataContext = () => {
   const context = useContext(dataContext);
-  console.log('accessing context');
   if (context === undefined) {
     throw new Error('context must be used within a provider');
   }
