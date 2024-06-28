@@ -7,7 +7,7 @@ export default function TabLayout() {
 
   //TODO: change icons
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: '#91EE91', tabBarStyle: { backgroundColor: '#333233' } }}>
       <Tabs.Screen
         name='homeScreen'
         options={{
