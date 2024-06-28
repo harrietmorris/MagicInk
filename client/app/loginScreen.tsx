@@ -25,22 +25,24 @@ export default function loginScreen() {
 
   const onSubmit = (data: Partial<UserType>) => {
     console.log(data);
-    router.replace('/keepReadingScreen');
+    router.replace('/profilesScreen');
   };
 
   return (
     <>
-      <View className='m-8 flex flex-col'>
+      <View className='p-8 flex flex-col flex-1 bg-dark-grey'>
         {
           <>
-            <Text>Enter the world of magic!</Text>
-            <Text>Username</Text>
+            <Text className='text-4xl font-extrabold text-green mb-10 text-center'>magicInk</Text>
+            <Text className='text-2xl font-extrabold text-white text-center'>Enter the wonderful world of magic!</Text>
+            <Text className='text-2xl font-bold mt-12 mb-4 text-white'>Username</Text>
             <Controller
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  className='rounded-full px-5 py-2 text-lg border-green border-4 bg-white mb-2'
+                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-[#333333] text-white mb-2'
                   placeholder='Username'
+                  placeholderTextColor='white'
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
@@ -49,13 +51,14 @@ export default function loginScreen() {
               name='email'
               defaultValue=''
             />
-            <Text>Password</Text>
+            <Text className='text-2xl font-bold mt-12 mb-4 text-white'>Password</Text>
             <Controller
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  className='rounded-full px-5 py-2 text-lg border-green border-4 bg-white mb-2'
-                  placeholder='Username'
+                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-grey text-white mb-2'
+                  placeholder='Password'
+                  placeholderTextColor='white'
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
@@ -64,12 +67,11 @@ export default function loginScreen() {
               name='password'
               defaultValue=''
             />
-            <Pressable
-              className='bg-dark-orange rounded-full px-4 py-2 w-44'
-              onPress={handleSubmit(onSubmit)}
-            >
-              <Text className='text-white text-lg font-bold text-center'>Login</Text>
-            </Pressable>
+            <View className='justify-center content-center items-center mt-8'>
+              <Pressable className='bg-dark-orange rounded-full px-4 py-2 w-44' onPress={handleSubmit(onSubmit)}>
+                <Text className='text-white text-lg font-bold text-center'>Login</Text>
+              </Pressable>
+            </View>
           </>
         }
       </View>
