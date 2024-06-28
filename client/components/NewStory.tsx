@@ -6,6 +6,7 @@ import { FormData } from '@/types';
 import { router } from 'expo-router';
 import { useDataContext } from '@/context/globalContext';
 import { readingLevelOptions } from '@/constants/readingLevels';
+import OrangeButton from './style/OrangeButton';
 
 export default function NewStory() {
   const { setSelectedStory, selectedProfile } = useDataContext();
@@ -126,11 +127,13 @@ export default function NewStory() {
 
   return (
     <>
-      <Pressable style={styles.button} onPress={handleSuprise}>
-        <Text style={styles.buttonText}>Suprise me!</Text>
-      </Pressable>
+      <OrangeButton title="Suprise Me!" onPress={handleSuprise}/>
+      <Text>
+        <Text className="font-black text-2xl text-white">Let Your Imagination Run</Text>
+        <Text className="font-black text-2xl text-green"> Wild!</Text>
+      </Text>
 
-      <Text style={styles.title}>Your reading level</Text>
+      <Text className='text-lg text-white'>Choose Reading Level</Text>
       <Controller
         name='readingLevel'
         control={control}
@@ -145,7 +148,7 @@ export default function NewStory() {
         )}
       />
 
-      <Text style={styles.title}>Choose your location</Text>
+      <Text  className='text-lg text-white'>Choose Your Location</Text>
       <Controller
         name='location'
         control={control}
@@ -154,7 +157,7 @@ export default function NewStory() {
         )}
       />
 
-      <Text style={styles.title}>How long do you want to read for?</Text>
+      <Text  className='text-lg text-white'>How long do you want to read for?</Text>
       <Controller
         name='readingTime'
         control={control}
@@ -168,8 +171,9 @@ export default function NewStory() {
           />
         )}
       />
-      <View style={styles.container}>
-      <Text style={styles.title}>Choose your own adventure</Text>
+      <View>
+      <Text  className='text-lg text-white'>Choose Your Adventure</Text>
+      <Text>Create your own characters, themes and plots.</Text>
       <Controller
         name='themes'
         control={control}
@@ -189,41 +193,7 @@ export default function NewStory() {
         <Text>{errors.themes.message}</Text>
       )}
       </View>
-      <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
-        <Text style={styles.buttonText}>Create your story</Text>
-      </Pressable>
+      <OrangeButton title="Create!" onPress={handleSubmit(onSubmit)}/>
     </>
   );
 }
-
-// TODO: Match styles with the rest of the app
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 50,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 8,
-    elevation: 3,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-});
