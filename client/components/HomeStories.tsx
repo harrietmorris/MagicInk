@@ -46,7 +46,7 @@ const HomeStories = () => {
               key={story.id}
               onPress={() => handlePress(story)}
             >
-              <Text className='text-base text-black text-center text-lg'>{story.title}</Text>
+              <Text className='font-bold text-base text-white text-center text-lg'>{story.title}</Text>
               <View className='absolute bottom-1 left-1'>
               <FavButton storyId={story.id} />
               </View>

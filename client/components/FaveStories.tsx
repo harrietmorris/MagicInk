@@ -26,7 +26,7 @@ const FaveStories = () => {
               key={story.id}
             onPress={() => handlePress(story)}
             >
-              <Text className={`text-base text-black text-center text-lg`}>{story.title}</Text>
+              <Text className={`font-bold text-base text-white text-center text-lg`}>{story.title}</Text>
             </Pressable>
           )) || <Text>No stories available</Text>}
        </View>
@@ -34,30 +34,5 @@ const FaveStories = () => {
     </SafeAreaView>
       )
     }
-
-
-
-
-//AI generated styling just for testing
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         flexDirection: 'row', // Arrange buttons horizontally
-//         flexWrap: 'wrap', // Wrap buttons to multiple lines if needed
-//         justifyContent: 'space-around', // Distribute buttons evenly
-//         alignItems: 'center',
-//     },
-//     square: {
-//         backgroundColor: '#add8e6', // Change background color as desired
-//         borderRadius: 5,
-//         margin: 10, // Adjust margin for spacing
-//         justifyContent: 'center', // Center text vertically
-//         alignItems: 'center', // Center text horizontally
-//     },
-//     text: {
-//         fontSize: 16, // Adjust font size as desired
-//         color: '#000', // Text color
-//     },
-// });
 
 export default FaveStories
