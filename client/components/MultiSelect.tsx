@@ -28,52 +28,25 @@ const  MultiSelectComponent: React.FC<MultiSelectComponentProps> = ({itemOptions
   };
 
   return (
-    <View style={styles.container}>
+    <View className='justify-center h-20'>
       <FlatList
         horizontal={true}
         data={itemOptions}
-        // keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={[
-              styles.item,
-              selectedItems.includes(item) && styles.selectedItem,
-            ]}
-            onPress={() => {
+          className={`h-full flex justify-center p-3 mx-2 bg-yellow rounded-lg
+            ${selectedItems.includes(item) ? 'bg-blue' : ''}`}
+            onPress={() => {       
               toggleItemSelection(item);
             }}
           >
-            <Text style={styles.itemText}>{item}</Text>
+            <Text className={`text-base text-black ${selectedItems.includes(item) ? 'text-white' : ''}`}>{item}</Text>
           </TouchableOpacity>
         )}
       />
     </View>
   );
 };
-// TODO: Match styles with the rest of the app
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    height: 80
-  },
-  item: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 15,
-    margin: 5,
-    backgroundColor: '#f9f9f9',
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 5,
-    height: 60
-  },
-  selectedItem: {
-    backgroundColor: '#c6e2ff',
-  },
-  itemText: {
-    fontSize: 16,
-  },
-});
 
 export default MultiSelectComponent;
