@@ -72,7 +72,8 @@ const Settings = () => {
 
 
       {/* TODO: change so that name is normal text, and on pencil click we get a popup to change name  */}
-      <View style={styles.container} >
+    
+        <View>
         <TextInput 
           placeholder={profileName}
           value={profileName}
@@ -122,18 +123,5 @@ const Settings = () => {
   )
 }
 
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    maxHeight: 80,
-  },
-
-})
 
 export default Settings

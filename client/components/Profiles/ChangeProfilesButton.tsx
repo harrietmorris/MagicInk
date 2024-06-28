@@ -61,45 +61,14 @@ const ChangeProfilesButton = () => {
   };
 
 const styles = StyleSheet.create({
-  // circleButton: {
-  //   backgroundColor: '#28a745',
-  //   borderRadius: 50,
-  //   width: 50,
-  //   height: 50,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  // profileImage: {
-  //   width: 50,
-  //   height: 50,
-  //   borderRadius: 50,
-  // },
-  // profileInitial: {
-  //   color: '#fff',
-  //   fontSize: 24,
-  // },
-  // circleButtonText: {
-  //   color: '#fff',
-  //   fontSize: 24,
-  // },
+ 
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  // profileButton: {
-  //   backgroundColor: '#fff',
-  //   padding: 15,
-  //   marginVertical: 5,
-  //   width: 200,
-  //   borderRadius: 5,
-  // },
-  // profileButtonText: {
-  //   fontSize: 18,
-  //   fontWeight: 'bold',
-  //   color: '#000',
-  // },
+  
 });
 
 export default ChangeProfilesButton;
