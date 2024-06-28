@@ -117,3 +117,13 @@ export const removeFromFavs = async (profileId: number, storyId: number): Promis
     throw error;
   }
 };
+
+export const removeStoryFromProfile = async (profileId: number, storyId: number): Promise<ProfileType> => {
+  try {
+    const response: AxiosResponse<ProfileType> = await axios.put(`${BASE_URL}/profiles/${profileId}/favs/${storyId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error removing story from favorites', error);
+    throw error;
+  }
+};
