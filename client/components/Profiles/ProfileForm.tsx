@@ -1,98 +1,108 @@
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native'
-import React from 'react'
-import { useDataContext } from '@/context/globalContext'
-import { readingLevelOptions } from '@/constants/readingLevels'
-import { Controller, useForm } from 'react-hook-form'
-import { ProfileType } from '@/types'
-import { newProfile } from '@/services/apiService'
-import { Picker } from '@react-native-picker/picker'
-import { router } from 'expo-router'
-
+import { View, Text, TextInput, StyleSheet } from 'react-native';
+import React from 'react';
+import { useDataContext } from '@/context/globalContext';
+import { readingLevelOptions } from '@/constants/readingLevels';
+import { Controller, useForm } from 'react-hook-form';
+import { ProfileType } from '@/types';
+import { newProfile } from '@/services/apiService';
+import { Picker } from '@react-native-picker/picker';
+import { router } from 'expo-router';
+import OrangeButton from '../style/OrangeButton';
+import { FontAwesome } from '@expo/vector-icons';
 
 const ProfileForm = () => {
-    const {profiles, setProfiles, setSelectedProfile, user} = useDataContext();
-    const { control, handleSubmit, formState: { errors } } = useForm<Partial<ProfileType>>();
+  const { profiles, setProfiles, setSelectedProfile, user } = useDataContext();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Partial<ProfileType>>();
 
-    const onSubmit = async (data: Partial<ProfileType>) => {
-      try {
-          if (!user) return;
-          data.userId = user.id;
-          const addProfile = await newProfile(user.id, data as ProfileType);
-          setProfiles([...profiles, addProfile]);
-          setSelectedProfile(addProfile);
-          router.replace('/homeScreen');
-      } catch (error) {
-          console.error('Error creating profile', error);
-      }
+  const onSubmit = async (data: Partial<ProfileType>) => {
+    try {
+      if (!user) return;
+      data.userId = user.id;
+      const addProfile = await newProfile(user.id, data as ProfileType);
+      setProfiles([...profiles, addProfile]);
+      setSelectedProfile(addProfile);
+      router.replace('/homeScreen');
+    } catch (error) {
+      console.error('Error creating profile', error);
+    }
   };
 
   return (
-    <View>
-      
-      <Text>Name:</Text>
-      <Controller
+    <>
+      <View>
+        <Text className='text-4xl font-extrabold color-green mb-10'>Create New Profile</Text>
+        <Text className='text-2xl font-bold mb-2 text-white'>Name</Text>
+        <Controller
           control={control}
           rules={{ required: 'Name is required' }}
           render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                  placeholder="Name"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  style={{ borderWidth: 1, padding: 8, marginBottom: 8 }}
-              />
+            <TextInput
+              className='rounded-full px-5 py-3 text-lg border-green border-2 bg-grey text-white mb-2'
+              placeholder='Name'
+              placeholderTextColor='white'
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+            />
           )}
-          name="name"
-          defaultValue=""
-      />
-      {errors.name && <Text style={styles.errorText}>{errors.name.message}</Text>}
+          name='name'
+          defaultValue=''
+        />
+        {errors.name && <Text className='text-dark-orange text-center'>{errors.name.message}</Text>}
 
-            {/* TODO: implement avatar feature - either by user upload or pre-selected options? */}
-      <Text>Picture: upload... currently not working</Text>
+        {/* TODO: implement avatar feature - either by user upload or pre-selected options? */}
+        <Text className='text-2xl font-bold mt-12 mb-2 text-white'>Picture</Text>
+        <View className='justify-center content-center items-center mb-10'>
+          <FontAwesome size={100} name='smile-o' color='#91EE91' />
+        </View>
 
-      <Text>Choose reading Level:</Text>
-      <Controller
+        <Text className='text-2xl font-bold mb-2 text-white'>Choose Reading Level</Text>
+        <Controller
           control={control}
           rules={{ required: 'Reading level is required' }}
           render={({ field: { onChange, value } }) => (
+            <View style={styles.pickerContainer}>
               <Picker
-                  selectedValue={value}
-                  onValueChange={(itemValue) => onChange(itemValue)}
-                  style={{ height: 50, width: 200 }}
+                style={styles.picker}
+                selectedValue={value}
+                dropdownIconColor='#91EE91'
+                onValueChange={(itemValue) => onChange(itemValue)}
               >
-                  {Object.keys(readingLevelOptions).map((level) => (
-                      <Picker.Item key={level} label={`${level}`} value={level} />
-                  ))}
+                {Object.keys(readingLevelOptions).map((level) => (
+                  <Picker.Item key={level} label={`${level}`} value={level} />
+                ))}
               </Picker>
+            </View>
           )}
-          name="readingLevel"
-          defaultValue=""
-      />
-      {errors.readingLevel && <Text style={styles.errorText}>{errors.readingLevel.message}</Text>}
+          name='readingLevel'
+          defaultValue=''
+        />
+        {errors.readingLevel && <Text className='text-dark-orange text-center'>{errors.readingLevel.message}</Text>}
+      </View>
+      <View className='justify-center content-center items-center mt-8'>
+        <OrangeButton title='Create Profile' onPress={handleSubmit(onSubmit)} />
+      </View>
+    </>
+  );
+};
 
-      <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
-          <Text style={styles.buttonText}>Create Profile</Text>
-      </Pressable>
-    </View>
-  )
-}
-
+//TODO: review styling with nativeWind with Picker components
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#007BFF',
-    padding: 10,
-    alignItems: 'center',
-    borderRadius: 5,
-    marginTop: 10,
-},
-buttonText: {
+  pickerContainer: {
+    borderWidth: 2,
+    borderRadius: 100,
+    borderColor: '#91EE91',
+    backgroundColor: '#333333',
+    paddingHorizontal: 5,
+    marginVertical: 10,
+  },
+  picker: {
     color: '#FFFFFF',
-    fontWeight: 'bold',
-},
-errorText: {
-    color: 'red',
-    marginTop: 5,
-},
+  },
 });
 
-export default ProfileForm
+export default ProfileForm;

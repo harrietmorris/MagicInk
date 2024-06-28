@@ -18,7 +18,7 @@ const OrangeButton: React.FC<OrangeButtonProps> = ({ onPress, title, style }) =>
             className="bg-dark-orange rounded-full px-4 py-2"
             style={style}
         >
-            <StyledText className="text-white text-lg font-bold">
+            <StyledText className="text-white text-lg font-bold text-center">
                 {title}
             </StyledText>
         </StyledPressable>
