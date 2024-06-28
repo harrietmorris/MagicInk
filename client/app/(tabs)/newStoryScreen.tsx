@@ -5,18 +5,10 @@ import { View } from 'react-native';
 
 export default function newStoryScreen() {
   return (
-    <View style={styles.container}>
+    <View className='flex-col justify-around flex-1 items-center py-10'
+    backgroundColor='#2B2936'
+    >
       <NewStory />
     </View>
   );
 }
-
-// TODO: Match styles with the rest of the app
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 50,
-  }
-});
