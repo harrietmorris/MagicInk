@@ -34,7 +34,8 @@ export default function NewStory() {
   }, [selectedProfile, setValue]);
 
   async function onSubmit(data: FormData) {
-    // TODO: Display loading spinner while story is being created
+    router.replace('/loadingScreen');
+
     const profId = selectedProfile?.id ? selectedProfile.id: 1;
     const {status, storyDetails} = await createStory(
       profId,
@@ -66,7 +67,8 @@ export default function NewStory() {
     }
     randomThemes.push(randomTheme);
 
-    // TODO: Display loading spinner while story is being created
+    router.replace('/loadingScreen');
+
     const profId = selectedProfile?.id ? selectedProfile.id: 1;
     const {storyDetails} = await createStory(
       profId,
