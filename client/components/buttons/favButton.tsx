@@ -24,7 +24,7 @@ const FavButton: React.FC<FavButtonProps> = ({ storyId }) => {
       } else {
         updatedProfile = await addToFavs(selectedProfile!.id, storyId);
       }
-      console.log(updatedProfile.favs.map(fav => fav.id))
+      // console.log(updatedProfile.favs.map(fav => fav.id))
       setSelectedProfile((prevProfile) => ({
         ...prevProfile!,
         favs: updatedProfile!.favs,
