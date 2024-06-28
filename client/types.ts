@@ -10,8 +10,8 @@ export interface ProfileType {
   name: string;
   picture?: string | null;
   readingLevel: string;
-  favs: StoryType[];
-  storiesList: StoryType[];
+  favs?: StoryType[];
+  storiesList?: StoryType[];
 }
 
 export interface StoryType {
