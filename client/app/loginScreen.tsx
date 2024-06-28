@@ -79,10 +79,3 @@ export default function loginScreen() {
     </>
   );
 }
-
-//  //TODO: review asChild & Pressable
-// <Link href='/profilesScreen' asChild>
-//   <Pressable>
-//     <Text>Login Page</Text>
-//   </Pressable>
-// </Link>
