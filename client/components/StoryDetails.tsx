@@ -1,45 +1,34 @@
-import { Text, ScrollView, SafeAreaView, StyleSheet } from 'react-native';
+import { Text, ScrollView, SafeAreaView, View } from 'react-native';
 import React from 'react';
 import { useDataContext } from '@/context/globalContext';
-import { Link } from 'expo-router';
+import { router } from 'expo-router';
 import FavButton from './buttons/favButton';
+import OrangeButton from './style/OrangeButton';
+
 
 const StoryDetails = () => {
   const { selectedStory } = useDataContext();
 
-  //TODO: review whether to save selected story to database - when app closes/refreshes, user loses KeepReading story
+  //TODO: save selected story to device storage
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className='mx-8 my-10  flex-1'>
       {selectedStory ? (
         <>
-          <ScrollView style={styles.scrollView}>
-            <Text style={styles.title}>{selectedStory.title}</Text>
-            <Text style={styles.text}>{selectedStory.storyString}</Text>
+          <ScrollView>
+            <Text className='text-3xl mb-10 text-green font-black tracking-tight'>{selectedStory.title}</Text>
+            <Text className='text-white text-base'>{selectedStory.storyString}</Text>
             <FavButton storyId={selectedStory.id} />
           </ScrollView>
         </>
       ) : (
-        <Link href='/newStoryScreen'>Create A New Story</Link>
+        <View className='flex-1 justify-center items-center'>
+          <OrangeButton onPress={() => {router.replace('/newStoryScreen')}} title='Create a new story!' />
+        </View>
       )}
     </SafeAreaView>
   );
 };
 
-//TODO: fix scroll
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-  },
-  scrollView: {
-    marginHorizontal: 20,
-  },
-  title: {
-    fontSize: 30,
-  },
-  text: {
-    fontSize: 16,
-  },
-});
 
 export default StoryDetails;
