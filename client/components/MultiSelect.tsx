@@ -8,23 +8,16 @@ interface MultiSelectComponentProps {
   selectOne?: boolean;
 }
 
-const  MultiSelectComponent: React.FC<MultiSelectComponentProps> = ({itemOptions, value, onChange, selectOne=false}) => {
+const  MultiSelectComponent: React.FC<MultiSelectComponentProps> = ({itemOptions, value, onChange}) => {
 
   const [selectedItems, setSelectedItems] = useState<string[]>(value);
 
-  useEffect(() => {onChange(selectedItems);}, [selectedItems]);
+  useEffect(() => {setSelectedItems(value);}, [value]);
 
   function toggleItemSelection (selectedItem: string) {
-    setSelectedItems((prevSelectedItems) => {
-      if (selectOne) {
-        return [selectedItem];
-      }
-      if (prevSelectedItems.includes(selectedItem)) {
-        return prevSelectedItems.filter((item) => item !== selectedItem);
-      } else {
-        return [...prevSelectedItems, selectedItem];
-      }
-    });
+    const newSelectedItems = [selectedItem];
+    setSelectedItems(newSelectedItems);
+    onChange(newSelectedItems);
   };
 
   return (
