@@ -1,4 +1,4 @@
-import { View, Pressable, StyleSheet, Modal, FlatList, Image } from 'react-native';
+import { View, Pressable, Modal, FlatList, Image } from 'react-native';
 import React, { useState } from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { ProfileType } from '@/types';
@@ -41,7 +41,7 @@ const ChangeProfilesButton = () => {
           animationType='fade'
           onRequestClose={() => setModalVisible(false)}
         >
-          <View style={styles.modalContainer}>
+          <View>
             <FlatList
               data={profiles}
               keyExtractor={(item) => item.id.toString()}
@@ -58,16 +58,5 @@ const ChangeProfilesButton = () => {
       </View>
     );
   };
-
-const styles = StyleSheet.create({
-
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-
-});
 
 export default ChangeProfilesButton;
