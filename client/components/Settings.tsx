@@ -18,8 +18,10 @@ const Settings = () => {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
     const newProfile = {
       ...selectedProfile,
-      [prop]: value,
+      [prop]: value
     };
+    delete newProfile['favs'];
+    delete newProfile['storiesList'];
     try {
       await updateProfile(newProfile);
       setSelectedProfile(newProfile);

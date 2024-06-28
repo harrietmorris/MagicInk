@@ -1,4 +1,5 @@
-import { StyleSheet, TextInput, Text, Pressable, View  } from 'react-native';
+import { useEffect } from 'react';
+import { TextInput, Text, View  } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
 import { createStory } from '@/services/apiService';
@@ -14,6 +15,7 @@ export default function NewStory() {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -24,6 +26,12 @@ export default function NewStory() {
       themes: '',
     },
   });
+
+  useEffect(() => {
+    if (selectedProfile?.readingLevel) {
+      setValue('readingLevel', [selectedProfile.readingLevel]);
+    }
+  }, [selectedProfile, setValue]);
 
   async function onSubmit(data: FormData) {
     // TODO: Display loading spinner while story is being created
@@ -143,7 +151,6 @@ export default function NewStory() {
               itemOptions={Object.keys(readingLevelOptions)}
               value={value}
               onChange={onChange}
-              selectOne={true}
             />
           )}
         />
@@ -154,7 +161,7 @@ export default function NewStory() {
           name='location'
           control={control}
           render={({ field: { onChange, value } }) => (
-            <MultiSelectComponent itemOptions={locationOptions} value={value} onChange={onChange} selectOne={true} />
+            <MultiSelectComponent itemOptions={locationOptions} value={value} onChange={onChange}/>
           )}
         />
       </View>
@@ -169,7 +176,6 @@ export default function NewStory() {
               itemOptions={Object.keys(readingTimeOptions)}
               value={value}
               onChange={onChange}
-              selectOne={true}
             />
           )}
         />
