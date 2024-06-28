@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import React from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { readingLevelOptions } from '@/constants/readingLevels';
@@ -41,7 +41,7 @@ const ProfileForm = () => {
           rules={{ required: 'Name is required' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              className='rounded-full px-5 py-2 text-lg border-green border-4 bg-white mb-2'
+              className='rounded-full px-5 py-3 text-lg border-green border-4 bg-white mb-2'
               placeholder='Name'
               onBlur={onBlur}
               onChangeText={onChange}
@@ -64,8 +64,12 @@ const ProfileForm = () => {
           control={control}
           rules={{ required: 'Reading level is required' }}
           render={({ field: { onChange, value } }) => (
-            <View className='border-black mb-2'>
-              <Picker selectedValue={value} onValueChange={(itemValue) => onChange(itemValue)}>
+            <View style={styles.pickerContainer}>
+              <Picker
+                selectedValue={value}
+                dropdownIconColor='#91EE91'
+                onValueChange={(itemValue) => onChange(itemValue)}
+              >
                 {Object.keys(readingLevelOptions).map((level) => (
                   <Picker.Item key={level} label={`${level}`} value={level} />
                 ))}
@@ -83,5 +87,17 @@ const ProfileForm = () => {
     </>
   );
 };
+
+//TODO: review styling with nativeWind with Picker components
+const styles = StyleSheet.create({
+  pickerContainer: {
+    borderWidth: 4,
+    borderRadius: 100,
+    borderColor: '#91EE91',
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 5,
+    marginVertical: 10
+  },
+});
 
 export default ProfileForm;
