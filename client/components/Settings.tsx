@@ -59,6 +59,7 @@ const Settings = () => {
       const newProfiles = profiles.filter( (profile: ProfileType) => profile.id !== id);
       setProfiles(newProfiles);
       setSelectedProfile(newProfiles[0]);
+      router.replace('/profilesScreen')
     } catch (error) {
       console.error('Error deleting profile', error);
     }
