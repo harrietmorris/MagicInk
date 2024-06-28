@@ -1,6 +1,6 @@
 import { View , Text} from 'react-native'
-import HomeStories from '@/components/HomeStories';
-import FaveStories from '@/components/FaveStories';
+import HomeStories from '@/components/Home/HomeStories';
+import FaveStories from '@/components/Home/FaveStories';
 
 const homeScreen = () => {
 
