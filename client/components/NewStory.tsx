@@ -1,4 +1,5 @@
-import { StyleSheet, TextInput, Text, Pressable, View  } from 'react-native';
+import { useEffect } from 'react';
+import { TextInput, Text, View  } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
 import { createStory } from '@/services/apiService';
@@ -6,6 +7,7 @@ import { FormData } from '@/types';
 import { router } from 'expo-router';
 import { useDataContext } from '@/context/globalContext';
 import { readingLevelOptions } from '@/constants/readingLevels';
+import OrangeButton from './style/OrangeButton';
 
 export default function NewStory() {
   const { setSelectedStory, selectedProfile } = useDataContext();
@@ -13,6 +15,7 @@ export default function NewStory() {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -23,6 +26,12 @@ export default function NewStory() {
       themes: '',
     },
   });
+
+  useEffect(() => {
+    if (selectedProfile?.readingLevel) {
+      setValue('readingLevel', [selectedProfile.readingLevel]);
+    }
+  }, [selectedProfile, setValue]);
 
   async function onSubmit(data: FormData) {
     // TODO: Display loading spinner while story is being created
@@ -126,104 +135,75 @@ export default function NewStory() {
 
   return (
     <>
-      <Pressable style={styles.button} onPress={handleSuprise}>
-        <Text style={styles.buttonText}>Suprise me!</Text>
-      </Pressable>
-
-      <Text style={styles.title}>Your reading level</Text>
-      <Controller
-        name='readingLevel'
-        control={control}
-        rules={{ required: true }}
-        render={({ field: { onChange, value } }) => (
-          <MultiSelectComponent
-            itemOptions={Object.keys(readingLevelOptions)}
-            value={value}
-            onChange={onChange}
-            selectOne={true}
-          />
-        )}
-      />
-
-      <Text style={styles.title}>Choose your location</Text>
-      <Controller
-        name='location'
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <MultiSelectComponent itemOptions={locationOptions} value={value} onChange={onChange} selectOne={true} />
-        )}
-      />
-
-      <Text style={styles.title}>How long do you want to read for?</Text>
-      <Controller
-        name='readingTime'
-        control={control}
-        rules={{ required: true }}
-        render={({ field: { onChange, value } }) => (
-          <MultiSelectComponent
-            itemOptions={Object.keys(readingTimeOptions)}
-            value={value}
-            onChange={onChange}
-            selectOne={true}
-          />
-        )}
-      />
-      <View style={styles.container}>
-      <Text style={styles.title}>Choose your own adventure</Text>
-      <Controller
-        name='themes'
-        control={control}
-        rules={{
-          maxLength: {value: 100, message: 'Maximum length is 100 characters!'},
-        }}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, margin: 5 }}
-            onChangeText={onChange}
-            value={value}
-            placeholder='Type what you want your story to be about here'
-          />
-        )}
-      />
-      {errors.themes && (
-        <Text>{errors.themes.message}</Text>
-      )}
+      <OrangeButton title="Suprise Me!" onPress={handleSuprise}/>
+      <Text>
+        <Text className="font-black text-2xl text-white">Let Your Imagination Run</Text>
+        <Text className="font-black text-2xl text-green"> Wild!</Text>
+      </Text>
+      <View className='m-2'>
+        <Text className='text-lg text-white m-2'>Choose Reading Level</Text>
+        <Controller
+          name='readingLevel'
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <MultiSelectComponent
+              itemOptions={Object.keys(readingLevelOptions)}
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
       </View>
-      <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
-        <Text style={styles.buttonText}>Create your story</Text>
-      </Pressable>
+      <View className='m-2'>
+        <Text  className='text-lg text-white m-2'>Choose Your Location</Text>
+        <Controller
+          name='location'
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <MultiSelectComponent itemOptions={locationOptions} value={value} onChange={onChange}/>
+          )}
+        />
+      </View>
+      <View className='m-2'>
+        <Text  className='text-lg text-white m-2'>How long do you want to read for?</Text>
+        <Controller
+          name='readingTime'
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <MultiSelectComponent
+              itemOptions={Object.keys(readingTimeOptions)}
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
+      </View>
+      <View>
+        <Text  className='text-lg text-white'>Choose Your Adventure</Text>
+        {/* <Text className='text-base text-blue'>Create your own characters, themes and plots.</Text> */}
+        <Controller
+          name='themes'
+          control={control}
+          rules={{
+            maxLength: {value: 100, message: 'Maximum length is 100 characters!'},
+          }}
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              className='rounded-xl h-20 bg-grey text-white m-1 p-2'
+              onChangeText={onChange}
+              value={value}
+              placeholder='Create your own characters, themes and plots.'
+              placeholderTextColor='gray'
+            />
+          )}
+        />
+        {errors.themes && (
+          <Text>{errors.themes.message}</Text>
+        )}
+      </View>
+      <OrangeButton title="Create!" onPress={handleSubmit(onSubmit)}/>
     </>
   );
 }
-
-// TODO: Match styles with the rest of the app
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 50,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 8,
-    elevation: 3,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-});
