@@ -5,7 +5,7 @@ import StoryDetails from '@/components/StoryDetails'
 
 const keepReadingScreen = () => {
   return (
-    <View>
+    <View backgroundColor='#2B2936' className='h-full'>
       <StoryDetails />
     </View>
   )
