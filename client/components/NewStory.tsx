@@ -185,7 +185,7 @@ export default function NewStory() {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              className='rounded-full h-20 bg-grey text-white m-1 p-2'
+              className='rounded-xl h-20 bg-grey text-white m-1 p-2'
               onChangeText={onChange}
               value={value}
               placeholder='Create your own characters, themes and plots.'
