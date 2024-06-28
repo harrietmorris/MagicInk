@@ -2,6 +2,7 @@ import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import ChangeProfilesButton from '@/components/Profiles/ChangeProfilesButton';
+import LogOutButton from '@/components/buttons/LogOut';
 
 export default function TabLayout() {
 
@@ -38,8 +39,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name='settingsScreen'
         options={{
-          title: 'Settings',
+          title: '',
           headerRight: ChangeProfilesButton,
+          headerLeft: LogOutButton,
           tabBarIcon: ({ color }) => <FontAwesome size={28} name='cog' color={color} />,
           tabBarLabel: () => null, 
         }}  
