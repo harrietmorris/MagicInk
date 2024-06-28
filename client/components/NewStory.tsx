@@ -173,7 +173,7 @@ export default function NewStory() {
       />
       <View>
       <Text  className='text-lg text-white'>Choose Your Adventure</Text>
-      <Text>Create your own characters, themes and plots.</Text>
+      {/* <Text className='text-base text-blue'>Create your own characters, themes and plots.</Text> */}
       <Controller
         name='themes'
         control={control}
@@ -182,10 +182,11 @@ export default function NewStory() {
         }}
         render={({ field: { onChange, value } }) => (
           <TextInput
-            style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1, margin: 5 }}
+            className='rounded-full h-20 bg-grey text-white m-1 p-2'
             onChangeText={onChange}
             value={value}
-            placeholder='Type what you want your story to be about here'
+            placeholder='Create your own characters, themes and plots.'
+            placeholderTextColor='gray'
           />
         )}
       />
