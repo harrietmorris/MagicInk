@@ -1,20 +1,22 @@
 import React from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
+
 
 const LoadingScreen = () => {
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color="#ffffff" />
+
+    <View className='flex-1 bg-dark-grey justify-center items-center'>
+      <Image source={require('../assets/images/bear.gif')} style={styles.gif}/>
     </View>
+    
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#333333',
+  gif: {
+    width: 800,
+    height: 800,
   },
 });
 

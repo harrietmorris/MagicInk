@@ -46,6 +46,7 @@ export default function NewStory() {
     );
     if (status === 204) {
       alert('Error creating story. please review your inputs and try again.');
+      router.replace('/newStoryScreen');
       return;
     }
 
