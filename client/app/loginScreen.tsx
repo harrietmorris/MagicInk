@@ -24,7 +24,6 @@ export default function loginScreen() {
   }, []);
 
   const onSubmit = (data: Partial<UserType>) => {
-    console.log(data);
     router.replace('/profilesScreen');
   };
 
@@ -34,7 +33,9 @@ export default function loginScreen() {
         {
           <>
             <Text className='text-4xl font-extrabold text-green mb-10 text-center'>magicInk</Text>
-            <Text className='text-2xl font-extrabold text-white text-center'>Enter the wonderful world of magic!</Text>
+            <Text className='text-2xl font-extrabold text-white text-center'>
+              Step into a realm of endless adventures!
+            </Text>
             <Text className='text-2xl font-bold mt-12 mb-4 text-white'>Username</Text>
             <Controller
               control={control}
