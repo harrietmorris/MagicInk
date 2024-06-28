@@ -7,13 +7,14 @@ export default function TabLayout() {
 
   //TODO: change icons
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: '#91EE91', tabBarStyle: { backgroundColor: '#333233' } }}>
       <Tabs.Screen
         name='homeScreen'
         options={{
           headerRight: ChangeProfilesButton,
           title: 'Home',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name='home' color={color} />,
+          tabBarLabel: () => null, 
         }}
       />
       <Tabs.Screen
@@ -21,7 +22,8 @@ export default function TabLayout() {
         options={{
           title: 'Create Story',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name='pencil' color={color} />,
-          headerShown: false
+          headerShown: false,
+          tabBarLabel: () => null, 
         }}
       />
       <Tabs.Screen
@@ -29,7 +31,8 @@ export default function TabLayout() {
         options={{
           title: 'Keep Reading',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name='book' color={color} />,
-          headerShown: false
+          headerShown: false,
+          tabBarLabel: () => null, 
         }}
       />
       <Tabs.Screen
@@ -38,7 +41,8 @@ export default function TabLayout() {
           title: 'Settings',
           headerRight: ChangeProfilesButton,
           tabBarIcon: ({ color }) => <FontAwesome size={28} name='cog' color={color} />,
-        }}
+          tabBarLabel: () => null, 
+        }}  
       />
     </Tabs>
   );
