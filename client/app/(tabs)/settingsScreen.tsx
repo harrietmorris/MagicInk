@@ -6,7 +6,7 @@ import { StyleSheet } from 'react-native';
 
 const settingsScreen = () => {
     return (
-        <View className="flex-grow bg-blackish items-center justify-between p-8">
+        <View className="flex-grow bg-dark-grey items-center justify-between p-8">
             <Settings />
         </View>
     )
