@@ -35,14 +35,15 @@ const ProfileForm = () => {
     <>
       <View>
         <Text className='text-4xl font-extrabold color-green mb-10'>Create New Profile</Text>
-        <Text className='text-2xl font-bold mb-2'>Name</Text>
+        <Text className='text-2xl font-bold mb-2 text-white'>Name</Text>
         <Controller
           control={control}
           rules={{ required: 'Name is required' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              className='rounded-full px-5 py-3 text-lg border-green border-4 bg-white mb-2'
+              className='rounded-full px-5 py-3 text-lg border-green border-2 bg-grey text-white mb-2'
               placeholder='Name'
+              placeholderTextColor='white'
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -54,18 +55,19 @@ const ProfileForm = () => {
         {errors.name && <Text className='text-dark-orange text-center'>{errors.name.message}</Text>}
 
         {/* TODO: implement avatar feature - either by user upload or pre-selected options? */}
-        <Text className='text-2xl font-bold mt-12 mb-2'>Picture</Text>
+        <Text className='text-2xl font-bold mt-12 mb-2 text-white'>Picture</Text>
         <View className='justify-center content-center items-center mb-10'>
           <FontAwesome size={100} name='smile-o' color='#91EE91' />
         </View>
 
-        <Text className='text-2xl font-bold mb-2'>Choose Reading Level</Text>
+        <Text className='text-2xl font-bold mb-2 text-white'>Choose Reading Level</Text>
         <Controller
           control={control}
           rules={{ required: 'Reading level is required' }}
           render={({ field: { onChange, value } }) => (
             <View style={styles.pickerContainer}>
               <Picker
+                style={styles.picker}
                 selectedValue={value}
                 dropdownIconColor='#91EE91'
                 onValueChange={(itemValue) => onChange(itemValue)}
@@ -91,12 +93,15 @@ const ProfileForm = () => {
 //TODO: review styling with nativeWind with Picker components
 const styles = StyleSheet.create({
   pickerContainer: {
-    borderWidth: 4,
+    borderWidth: 2,
     borderRadius: 100,
     borderColor: '#91EE91',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#333333',
     paddingHorizontal: 5,
-    marginVertical: 10
+    marginVertical: 10,
+  },
+  picker: {
+    color: '#FFFFFF',
   },
 });
 

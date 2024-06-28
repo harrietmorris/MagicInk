@@ -4,7 +4,7 @@ import ProfileForm from '@/components/Profiles/ProfileForm';
 
 const newProfile = () => {
   return (
-    <View className='m-8'>
+    <View className='p-8 flex-1 bg-dark-grey'>
       <ProfileForm />
     </View>
   );
