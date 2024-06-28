@@ -132,67 +132,70 @@ export default function NewStory() {
         <Text className="font-black text-2xl text-white">Let Your Imagination Run</Text>
         <Text className="font-black text-2xl text-green"> Wild!</Text>
       </Text>
-
-      <Text className='text-lg text-white'>Choose Reading Level</Text>
-      <Controller
-        name='readingLevel'
-        control={control}
-        rules={{ required: true }}
-        render={({ field: { onChange, value } }) => (
-          <MultiSelectComponent
-            itemOptions={Object.keys(readingLevelOptions)}
-            value={value}
-            onChange={onChange}
-            selectOne={true}
-          />
-        )}
-      />
-
-      <Text  className='text-lg text-white'>Choose Your Location</Text>
-      <Controller
-        name='location'
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <MultiSelectComponent itemOptions={locationOptions} value={value} onChange={onChange} selectOne={true} />
-        )}
-      />
-
-      <Text  className='text-lg text-white'>How long do you want to read for?</Text>
-      <Controller
-        name='readingTime'
-        control={control}
-        rules={{ required: true }}
-        render={({ field: { onChange, value } }) => (
-          <MultiSelectComponent
-            itemOptions={Object.keys(readingTimeOptions)}
-            value={value}
-            onChange={onChange}
-            selectOne={true}
-          />
-        )}
-      />
+      <View className='m-2'>
+        <Text className='text-lg text-white m-2'>Choose Reading Level</Text>
+        <Controller
+          name='readingLevel'
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <MultiSelectComponent
+              itemOptions={Object.keys(readingLevelOptions)}
+              value={value}
+              onChange={onChange}
+              selectOne={true}
+            />
+          )}
+        />
+      </View>
+      <View className='m-2'>
+        <Text  className='text-lg text-white m-2'>Choose Your Location</Text>
+        <Controller
+          name='location'
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <MultiSelectComponent itemOptions={locationOptions} value={value} onChange={onChange} selectOne={true} />
+          )}
+        />
+      </View>
+      <View className='m-2'>
+        <Text  className='text-lg text-white m-2'>How long do you want to read for?</Text>
+        <Controller
+          name='readingTime'
+          control={control}
+          rules={{ required: true }}
+          render={({ field: { onChange, value } }) => (
+            <MultiSelectComponent
+              itemOptions={Object.keys(readingTimeOptions)}
+              value={value}
+              onChange={onChange}
+              selectOne={true}
+            />
+          )}
+        />
+      </View>
       <View>
-      <Text  className='text-lg text-white'>Choose Your Adventure</Text>
-      {/* <Text className='text-base text-blue'>Create your own characters, themes and plots.</Text> */}
-      <Controller
-        name='themes'
-        control={control}
-        rules={{
-          maxLength: {value: 100, message: 'Maximum length is 100 characters!'},
-        }}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            className='rounded-full h-20 bg-grey text-white m-1 p-2'
-            onChangeText={onChange}
-            value={value}
-            placeholder='Create your own characters, themes and plots.'
-            placeholderTextColor='gray'
-          />
+        <Text  className='text-lg text-white'>Choose Your Adventure</Text>
+        {/* <Text className='text-base text-blue'>Create your own characters, themes and plots.</Text> */}
+        <Controller
+          name='themes'
+          control={control}
+          rules={{
+            maxLength: {value: 100, message: 'Maximum length is 100 characters!'},
+          }}
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              className='rounded-full h-20 bg-grey text-white m-1 p-2'
+              onChangeText={onChange}
+              value={value}
+              placeholder='Create your own characters, themes and plots.'
+              placeholderTextColor='gray'
+            />
+          )}
+        />
+        {errors.themes && (
+          <Text>{errors.themes.message}</Text>
         )}
-      />
-      {errors.themes && (
-        <Text>{errors.themes.message}</Text>
-      )}
       </View>
       <OrangeButton title="Create!" onPress={handleSubmit(onSubmit)}/>
     </>
