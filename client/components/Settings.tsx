@@ -8,7 +8,8 @@ import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
 import { readingLevelOptions } from '@/constants/readingLevels';
 import OrangeButton from './style/OrangeButton';
-
+import BlueButton from './style/BlueButton';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Settings = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
@@ -80,33 +81,37 @@ const Settings = () => {
           <Text style={styles.buttonText}>Update name</Text>
         </Pressable>
 
-        <Text style={styles.title}>Choose reading level: {selectedProfile?.readingLevel}</Text>
-        <Picker
-          selectedValue={selectedProfile?.readingLevel}
-          style={styles.picker}
-          onValueChange={handleReadingLevelChange}
-        >
-        {Object.keys(readingLevelOptions).map((level) => (
-          <Picker.Item key={level} label={`${level}`} value={level} />  
-        ))}
-        </Picker>
+        <Text style={styles.title}>Update Reading Level</Text>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={selectedProfile?.readingLevel}
+            style={styles.picker}
+            onValueChange={handleReadingLevelChange}
+            dropdownIconColor='#ffffff'
+          >
+            {Object.keys(readingLevelOptions).map((level) => (
+              <Picker.Item key={level} label={`${level}`} value={level} />  
+            ))}
+          </Picker>
+        </View>
 
-        <Pressable style={styles.button} onPress={handleDeleteProfile}>
-          <Text style={styles.buttonText}>Delete profile</Text>
+        <Pressable onPress={handleDeleteProfile}>
+          <Ionicons name="trash-outline" size={24} color="#FFFFFF" />
         </Pressable>
 
         <Text style={styles.title}>Email: {user?.email}</Text>
 
-        <Pressable style={styles.button} onPress={handleNewProfile}>
-          <Text style={styles.buttonText}>Create new profile</Text>
-        </Pressable>
-
+      
+        <BlueButton title="+ New Profile" onPress={handleNewProfile}/>
         <OrangeButton title="Logout" onPress={handleLogout}/>
         
       </View>
     </>
   )
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -122,9 +127,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 10,
   },
+  pickerContainer: {
+    borderWidth: 1,
+    borderRadius: 24,
+    borderColor: '#B5FFC8',
+    backgroundColor: '#343441',
+    width: '90%',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginVertical: 10,
+  },
   picker: {
     height: 50,
-    width: 200,
+    color: '#ffffff',
   },
   title: {
     fontSize: 20,

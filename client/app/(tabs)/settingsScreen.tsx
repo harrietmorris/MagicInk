@@ -3,9 +3,10 @@ import { View } from "react-native"
 import { StyleSheet } from 'react-native';
 
 
+
 const settingsScreen = () => {
     return (
-        <View style={styles.container}>
+        <View className="flex-1 bg-blackish items-center justify-center">
             <Settings />
         </View>
     )
