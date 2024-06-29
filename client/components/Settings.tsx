@@ -126,10 +126,22 @@ const Settings = () => {
       <View className='flex flex-row items-center justify-center'>
         <BlueButton title='+ New Profile' onPress={handleNewProfile} />
       </View>
-
-      <Pressable onPress={() => setModalVisible(true)} className='self-end'>
-        <Ionicons name='trash-outline' size={40} color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'} />
-      </Pressable>
+      
+      <View className='flex flex-row justify-around'>
+        <Pressable
+          onPress={toggleColorScheme}
+        >
+          <Text
+            selectable={false}
+            className="dark:text-white text-4xl"
+          >
+            {`${colorScheme === 'light' ? '🌙' : '🌞'}`}
+          </Text>
+        </Pressable>
+        <Pressable onPress={() => setModalVisible(true)}>
+          <Ionicons name='trash-outline' size={40} color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'} />
+        </Pressable>
+      </View>
 
       <PopUp
         modalVisible={modalVisible}
@@ -137,18 +149,6 @@ const Settings = () => {
         onConfirm={handleDeleteProfile}
         message='Are you sure you want to delete this profile?'
       />
-
-      <Pressable
-        onPress={toggleColorScheme}
-        className="flex-1 items-center justify-center"
-      >
-        <Text
-          selectable={false}
-          className="dark:text-white"
-        >
-          {`${colorScheme === 'dark' ? '🌙' : '🌞'}`}
-        </Text>
-      </Pressable>
     </>
   );
 };
