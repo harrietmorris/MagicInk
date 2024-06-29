@@ -4,6 +4,7 @@ import { useDataContext } from '@/context/globalContext';
 import { router } from 'expo-router';
 import FavButton from './buttons/favButton';
 import OrangeButton from './style/OrangeButton';
+import DeleteStoryBtn from './buttons/DeleteStoryBtn';
 
 
 const StoryDetails = () => {
@@ -19,6 +20,7 @@ const StoryDetails = () => {
             <Text className='text-3xl mb-10 text-green font-black tracking-tight'>{selectedStory.title}</Text>
             <Text className='text-white text-base'>{selectedStory.storyString}</Text>
             <FavButton storyId={selectedStory.id} />
+            <DeleteStoryBtn storyId={selectedStory.id} />
           </ScrollView>
         </>
       ) : (
