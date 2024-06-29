@@ -1,5 +1,4 @@
-import { Text, Pressable, TextInput, View, FlatList, TouchableOpacity, Image } from 'react-native'
-import {Picker} from '@react-native-picker/picker';
+import { Text, Pressable, TextInput, View, FlatList, Image } from 'react-native'
 import React, { useState } from 'react'
 import { useDataContext } from '../context/globalContext';
 import { router } from 'expo-router'
@@ -8,7 +7,6 @@ import { deleteProfile, updateProfile } from '@/services/apiService';
 import BlueButton from './style/BlueButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { } from 'react-native';
 import { profilePictures } from '@/constants/profilePictures';
 import PopUp from './PopUp';
 import ReadingLevelPicker from './utils/ReadingLevelPicker';
@@ -78,7 +76,7 @@ const Settings = () => {
           numColumns={1}
           horizontal={true}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={async () => {
+            <Pressable onPress={async () => {
                 handleProfileUpdate('picture', item.id);
                 setSelectedImageId(item.id);
               }}>
@@ -86,7 +84,7 @@ const Settings = () => {
                 source={item.src}
                 className={`m-2 rounded-lg ${selectedImageId === item.id ? 'w-[100px] h-[100px]' : 'w-[90px] h-[90px]'}`} 
                 />
-            </TouchableOpacity>
+            </Pressable>
           )}
           />
       </View>

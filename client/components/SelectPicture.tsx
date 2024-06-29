@@ -1,4 +1,4 @@
-import { FlatList, TouchableOpacity, Image } from 'react-native';
+import { FlatList, Pressable, Image } from 'react-native';
 import { Controller} from 'react-hook-form';
 import { profilePictures } from '@/constants/profilePictures';
 import { Control } from 'react-hook-form';
@@ -28,12 +28,12 @@ export default function SelectPicture (
             numColumns={1}
             horizontal={true}
             renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleSelectImage(item, onChange)}>
+              <Pressable onPress={() => handleSelectImage(item, onChange)}>
                 <Image
                   source={item.src}
-                  className={`m-2 rounded-lg ${selectedImage.id === item.id ? 'w-[100px] h-[100px]' : 'w-[90px] h-[90px]'}`} 
+                  className={`m-2 rounded-lg ${selectedImage.id === item.id ? 'w-[20rem]" h-[20rem]' : 'w-20 h-20'}`} 
                 />
-              </TouchableOpacity>
+              </Pressable>
             )}
           />
         )}
