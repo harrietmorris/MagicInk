@@ -8,6 +8,8 @@ import { router } from 'expo-router';
 import { useDataContext } from '@/context/globalContext';
 import { readingLevelOptions } from '@/constants/readingLevels';
 import OrangeButton from './style/OrangeButton';
+import SurpriseButton from './buttons/SurpriseButton';
+import { locationOptions, readingTimeOptions } from '../constants/Surprise';
 
 export default function NewStory() {
   const { setSelectedStory, selectedProfile } = useDataContext();
@@ -53,91 +55,9 @@ export default function NewStory() {
     router.replace('/keepReadingScreen');
   }
 
-  async function handleSuprise() {
-    if (!selectedProfile) return;
-    const readingLevels = selectedProfile.readingLevel;
-    const randomLocation = locationOptions[Math.floor(Math.random() * locationOptions.length)];
-    const readingTimes = Object.keys(readingTimeOptions);
-    const randomReadingTime = readingTimes[Math.floor(Math.random() * readingTimes.length)];
-    // pick two random themes that are not the same
-    const randomThemes = [themeOptions[Math.floor(Math.random() * themeOptions.length)]]; 
-    let randomTheme = themeOptions[Math.floor(Math.random() * themeOptions.length)];
-    while (randomThemes.includes(randomTheme)) {
-      randomTheme = themeOptions[Math.floor(Math.random() * themeOptions.length)];
-    }
-    randomThemes.push(randomTheme);
-
-    router.replace('/loadingScreen');
-
-    const profId = selectedProfile?.id ? selectedProfile.id: 1;
-    const {storyDetails} = await createStory(
-      profId,
-      readingLevels,
-      randomLocation,
-      readingTimeOptions[randomReadingTime],
-      randomThemes.join(', ')
-    );
-    setSelectedStory(storyDetails);
-    router.replace('/keepReadingScreen');
-    
-  
-  }
-
-  const locationOptions = [
-    'Ancient Ruins',
-    'Enchanted Forest',
-    'Castle',
-    'Cave',
-    'City',
-    'Desert',
-    'Haunted House',
-    'Island',
-    'Jungle',
-    'Mountains',
-    'Ocean',
-    'Pirate Ship',
-    'School',
-    'Sky',
-    'Space',
-    'Space Station',
-    'Underwater',
-    'Village'
-  ];
-
-  const themeOptions = [
-    'Adventure',
-    'Animal Friends',
-    'Dinosaurs',
-    'Fairy Tales',
-    'Friendship',
-    'Funny',
-    'Knights',
-    'Magic',
-    'Mystery',
-    'Mystical Creatures',
-    'Pirates',
-    'Princesses',
-    'Robots',
-    'Scary',
-    'Space Exploration',
-    'Superheroes',
-    'Time Travel',
-    'Toy Stories',
-    'Vampires',
-    'Witches'
-];
-
-  const readingTimeOptions: { [key: string]: number } = {
-    '5 minutes': 5,
-    '10 minutes': 10,
-    '15 minutes': 15,
-    '30 minutes': 30,
-    '1 hour': 60,
-  };
-
   return (
     <>
-      <OrangeButton title="Suprise Me!" onPress={handleSuprise}/>
+      <SurpriseButton/>
       <Text>
         <Text className="font-black text-2xl text-white">Let Your Imagination Run</Text>
         <Text className="font-black text-2xl text-green"> Wild!</Text>
@@ -184,7 +104,6 @@ export default function NewStory() {
       </View>
       <View>
         <Text  className='text-lg text-white'>Choose Your Adventure</Text>
-        {/* <Text className='text-base text-blue'>Create your own characters, themes and plots.</Text> */}
         <Controller
           name='themes'
           control={control}
