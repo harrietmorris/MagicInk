@@ -40,15 +40,15 @@ const ProfileForm = () => {
     <>
       <View>
         <Text className='text-4xl font-extrabold color-green mb-10'>Create New Profile</Text>
-        <Text className='text-2xl font-bold mb-2 text-white'>Name</Text>
+        <Text className='text-2xl font-bold mb-2 dark:text-white'>Name</Text>
         <Controller
           control={control}
           rules={{ required: 'Name is required' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              className='rounded-full px-5 py-4 text-lg border-green border-2 bg-grey text-white mb-2'
+              className='rounded-full px-5 py-4 text-lg border-green border-2 bg-white dark:bg-grey dark:text-white mb-2'
               placeholder='Name'
-              placeholderTextColor='white'
+              placeholderTextColor='grey'
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -59,11 +59,11 @@ const ProfileForm = () => {
         />
         {errors.name && <Text className='text-dark-orange text-center'>{errors.name.message}</Text>}
 
-        <Text className='text-2xl font-bold mt-12 mb-2 text-white'>Picture</Text>
+        <Text className='text-2xl font-bold mt-12 mb-2 dark:text-white'>Picture</Text>
         <SelectPicture control={control} />
 
 
-        <Text className='text-2xl font-bold mb-2 text-white'>Choose Reading Level</Text>
+        <Text className='text-2xl font-bold mb-2 dark:text-white'>Choose Reading Level</Text>
         <Controller
           control={control}
           render={({ field: { onChange, value } }) => (
