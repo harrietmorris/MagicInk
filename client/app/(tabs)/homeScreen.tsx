@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
-import FaveStories from '@/components/FaveStories';
-import AllStories from '@/components/AllStories'
+import FaveStories from '@/components/Home/FaveStories' 
+import AllStories from '@/components/Home/AllStories'
 
 const homeScreen = () => {
 
@@ -16,7 +16,5 @@ const homeScreen = () => {
     </View>
   )
 }
-
-
 
 export default homeScreen;

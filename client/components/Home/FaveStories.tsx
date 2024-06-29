@@ -1,12 +1,9 @@
-import { View, Text, StyleSheet, Dimensions, Pressable, ScrollView, SafeAreaView } from 'react-native'
-import { useEffect } from 'react';
+import { Text } from 'react-native'
 import { useRouter } from 'expo-router';
-import { getSelectedProfile } from '@/services/apiService';
 import { useDataContext } from '@/context/globalContext';
 import { StoryType } from '@/types';
 import React from 'react'
-import FavButton from './buttons/favButton';
-import StoryList from './Stories/StoryList';
+import StoryList from '../Stories/StoryList';
 
 const FaveStories = () => {
 

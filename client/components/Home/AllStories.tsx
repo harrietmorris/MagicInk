@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import { getSelectedProfile } from '@/services/apiService';
 import { useDataContext } from '@/context/globalContext';
 import { StoryType } from '@/types';
-import StoryList from './Stories/StoryList';
+import StoryList from '../Stories/StoryList';
 
 
 

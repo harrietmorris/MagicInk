@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, Pressable } from 'react-native'
+import { View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
 import StoryItem from './StoryItem'
 import { StoryType } from '@/types';

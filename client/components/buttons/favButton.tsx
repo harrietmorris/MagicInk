@@ -1,5 +1,4 @@
-import { Text, Pressable, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { Pressable } from 'react-native'
 import { useDataContext } from '@/context/globalContext';
 import { ProfileType, StoryType } from '@/types';
 import { addToFavs, removeFromFavs } from '@/services/apiService';
@@ -24,7 +23,7 @@ const FavButton: React.FC<FavButtonProps> = ({ storyId }) => {
       } else {
         updatedProfile = await addToFavs(selectedProfile!.id, storyId);
       }
-      console.log(updatedProfile.favs.map(fav => fav.id))
+      // console.log(updatedProfile.favs.map(fav => fav.id))
       setSelectedProfile((prevProfile) => ({
         ...prevProfile!,
         favs: updatedProfile!.favs,

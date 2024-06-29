@@ -2,6 +2,7 @@ import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import ChangeProfilesButton from '@/components/Profiles/ChangeProfilesButton';
+import LogOutButton from '@/components/buttons/LogOut';
 
 export default function TabLayout() {
 
@@ -11,8 +12,11 @@ export default function TabLayout() {
       <Tabs.Screen
         name='homeScreen'
         options={{
+          headerStyle: {
+            backgroundColor: '#333233',
+          },
           headerRight: ChangeProfilesButton,
-          title: 'Home',
+          title: '',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name='home' color={color} />,
           tabBarLabel: () => null, 
         }}
@@ -38,8 +42,12 @@ export default function TabLayout() {
       <Tabs.Screen
         name='settingsScreen'
         options={{
-          title: 'Settings',
+          title: '',
+          headerStyle: {
+            backgroundColor: '#333233',
+          },
           headerRight: ChangeProfilesButton,
+          headerLeft: LogOutButton,
           tabBarIcon: ({ color }) => <FontAwesome size={28} name='cog' color={color} />,
           tabBarLabel: () => null, 
         }}  

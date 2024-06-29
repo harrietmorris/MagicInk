@@ -1,18 +1,20 @@
 import { Text, Pressable, TextInput, View } from 'react-native'
-import {Picker} from '@react-native-picker/picker';
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native';
 import { useDataContext } from '../context/globalContext';
 import { router } from 'expo-router'
 import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
-import { readingLevelOptions } from '@/constants/readingLevels';
-import OrangeButton from './style/OrangeButton';
-
+import BlueButton from './style/BlueButton';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import PopUp from './PopUp';
+import ReadingLevelPicker from './utils/ReadingLevelPicker';
 
 const Settings = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
   const [profileName, setProfileName] = useState(selectedProfile?.name);
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
@@ -40,12 +42,6 @@ const Settings = () => {
     handleProfileUpdate('name', profileName || '');
   }
     
-
-  function handleLogout () {
-    // TODO: Implement logout logic
-    router.replace('/loginScreen');
-  }
-
   function handleNewProfile () {
     router.replace('/newProfileScreen');
   }
@@ -62,6 +58,7 @@ const Settings = () => {
       const newProfiles = profiles.filter( (profile: ProfileType) => profile.id !== id);
       setProfiles(newProfiles);
       setSelectedProfile(newProfiles[0]);
+      router.replace('/profilesScreen')
     } catch (error) {
       console.error('Error deleting profile', error);
     }
@@ -69,82 +66,48 @@ const Settings = () => {
 
   return (
     <>
-      <View style={styles.container}>
-        <Text style={styles.title}>Profile name:</Text>
-        <TextInput
+      <FontAwesome6 name="face-grin-tongue" size={150} color="#91EE91" />
+
+        <View>
+          <TextInput 
           placeholder={profileName}
           value={profileName}
           onChangeText={setProfileName}
+          className='text-white text-5xl'
           />
-      </View>
-      <View style={styles.container2}>
-        <Pressable style={styles.button} onPress={handleUpdateName}>
-          <Text style={styles.buttonText}>Update name</Text>
+          <Pressable onPress={handleUpdateName}><FontAwesome name="pencil" size={30} color="white" /></Pressable>
+        </View>
+
+        <View className='w-full items-center' >
+          <Text className='text-white text-2xl self-start'>Username</Text>
+          <View className='bg-grey w-full rounded-full px-4 py-2 '>
+            <Text className='text-white text-2xl'>{user?.email} </Text>
+          </View>
+        </View>
+      
+        <View className='w-full items-center text-white'>
+          <Text className='text-white text-2xl self-start'>Update Reading Level</Text>
+            <ReadingLevelPicker
+            selectedValue={selectedProfile?.readingLevel}
+            onValueChange={handleReadingLevelChange}
+          />
+        </View>
+      
+        <BlueButton title="+ New Profile" onPress={handleNewProfile}/>
+
+        <Pressable onPress={() => setModalVisible(true)} className='self-end'>
+          <Ionicons name="trash-outline" size={40} color="#FFFFFF" />
         </Pressable>
-
-        <Text style={styles.title}>Choose reading level: {selectedProfile?.readingLevel}</Text>
-        <Picker
-          selectedValue={selectedProfile?.readingLevel}
-          style={styles.picker}
-          onValueChange={handleReadingLevelChange}
-        >
-        {Object.keys(readingLevelOptions).map((level) => (
-          <Picker.Item key={level} label={`${level}`} value={level} />  
-        ))}
-        </Picker>
-
-        <Pressable style={styles.button} onPress={handleDeleteProfile}>
-          <Text style={styles.buttonText}>Delete profile</Text>
-        </Pressable>
-
-        <Text style={styles.title}>Email: {user?.email}</Text>
-
-        <Pressable style={styles.button} onPress={handleNewProfile}>
-          <Text style={styles.buttonText}>Create new profile</Text>
-        </Pressable>
-
-        <OrangeButton title="Logout" onPress={handleLogout}/>
-        
-      </View>
+     
+        <PopUp
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        onConfirm={handleDeleteProfile}
+        message="Are you sure you want to delete this profile?"
+      />
+      
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    maxHeight: 80,
-  },
-  container2: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
-  picker: {
-    height: 50,
-    width: 200,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 8,
-    elevation: 3,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-})
 
 export default Settings
