@@ -49,12 +49,7 @@ const Settings = () => {
     handleProfileUpdate('name', newName);
   };
 
-  const handle
-  
-  
-  
-  
-  Update = (newImg: string) => {
+  const handleImageUpdate = (newImg: string) => {
     handleProfileUpdate('picture', newImg);
   }
 
