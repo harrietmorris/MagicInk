@@ -25,7 +25,7 @@ const StoryList = ({ storyArray, buttonColor }: StoryItemProps) => {
             <ScrollView horizontal={true} >
                 <View className='flex flex-row' >
                     {storyArray && storyArray.map((story) => (
-                        <StoryItem story={story} handlePress={handlePress} buttonColor={buttonColor}></StoryItem>
+                        <StoryItem key={story.id} story={story} handlePress={handlePress} buttonColor={buttonColor}></StoryItem>
                     ))}
                 </View>
             </ScrollView>

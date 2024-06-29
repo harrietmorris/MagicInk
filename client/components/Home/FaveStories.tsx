@@ -7,6 +7,7 @@ import StoryList from '../Stories/StoryList';
 const FaveStories = () => {
 
   const { selectedProfile } = useDataContext();
+if (!selectedProfile) return
 
 
   return (
