@@ -1,4 +1,4 @@
-import { View, Pressable, StyleSheet, Modal, FlatList, Image } from 'react-native';
+import { View, Pressable, Modal, FlatList, Image } from 'react-native';
 import React, { useState } from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { ProfileType } from '@/types';
@@ -8,7 +8,7 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { profilePictures } from '@/constants/profilePictures';
 
 const ChangeProfilesButton = () => {
-  const { profiles, selectedProfile, setSelectedProfile, setSelectedStory } = useDataContext();
+  const { profiles, selectedProfile, setSelectedProfile } = useDataContext();
   const [modalVisible, setModalVisible] = useState(false);
 
 
@@ -45,7 +45,7 @@ const ChangeProfilesButton = () => {
           animationType='fade'
           onRequestClose={() => setModalVisible(false)}
         >
-          <View style={styles.modalContainer}>
+          <View>
             <FlatList
               data={profiles}
               keyExtractor={(item) => item.id.toString()}
@@ -63,13 +63,5 @@ const ChangeProfilesButton = () => {
     );
   };
 
-const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-});
 
 export default ChangeProfilesButton;
