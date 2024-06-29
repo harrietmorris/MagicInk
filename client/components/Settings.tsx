@@ -1,4 +1,4 @@
-import { Text, Pressable, TextInput, View } from 'react-native'
+import { Text, Pressable, TextInput, View, FlatList, TouchableOpacity, Image } from 'react-native'
 import {Picker} from '@react-native-picker/picker';
 import React, { useState } from 'react'
 import { StyleSheet } from 'react-native';
@@ -9,13 +9,16 @@ import { deleteProfile, updateProfile } from '@/services/apiService';
 import { readingLevelOptions } from '@/constants/readingLevels';
 import BlueButton from './style/BlueButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { } from 'react-native';
+import { profilePictures } from '@/constants/profilePictures';
+
 
 const Settings = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
   const [profileName, setProfileName] = useState(selectedProfile?.name);
-
+  const [selectedImageId, setSelectedImageId] = useState(selectedProfile?.picture || '1');
+  
   async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
     const newProfile = {
@@ -65,11 +68,29 @@ const Settings = () => {
     }
   }
 
+
+
   return (
     <>
-
-      <FontAwesome6 name="face-grin-tongue" size={150} color="#91EE91" />
-
+      <View>
+        <FlatList
+          data={profilePictures}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={1}
+          horizontal={true}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={async () => {
+                handleProfileUpdate('picture', item.id);
+                setSelectedImageId(item.id);
+              }}>
+              <Image
+                source={item.src}
+                className={`m-2 rounded-lg ${selectedImageId === item.id ? 'w-[100px] h-[100px]' : 'w-[90px] h-[90px]'}`} 
+                />
+            </TouchableOpacity>
+          )}
+          />
+      </View>
 
       {/* TODO: change so that name is normal text, and on pencil click we get a popup to change name  */}
       <View style={styles.container} >
@@ -79,7 +100,6 @@ const Settings = () => {
           onChangeText={setProfileName}
           className='text-white text-5xl'
           />
-          <Text>   </Text>
         <Pressable onPress={handleUpdateName}><FontAwesome name="pencil" size={30} color="white" /></Pressable>
       </View>
 
@@ -93,20 +113,20 @@ const Settings = () => {
       
 
         <View className='w-full items-center text-white'>
-        <Text className='text-white text-2xl self-start'>Update Reading Level</Text>
-        <View className='bg-grey w-full rounded-full px-4 py-2 border border-green text-white'> 
-          <Picker
-            className='w-full text-white grey'
-            selectedValue={selectedProfile?.readingLevel}
-            onValueChange={handleReadingLevelChange}
-            dropdownIconColor='#ffffff'      
-            selectionColor='#ffffff'      
-          >
-            {Object.keys(readingLevelOptions).map((level) => (
-              <Picker.Item key={level} label={`${level}`} value={level} style={{backgroundColor : "#333333", color: '#ffffff'}} />  
-            ))}
-          </Picker>
-        </View>
+          <Text className='text-white text-2xl self-start'>Update Reading Level</Text>
+          <View className='bg-grey w-full rounded-full px-4 py-2 border border-green text-white'> 
+            <Picker
+              className='w-full text-white grey'
+              selectedValue={selectedProfile?.readingLevel}
+              onValueChange={handleReadingLevelChange}
+              dropdownIconColor='#ffffff'      
+              selectionColor='#ffffff'      
+            >
+              {Object.keys(readingLevelOptions).map((level) => (
+                <Picker.Item key={level} label={`${level}`} value={level} style={{backgroundColor : "#333333", color: '#ffffff'}} />  
+              ))}
+            </Picker>
+          </View>
         </View>
 
       

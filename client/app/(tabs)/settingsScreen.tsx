@@ -6,18 +6,10 @@ import { StyleSheet } from 'react-native';
 
 const settingsScreen = () => {
     return (
-        <View className="flex-grow bg-dark-grey items-center justify-between p-8">
+        <View className="flex-1 flex-col bg-dark-grey justify-between p-8">
             <Settings />
         </View>
     )
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }})
-
 
 export default settingsScreen

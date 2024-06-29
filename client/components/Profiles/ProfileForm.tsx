@@ -8,25 +8,10 @@ import { newProfile } from '@/services/apiService';
 import { Picker } from '@react-native-picker/picker';
 import { router } from 'expo-router';
 import OrangeButton from '../style/OrangeButton';
-import { useState } from 'react';
-
-const images = [
-  {id:'1', src: require('../../assets/images/profiles/1.png')},
-  {id:'2', src: require('../../assets/images/profiles/2.png')},
-  {id:'3', src: require('../../assets/images/profiles/3.png')},
-  {id:'4', src: require('../../assets/images/profiles/4.png')},
-  {id:'5', src: require('../../assets/images/profiles/5.png')},
-  {id:'6', src: require('../../assets/images/profiles/6.png')},
-];
-
+import SelectPicture from '../SelectPicture';
 
 const ProfileForm = () => {
-  const [selectedImage, setSelectedImage] = useState(images[0]);
 
-  const handleSelectImage = (image: { id: string; src: any }, onChange: (id: string) => void) => {
-    setSelectedImage(image);
-    onChange(image.id);
-  };
 
   const { profiles, setProfiles, setSelectedProfile, user } = useDataContext();
   const {
@@ -76,26 +61,7 @@ const ProfileForm = () => {
         {errors.name && <Text className='text-dark-orange text-center'>{errors.name.message}</Text>}
 
         <Text className='text-2xl font-bold mt-12 mb-2 text-white'>Picture</Text>
-        <Controller
-          control={control}
-          name="picture"
-          render={({ field: { onChange } }) => (
-            <FlatList
-              data={images}
-              keyExtractor={(item) => item.id.toString()}
-              numColumns={1}
-              horizontal={true}
-              renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => handleSelectImage(item, onChange)}>
-                  <Image
-                    source={item.src}
-                    className={`m-2 rounded-lg ${selectedImage.id === item.id ? 'w-[100px] h-[100px]' : 'w-[90px] h-[90px]'}`} 
-                  />
-                </TouchableOpacity>
-              )}
-            />
-          )}
-        />
+        <SelectPicture control={control} />
 
         <Text className='text-2xl font-bold mb-2 text-white'>Choose Reading Level</Text>
         <Controller

@@ -46,3 +46,8 @@ export interface DataContextProps {
   selectedStory: StoryType | null;
   setSelectedStory: React.Dispatch<React.SetStateAction<StoryType | null>>;
 }
+
+export interface ProfilePicture {
+  id: string;
+  src: any;
+}
