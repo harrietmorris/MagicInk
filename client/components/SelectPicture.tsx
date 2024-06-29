@@ -31,7 +31,7 @@ export default function SelectPicture (
               <Pressable onPress={() => handleSelectImage(item, onChange)}>
                 <Image
                   source={item.src}
-                  className={`m-2 rounded-lg ${selectedImage.id === item.id ? 'w-[20rem]" h-[20rem]' : 'w-20 h-20'}`} 
+                  className={`m-2 rounded-lg ${selectedImage.id === item.id ? 'w-[110px] h-[110px]' : 'w-[90px] h-[90px]'}`} 
                 />
               </Pressable>
             )}

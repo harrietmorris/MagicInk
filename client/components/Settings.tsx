@@ -7,15 +7,17 @@ import { deleteProfile, updateProfile } from '@/services/apiService';
 import BlueButton from './style/BlueButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { profilePictures } from '@/constants/profilePictures';
-import PopUp from './PopUp';
+import PopUp from './utils/PopUp';
 import ReadingLevelPicker from './utils/ReadingLevelPicker';
+import NameEdit from './utils/NameEdit';
+import { profilePictures } from '../constants/profilePictures';
 
 const Settings = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
   const [profileName, setProfileName] = useState(selectedProfile?.name);
   const [selectedImageId, setSelectedImageId] = useState(selectedProfile?.picture || '1');
   const [modalVisible, setModalVisible] = useState(false);
+  const [nameModalVisible, setNameModalVisible] = useState(false);
 
   async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
@@ -39,8 +41,8 @@ const Settings = () => {
     handleProfileUpdate('readingLevel', readingLevel);
   }
 
-  async function handleUpdateName () {
-    handleProfileUpdate('name', profileName || '');
+ const handleUpdateName = (newName: string) => {
+    handleProfileUpdate('name', newName);
   }
     
   function handleNewProfile () {
@@ -89,15 +91,20 @@ const Settings = () => {
           />
       </View>
 
-      <View>
-        <TextInput 
-        placeholder={profileName}
-        value={profileName}
-        onChangeText={setProfileName}
-        className='text-white text-5xl'
-        />
-        <Pressable onPress={handleUpdateName}><FontAwesome name="pencil" size={30} color="white" /></Pressable>
+      <View className='flex flex-row items-center'>
+        <Text className='text-white text-5xl' numberOfLines={1} adjustsFontSizeToFit={true}>{selectedProfile?.name} </Text>
+        <Pressable onPress={() => setNameModalVisible(true)}>
+          <FontAwesome name="pencil" size={30} color="white" />
+        </Pressable>
       </View>
+
+
+      <NameEdit
+        visible={nameModalVisible}
+        currentName={selectedProfile?.name || ''}
+        onClose={() => setNameModalVisible(false)}
+        onSave={handleUpdateName}
+      />
 
       <View className='w-full items-center' >
         <Text className='text-white text-2xl self-start'>Username</Text>

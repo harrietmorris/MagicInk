@@ -1,8 +1,5 @@
 import Settings from "@/components/Settings"
 import { View } from "react-native"
-import { StyleSheet } from 'react-native';
-
-
 
 const settingsScreen = () => {
     return (
