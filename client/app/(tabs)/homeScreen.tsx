@@ -1,18 +1,20 @@
-import { View, Text } from 'react-native'
-import FaveStories from '@/components/Home/FaveStories' 
-import AllStories from '@/components/Home/AllStories'
+import React from 'react';
+import { View, Text, Pressable } from 'react-native';
+import FaveStories from '@/components/Home/FaveStories';
+import AllStories from '@/components/Home/AllStories';
 
-const homeScreen = () => {
 
+const HomeScreen = () => {
+  
 
   return (
-    <View className='flex-1 bg-dark-grey'>
-      <View className='flex flex-col' >
+    <View className={`flex-1 dark:bg-dark-grey`}>
+      <View className="flex flex-col">
         <AllStories />
         <FaveStories />
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default homeScreen;
+export default HomeScreen;

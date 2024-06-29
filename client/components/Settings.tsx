@@ -11,8 +11,10 @@ import PopUp from './utils/PopUp';
 import ReadingLevelPicker from './utils/ReadingLevelPicker';
 import NameEdit from './utils/NameEdit';
 import { profilePictures } from '../constants/profilePictures';
+import { useColorScheme } from 'nativewind';
 
 const Settings = () => {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
   const [selectedImageId, setSelectedImageId] = useState(selectedProfile?.picture || '1');
   const [modalVisible, setModalVisible] = useState(false);
@@ -94,11 +96,11 @@ const Settings = () => {
       </View>
 
       <View className='flex flex-row items-center justify-center'>
-        <Text className='text-white text-5xl' numberOfLines={1} adjustsFontSizeToFit={true}>
+        <Text className='text-black dark:text-white text-5xl' numberOfLines={1} adjustsFontSizeToFit={true}>
           {selectedProfile?.name}{' '}
         </Text>
         <Pressable onPress={() => setNameModalVisible(true)}>
-          <FontAwesome name='pencil' size={30} color='white' />
+          <FontAwesome name='pencil' size={30} color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'} />
         </Pressable>
       </View>
 
@@ -110,14 +112,14 @@ const Settings = () => {
       />
 
       <View className='w-full items-center'>
-        <Text className='text-white text-2xl self-start mb-4'>Username</Text>
-        <View className='bg-grey w-full rounded-full px-6 py-4'>
-          <Text className='text-white text-2xl'>{user?.email} </Text>
+        <Text className='text-black dark:text-white text-2xl self-start mb-4'>Username</Text>
+        <View className='bg-white dark:bg-grey w-full rounded-full px-6 py-4'>
+          <Text className='text-black dark:text-white text-2xl'>{user?.email} </Text>
         </View>
       </View>
 
-      <View className='w-full items-center text-white '>
-        <Text className='text-white text-2xl self-start mb-4'>Update Reading Level</Text>
+      <View className='w-full items-center'>
+        <Text className='text-black dark:text-white text-2xl self-start mb-4'>Update Reading Level</Text>
         <ReadingLevelPicker selectedValue={selectedProfile?.readingLevel} onValueChange={handleReadingLevelChange} />
       </View>
 
@@ -126,7 +128,7 @@ const Settings = () => {
       </View>
 
       <Pressable onPress={() => setModalVisible(true)} className='self-end'>
-        <Ionicons name='trash-outline' size={40} color='#FFFFFF' />
+        <Ionicons name='trash-outline' size={40} color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'} />
       </Pressable>
 
       <PopUp
@@ -135,6 +137,18 @@ const Settings = () => {
         onConfirm={handleDeleteProfile}
         message='Are you sure you want to delete this profile?'
       />
+
+      <Pressable
+        onPress={toggleColorScheme}
+        className="flex-1 items-center justify-center"
+      >
+        <Text
+          selectable={false}
+          className="dark:text-white"
+        >
+          {`${colorScheme === 'dark' ? '🌙' : '🌞'}`}
+        </Text>
+      </Pressable>
     </>
   );
 };
