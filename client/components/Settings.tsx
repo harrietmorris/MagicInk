@@ -1,20 +1,20 @@
 import { Text, Pressable, TextInput, View } from 'react-native'
-import {Picker} from '@react-native-picker/picker';
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native';
 import { useDataContext } from '../context/globalContext';
 import { router } from 'expo-router'
 import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
-import { readingLevelOptions } from '@/constants/readingLevels';
 import BlueButton from './style/BlueButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import PopUp from './PopUp';
+import ReadingLevelPicker from './utils/ReadingLevelPicker';
 
 const Settings = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
   const [profileName, setProfileName] = useState(selectedProfile?.name);
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
@@ -42,7 +42,6 @@ const Settings = () => {
     handleProfileUpdate('name', profileName || '');
   }
     
-
   function handleNewProfile () {
     router.replace('/newProfileScreen');
   }
@@ -67,24 +66,18 @@ const Settings = () => {
 
   return (
     <>
-
       <FontAwesome6 name="face-grin-tongue" size={150} color="#91EE91" />
 
-
-      {/* TODO: change so that name is normal text, and on pencil click we get a popup to change name  */}
-    
         <View>
-        <TextInput 
+          <TextInput 
           placeholder={profileName}
           value={profileName}
           onChangeText={setProfileName}
           className='text-white text-5xl'
           />
-          <Text>   </Text>
-        <Pressable onPress={handleUpdateName}><FontAwesome name="pencil" size={30} color="white" /></Pressable>
-      </View>
+          <Pressable onPress={handleUpdateName}><FontAwesome name="pencil" size={30} color="white" /></Pressable>
+        </View>
 
-     
         <View className='w-full items-center' >
           <Text className='text-white text-2xl self-start'>Username</Text>
           <View className='bg-grey w-full rounded-full px-4 py-2 '>
@@ -92,36 +85,29 @@ const Settings = () => {
           </View>
         </View>
       
-
         <View className='w-full items-center text-white'>
-        <Text className='text-white text-2xl self-start'>Update Reading Level</Text>
-        <View className='bg-grey w-full rounded-full px-4 py-2 border border-green text-white'> 
-          <Picker
-            className='w-full text-white grey'
+          <Text className='text-white text-2xl self-start'>Update Reading Level</Text>
+            <ReadingLevelPicker
             selectedValue={selectedProfile?.readingLevel}
             onValueChange={handleReadingLevelChange}
-            dropdownIconColor='#ffffff'      
-            selectionColor='#ffffff'      
-          >
-            {Object.keys(readingLevelOptions).map((level) => (
-              <Picker.Item key={level} label={`${level}`} value={level} style={{backgroundColor : "#333333", color: '#ffffff'}} />  
-            ))}
-          </Picker>
+          />
         </View>
-        </View>
-
       
         <BlueButton title="+ New Profile" onPress={handleNewProfile}/>
 
-          
-        <Pressable onPress={handleDeleteProfile} className='self-end'>
+        <Pressable onPress={() => setModalVisible(true)} className='self-end'>
           <Ionicons name="trash-outline" size={40} color="#FFFFFF" />
         </Pressable>
      
+        <PopUp
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        onConfirm={handleDeleteProfile}
+        message="Are you sure you want to delete this profile?"
+      />
       
     </>
   )
 }
-
 
 export default Settings
