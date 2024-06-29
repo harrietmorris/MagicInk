@@ -139,9 +139,13 @@ export async function removeStoryFromProfile(ctx: Context) {
         storiesList: {
           disconnect: { id: parseInt(storyId, 10) },
         },
+        favs: {
+          disconnect: { id: parseInt(storyId, 10) },
+        },
       },
       include: {
         storiesList: true,
+        favs: true,
       },
     });
     ctx.status = 200;

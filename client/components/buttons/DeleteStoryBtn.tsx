@@ -16,14 +16,17 @@ const DeleteStoryBtn = ({ storyId }: DeleteStoryProps): React.JSX.Element => {
   const { setSelectedProfile, selectedProfile } = useDataContext();
 
   const handleDelete = async () => {
-    const updatedStorylist = selectedProfile?.storiesList?.filter((story) => story.id !== storyId);
-    const updatedProfile = { ...selectedProfile, storiesList: updatedStorylist };
-    try {
-      await removeStoryFromProfile(selectedProfile.id, storyId);
-      setSelectedProfile(updatedProfile);
-      router.replace('/homeScreen');
-    } catch (error) {
-      console.log('Error deleting story from profile:', error)
+    if (selectedProfile) {
+      const updatedStorylist = selectedProfile.storiesList?.filter((story) => story.id !== storyId);
+      const updatedFavlist = selectedProfile.favs?.filter((story) => story.id !== storyId);
+      const updatedProfile = { ...selectedProfile, storiesList: updatedStorylist, favs: updatedFavlist };
+      try {
+        await removeStoryFromProfile(selectedProfile.id, storyId);
+        setSelectedProfile(updatedProfile);
+        router.replace('/homeScreen');
+      } catch (error) {
+        console.log('Error deleting story from profile:', error);
+      }
     }
   };
 
