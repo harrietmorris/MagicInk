@@ -9,7 +9,8 @@ interface StoryItemProps {
     buttonColor: string;
 }
 
-const StoryItem: React.FC<StoryItemProps> = ({ story, handlePress, buttonColor }) => {
+const StoryItem= ({ story, handlePress, buttonColor } :StoryItemProps) => {
+
 
     return (
         <View>

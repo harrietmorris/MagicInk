@@ -1,24 +1,21 @@
-import { Text } from 'react-native'
-import { useRouter } from 'expo-router';
+import { Text,View } from 'react-native'
 import { useDataContext } from '@/context/globalContext';
-import { StoryType } from '@/types';
 import React from 'react'
 import StoryList from '../Stories/StoryList';
 
+
 const FaveStories = () => {
 
-  const router = useRouter()
-  const { selectedProfile, setSelectedStory } = useDataContext();
+  const { selectedProfile } = useDataContext();
 
-  function handlePress(story: StoryType) {
-    setSelectedStory(story)
-    router.push("/keepReadingScreen")
-  }
 
   return (
     (selectedProfile.favs && selectedProfile.favs.length > 0 ?
-      <StoryList handlePress={handlePress} storyArray={selectedProfile.favs} buttonColor={'dark-orange'}></StoryList> :
-      <Text className='text-dark-orange text-3xl font-bold mt-3 mb-4 text-center'>No stories available</Text>)
+      <View>
+        <Text className='text-green text-3xl font-bold mt-3 mb-4 text-center'>Favorite Stories</Text>
+        <StoryList storyArray={selectedProfile.favs} buttonColor={'dark-orange'}></StoryList>
+      </View> :
+      <Text className='text-dark-orange text-3xl font-bold mt-3 mb-4 text-center'>No favorites yet</Text>)
   )
 }
 

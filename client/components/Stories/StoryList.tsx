@@ -2,14 +2,23 @@ import { View, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
 import StoryItem from './StoryItem'
 import { StoryType } from '@/types';
+import { useDataContext } from '@/context/globalContext';
+import { useRouter } from 'expo-router';
 
 interface StoryItemProps {
     storyArray: StoryType[] | undefined
-    handlePress: (story: StoryType) => void;
     buttonColor: string;
 }
 
-const StoryList: React.FC<StoryItemProps> = ({ handlePress, storyArray, buttonColor }) => {
+const StoryList = ({ storyArray, buttonColor }: StoryItemProps) => {
+
+    const {setSelectedStory} = useDataContext()
+    const router = useRouter()
+
+    function handlePress(story: StoryType) {
+        setSelectedStory(story)
+        router.push("/keepReadingScreen")
+      }
 
     return (
         <SafeAreaView  >

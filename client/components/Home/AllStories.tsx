@@ -1,18 +1,16 @@
-import { View, Text, StyleSheet, Dimensions, Pressable, ScrollView, SafeAreaView } from 'react-native'
+import { View, Text } from 'react-native'
 import { useEffect } from 'react';
-import { useRouter } from 'expo-router';
 import { getSelectedProfile } from '@/services/apiService';
 import { useDataContext } from '@/context/globalContext';
-import { StoryType } from '@/types';
 import StoryList from '../Stories/StoryList';
+import { useRouter } from 'expo-router';
+import OrangeButton from '../style/OrangeButton';
 
 
 
 const AllStories = () => {
 
-  const router = useRouter()
-
-  const { setSelectedStory, setSelectedProfile, selectedProfile, selectedStory } = useDataContext();
+  const { setSelectedProfile, selectedProfile, selectedStory } = useDataContext();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -24,15 +22,15 @@ const AllStories = () => {
     fetchProfile();
   }, [selectedStory, selectedProfile?.id]);
 
-  function handlePress(story: StoryType) {
-    setSelectedStory(story)
-    router.push("/keepReadingScreen")
-  }
+  const router = useRouter()
 
   return (
     (selectedProfile.storiesList && selectedProfile.storiesList.length > 0 ?
-      <StoryList handlePress={handlePress} storyArray={selectedProfile.storiesList} buttonColor={'yellow'}></StoryList> :
-      <Text className='text-dark-orange text-3xl font-bold mt-3 mb-4 text-center'>No stories available</Text>)
+      <View>
+        <Text className='text-green text-3xl font-bold mb-4 mt-3 text-center'>All Stories</Text>
+        <StoryList storyArray={selectedProfile.storiesList} buttonColor={'yellow'}></StoryList>
+      </View> :
+      <OrangeButton onPress={() => router.push("./newStoryScreen")} title={'Add Story'} />)
   )
 }
 
