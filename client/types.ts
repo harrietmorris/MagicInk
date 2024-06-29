@@ -39,7 +39,7 @@ export interface DataContextProps {
   profiles: ProfileType[];
   setProfiles: React.Dispatch<React.SetStateAction<ProfileType[]>>;
 
-  selectedProfile: ProfileType | null;
+  selectedProfile: ProfileType ;
   setSelectedProfile: React.Dispatch<React.SetStateAction<ProfileType | null>>;
 
 
