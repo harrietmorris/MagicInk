@@ -1,8 +1,5 @@
 import Settings from "@/components/Settings"
 import { View } from "react-native"
-import { StyleSheet } from 'react-native';
-
-
 
 const settingsScreen = () => {
     return (
@@ -11,13 +8,5 @@ const settingsScreen = () => {
         </View>
     )
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }})
-
 
 export default settingsScreen
