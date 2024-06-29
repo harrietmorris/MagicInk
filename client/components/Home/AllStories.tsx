@@ -12,12 +12,16 @@ const AllStories = () => {
 
   const { setSelectedProfile, selectedProfile, selectedStory } = useDataContext();
 
+  if (!selectedProfile){
+    return
+  }
   useEffect(() => {
     const fetchProfile = async () => {
       if (selectedProfile) {
         const updatedProfile = await getSelectedProfile(selectedProfile.id);
         setSelectedProfile(updatedProfile);
       }
+
     }
     fetchProfile();
   }, [selectedStory, selectedProfile?.id]);
