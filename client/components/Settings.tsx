@@ -14,7 +14,6 @@ import { profilePictures } from '../constants/profilePictures';
 
 const Settings = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
-  const [profileName, setProfileName] = useState(selectedProfile?.name);
   const [selectedImageId, setSelectedImageId] = useState(selectedProfile?.picture || '1');
   const [modalVisible, setModalVisible] = useState(false);
   const [nameModalVisible, setNameModalVisible] = useState(false);
