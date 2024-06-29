@@ -12,12 +12,13 @@ import ReadingLevelPicker from './utils/ReadingLevelPicker';
 import NameEdit from './utils/NameEdit';
 import { profilePictures } from '../constants/profilePictures';
 import ImageChoice from './utils/ImageChoice';
+import Feather from '@expo/vector-icons/Feather';
 
 const Settings = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
   const [modalVisible, setModalVisible] = useState(false);
   const [nameModalVisible, setNameModalVisible] = useState(false);
-  const [imgModalVisible, setImgModalVisible] = useState(false); 
+  const [imgModalVisible, setImgModalVisible] = useState(false);
 
   async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
@@ -25,7 +26,7 @@ const Settings = () => {
       ...selectedProfile,
       [prop]: value,
     };
-    
+
     try {
       const profileToDb = { ...newProfile };
       delete profileToDb['storiesList'];
@@ -48,7 +49,7 @@ const Settings = () => {
 
   const handleImageUpdate = (newImg: string) => {
     handleProfileUpdate('picture', newImg);
-  }
+  };
 
   function handleNewProfile() {
     router.replace('/newProfileScreen');
@@ -74,15 +75,18 @@ const Settings = () => {
 
   return (
     <>
-       <View className='flex flex-row items-center justify-center'>
-        <Pressable onPress={() => setImgModalVisible(true)}>
-          <Image
-            source={profilePictures.find(item => item.id === selectedProfile?.picture)?.src}
-          />
-        </Pressable>
+      <View className='items-center justify-center'>  
+          <Pressable className='relative' onPress={() => setImgModalVisible(true)}>
+            <View >
+            <Image  source={profilePictures.find((item) => item.id === selectedProfile?.picture)?.src} />
+            </View>
+            <View className='absolute z-10 top-5 right-0'>
+              <Feather  name='edit' size={30} color='white' />
+            </View>
+          </Pressable>
       </View>
 
-       <ImageChoice
+      <ImageChoice
         imgVisible={imgModalVisible}
         currentImg={selectedProfile?.picture || ''}
         onClose={() => setImgModalVisible(false)}
@@ -94,7 +98,7 @@ const Settings = () => {
           {selectedProfile?.name}{' '}
         </Text>
         <Pressable onPress={() => setNameModalVisible(true)}>
-          <FontAwesome name='pencil' size={30} color='white' />
+          <Feather name='edit' size={30} color='white' />
         </Pressable>
       </View>
 
@@ -136,4 +140,3 @@ const Settings = () => {
 };
 
 export default Settings;
-
