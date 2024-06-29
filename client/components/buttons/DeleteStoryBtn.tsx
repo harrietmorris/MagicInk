@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { useDataContext } from '@/context/globalContext';
 import { removeStoryFromProfile } from '@/services/apiService';
-import PopUp from '../PopUp';
+import PopUp from '../utils/PopUp';
 import { router } from 'expo-router';
 
 interface DeleteStoryProps {
