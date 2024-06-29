@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 
 interface MultiSelectComponentProps {
   itemOptions: string[];
@@ -27,7 +27,7 @@ const  MultiSelectComponent: React.FC<MultiSelectComponentProps> = ({itemOptions
         data={itemOptions}
         keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity
+          <Pressable
           className={`h-full flex justify-center p-3 mx-2 bg-yellow rounded-lg
             ${selectedItems.includes(item) ? 'bg-blue' : ''}`}
             onPress={() => {       
@@ -35,7 +35,7 @@ const  MultiSelectComponent: React.FC<MultiSelectComponentProps> = ({itemOptions
             }}
           >
             <Text className={`text-base text-black ${selectedItems.includes(item) ? 'text-white' : ''}`}>{item}</Text>
-          </TouchableOpacity>
+          </Pressable>
         )}
       />
     </View>

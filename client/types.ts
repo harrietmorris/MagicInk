@@ -8,7 +8,7 @@ export interface ProfileType {
   id: number;
   userId: number;
   name: string;
-  picture?: string | null;
+  picture: string | null;
   readingLevel: string;
   favs?: StoryType[];
   storiesList?: StoryType[];
@@ -45,4 +45,9 @@ export interface DataContextProps {
 
   selectedStory: StoryType | null;
   setSelectedStory: React.Dispatch<React.SetStateAction<StoryType | null>>;
+}
+
+export interface ProfilePicture {
+  id: string;
+  src: any;
 }
