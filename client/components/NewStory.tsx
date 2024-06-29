@@ -59,11 +59,11 @@ export default function NewStory() {
     <>
       <SurpriseButton/>
       <Text>
-        <Text className="font-black text-2xl text-white">Let Your Imagination Run</Text>
+        <Text className="font-black text-2xl text-black dark:text-white">Let Your Imagination Run</Text>
         <Text className="font-black text-2xl text-green"> Wild!</Text>
       </Text>
       <View className='m-2'>
-        <Text className='text-lg text-white m-2'>Choose Reading Level</Text>
+        <Text className='text-lg text-black dark:text-white m-2'>Choose Reading Level</Text>
         <Controller
           name='readingLevel'
           control={control}
@@ -78,7 +78,7 @@ export default function NewStory() {
         />
       </View>
       <View className='m-2'>
-        <Text  className='text-lg text-white m-2'>Choose Your Location</Text>
+        <Text  className='text-lg text-black dark:text-white m-2'>Choose Your Location</Text>
         <Controller
           name='location'
           control={control}
@@ -88,7 +88,7 @@ export default function NewStory() {
         />
       </View>
       <View className='m-2'>
-        <Text  className='text-lg text-white m-2'>How long do you want to read for?</Text>
+        <Text  className='text-lg text-black dark:text-white m-2'>How long do you want to read for?</Text>
         <Controller
           name='readingTime'
           control={control}
@@ -103,7 +103,7 @@ export default function NewStory() {
         />
       </View>
       <View>
-        <Text  className='text-lg text-white'>Choose Your Adventure</Text>
+        <Text  className='text-lg text-black dark:text-white'>Choose Your Adventure</Text>
         <Controller
           name='themes'
           control={control}
@@ -112,7 +112,7 @@ export default function NewStory() {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              className='rounded-xl h-20 bg-grey text-white m-1 p-2'
+              className='rounded-xl h-20 bg-white dark:bg-grey text-black dark:text-white m-1 p-2'
               onChangeText={onChange}
               value={value}
               placeholder='Create your own characters, themes and plots.'
