@@ -24,10 +24,12 @@ const Settings = () => {
       ...selectedProfile,
       [prop]: value,
     };
-    delete newProfile['favs'];
-    delete newProfile['storiesList'];
+    
     try {
-      await updateProfile(newProfile);
+      const profileToDb = { ...newProfile };
+      delete profileToDb['storiesList'];
+      delete profileToDb['favs'];
+      await updateProfile(profileToDb);
       setSelectedProfile(newProfile);
       setProfiles(profiles.map((profile: ProfileType) => (profile.id === newProfile.id ? newProfile : profile)));
     } catch (error) {
