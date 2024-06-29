@@ -1,38 +1,25 @@
-import { View, Text, StyleSheet, Dimensions, Pressable, ScrollView, SafeAreaView } from 'react-native'
-import { useEffect } from 'react';
-import { useRouter } from 'expo-router';
-import { getSelectedProfile } from '@/services/apiService';
+import { Text,View } from 'react-native'
 import { useDataContext } from '@/context/globalContext';
-import { StoryType } from '@/types';
 import React from 'react'
+import StoryList from '../Stories/StoryList';
+
 
 const FaveStories = () => {
 
+  const { selectedProfile } = useDataContext();
 
-    const router = useRouter()
-  const { selectedProfile,setSelectedStory } = useDataContext();
-  function handlePress(story: StoryType) {
-    setSelectedStory(story)
-    router.push("/keepReadingScreen")
-  }
 
   return (
-    <SafeAreaView  >
-      <ScrollView horizontal={true} >
-        <View className='flex flex-row' >
-          {selectedProfile?.favs?.map((story) => (
-            <Pressable
-            className='w-[140px] h-[140px] bg-dark-orange aspect-square rounded-lg ml-5 flex items-center justify-center'
-              key={story.id}
-            onPress={() => handlePress(story)}
-            >
-              <Text className={`font-bold text-base text-white text-center text-lg`}>{story.title}</Text>
-            </Pressable>
-          )) || <Text>No stories available</Text>}
-       </View>
-      </ScrollView>
-    </SafeAreaView>
-      )
-    }
+    (selectedProfile.favs && selectedProfile.favs.length > 0 ?
+      <View>
+        <Text className='text-green text-3xl font-bold mt-3 mb-4 text-center'>Favorite Stories</Text>
+        <StoryList storyArray={selectedProfile.favs} buttonColor={'dark-orange'}></StoryList>
+      </View> :
+      <Text className='text-dark-orange text-3xl font-bold mt-3 mb-4 text-center'>No favorites yet</Text>)
+  )
+}
+
+
+
 
 export default FaveStories
