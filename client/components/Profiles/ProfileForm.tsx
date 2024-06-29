@@ -46,7 +46,7 @@ const ProfileForm = () => {
           rules={{ required: 'Name is required' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              className='rounded-full px-5 py-3 text-lg border-green border-2 bg-grey text-white mb-2'
+              className='rounded-full px-5 py-4 text-lg border-green border-2 bg-grey text-white mb-2'
               placeholder='Name'
               placeholderTextColor='white'
               onBlur={onBlur}
@@ -62,7 +62,7 @@ const ProfileForm = () => {
         <Text className='text-2xl font-bold mt-12 mb-2 text-white'>Picture</Text>
         <SelectPicture control={control} />
 
-   
+
         <Text className='text-2xl font-bold mb-2 text-white'>Choose Reading Level</Text>
         <Controller
           control={control}
