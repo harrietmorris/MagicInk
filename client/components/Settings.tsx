@@ -1,4 +1,4 @@
-import { Text, Pressable, TextInput, View, FlatList, Image } from 'react-native';
+import { Text, Pressable, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import { useDataContext } from '../context/globalContext';
 import { router } from 'expo-router';
@@ -12,13 +12,15 @@ import ReadingLevelPicker from './utils/ReadingLevelPicker';
 import NameEdit from './utils/NameEdit';
 import { profilePictures } from '../constants/profilePictures';
 import { useColorScheme } from 'nativewind';
+import ImageChoice from './utils/ImageChoice';
+
 
 const Settings = () => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
-  const [selectedImageId, setSelectedImageId] = useState(selectedProfile?.picture || '1');
   const [modalVisible, setModalVisible] = useState(false);
   const [nameModalVisible, setNameModalVisible] = useState(false);
+  const [imgModalVisible, setImgModalVisible] = useState(false); 
 
   async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
@@ -47,6 +49,15 @@ const Settings = () => {
     handleProfileUpdate('name', newName);
   };
 
+  const handle
+  
+  
+  
+  
+  Update = (newImg: string) => {
+    handleProfileUpdate('picture', newImg);
+  }
+
   function handleNewProfile() {
     router.replace('/newProfileScreen');
   }
@@ -71,29 +82,20 @@ const Settings = () => {
 
   return (
     <>
-      <View>
-        <FlatList
-          data={profilePictures}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={1}
-          horizontal={true}
-          renderItem={({ item }) => (
-            <Pressable
-              onPress={async () => {
-                handleProfileUpdate('picture', item.id);
-                setSelectedImageId(item.id);
-              }}
-            >
-              <Image
-                source={item.src}
-                className={`m-2 rounded-lg ${
-                  selectedImageId === item.id ? 'w-[100px] h-[100px]' : 'w-[90px] h-[90px]'
-                }`}
-              />
-            </Pressable>
-          )}
-        />
+       <View className='flex flex-row items-center justify-center'>
+        <Pressable onPress={() => setImgModalVisible(true)}>
+          <Image
+            source={profilePictures.find(item => item.id === selectedProfile?.picture)?.src}
+          />
+        </Pressable>
       </View>
+
+       <ImageChoice
+        imgVisible={imgModalVisible}
+        currentImg={selectedProfile?.picture || ''}
+        onClose={() => setImgModalVisible(false)}
+        onSave={handleImageUpdate}
+      />
 
       <View className='flex flex-row items-center justify-center'>
         <Text className='text-black dark:text-white text-5xl' numberOfLines={1} adjustsFontSizeToFit={true}>
@@ -154,3 +156,4 @@ const Settings = () => {
 };
 
 export default Settings;
+
