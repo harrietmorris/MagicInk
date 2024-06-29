@@ -12,7 +12,7 @@ interface ReadingLevelPickerProps {
 const ReadingLevelPicker: React.FC<ReadingLevelPickerProps> = ({ selectedValue, onValueChange }) => {
   const { colorScheme } = useColorScheme();
   return (
-      <View className='w-full rounded-full px-4 py-1 border border-green bg-white dark:bg-grey'>
+      <View className='w-full rounded-full px-4 py-1 border-2 border-green bg-white dark:bg-grey'>
         <Picker
           style={{ color: colorScheme === 'dark' ? 'white' : 'black' }}
           selectedValue={selectedValue}
