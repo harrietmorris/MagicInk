@@ -1,4 +1,4 @@
-import { View, Text, Modal, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Modal, Pressable } from 'react-native'
 import React from 'react'
 
 interface PopUpProps {
@@ -8,13 +8,7 @@ interface PopUpProps {
     message: string;
   }
   
-
-const PopUp: React.FC<PopUpProps> = ({
-    modalVisible,
-    setModalVisible,
-    onConfirm,
-    message
-    }) => {
+  const PopUp = ({ modalVisible, setModalVisible, onConfirm, message }: PopUpProps) => {
     return (
       <Modal
         animationType="fade"

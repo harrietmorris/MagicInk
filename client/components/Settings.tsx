@@ -1,4 +1,4 @@
-import { Text, Pressable, TextInput, View } from 'react-native'
+import { Text, Pressable, TextInput, View, FlatList, Image } from 'react-native'
 import React, { useState } from 'react'
 import { useDataContext } from '../context/globalContext';
 import { router } from 'expo-router'
@@ -6,15 +6,18 @@ import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
 import BlueButton from './style/BlueButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import PopUp from './PopUp';
+import PopUp from './utils/PopUp';
 import ReadingLevelPicker from './utils/ReadingLevelPicker';
+import NameEdit from './utils/NameEdit';
+import { profilePictures } from '../constants/profilePictures';
 
 const Settings = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
   const [profileName, setProfileName] = useState(selectedProfile?.name);
+  const [selectedImageId, setSelectedImageId] = useState(selectedProfile?.picture || '1');
   const [modalVisible, setModalVisible] = useState(false);
+  const [nameModalVisible, setNameModalVisible] = useState(false);
 
   async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
@@ -38,8 +41,8 @@ const Settings = () => {
     handleProfileUpdate('readingLevel', readingLevel);
   }
 
-  async function handleUpdateName () {
-    handleProfileUpdate('name', profileName || '');
+ const handleUpdateName = (newName: string) => {
+    handleProfileUpdate('name', newName);
   }
     
   function handleNewProfile () {
@@ -64,41 +67,66 @@ const Settings = () => {
     }
   }
 
+
+
   return (
     <>
-      <FontAwesome6 name="face-grin-tongue" size={150} color="#91EE91" />
-
-        <View>
-          <TextInput 
-          placeholder={profileName}
-          value={profileName}
-          onChangeText={setProfileName}
-          className='text-white text-5xl'
+      <View>
+        <FlatList
+          data={profilePictures}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={1}
+          horizontal={true}
+          renderItem={({ item }) => (
+            <Pressable onPress={async () => {
+                handleProfileUpdate('picture', item.id);
+                setSelectedImageId(item.id);
+              }}>
+              <Image
+                source={item.src}
+                className={`m-2 rounded-lg ${selectedImageId === item.id ? 'w-[100px] h-[100px]' : 'w-[90px] h-[90px]'}`} 
+                />
+            </Pressable>
+          )}
           />
-          <Pressable onPress={handleUpdateName}><FontAwesome name="pencil" size={30} color="white" /></Pressable>
-        </View>
+      </View>
 
-        <View className='w-full items-center' >
-          <Text className='text-white text-2xl self-start'>Username</Text>
-          <View className='bg-grey w-full rounded-full px-4 py-2 '>
-            <Text className='text-white text-2xl'>{user?.email} </Text>
-          </View>
+      <View className='flex flex-row items-center'>
+        <Text className='text-white text-5xl' numberOfLines={1} adjustsFontSizeToFit={true}>{selectedProfile?.name} </Text>
+        <Pressable onPress={() => setNameModalVisible(true)}>
+          <FontAwesome name="pencil" size={30} color="white" />
+        </Pressable>
+      </View>
+
+
+      <NameEdit
+        visible={nameModalVisible}
+        currentName={selectedProfile?.name || ''}
+        onClose={() => setNameModalVisible(false)}
+        onSave={handleUpdateName}
+      />
+
+      <View className='w-full items-center' >
+        <Text className='text-white text-2xl self-start'>Username</Text>
+        <View className='bg-grey w-full rounded-full px-4 py-2 '>
+          <Text className='text-white text-2xl'>{user?.email} </Text>
         </View>
+      </View>
       
-        <View className='w-full items-center text-white'>
-          <Text className='text-white text-2xl self-start'>Update Reading Level</Text>
-            <ReadingLevelPicker
-            selectedValue={selectedProfile?.readingLevel}
-            onValueChange={handleReadingLevelChange}
-          />
-        </View>
+      <View className='w-full items-center text-white'>
+        <Text className='text-white text-2xl self-start'>Update Reading Level</Text>
+          <ReadingLevelPicker
+          selectedValue={selectedProfile?.readingLevel}
+          onValueChange={handleReadingLevelChange}
+        />
+      </View>
       
         <BlueButton title="+ New Profile" onPress={handleNewProfile}/>
 
         <Pressable onPress={() => setModalVisible(true)} className='self-end'>
           <Ionicons name="trash-outline" size={40} color="#FFFFFF" />
         </Pressable>
-     
+      
         <PopUp
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}

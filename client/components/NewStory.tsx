@@ -19,7 +19,6 @@ export default function NewStory() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      //TODO: when i go to settings once, the default readinglevel changes appropriately, but if i do it twice it won't change again
       readingLevel: selectedProfile?.readingLevel ? [selectedProfile.readingLevel] : ['Kindergarten'],
       location: ['anywhere'],
       readingTime: ['5 minutes'],

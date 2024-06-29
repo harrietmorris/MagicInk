@@ -5,6 +5,7 @@ import { ProfileType } from '@/types';
 import ProfileButton from './ProfileButton';
 import { getSelectedProfile } from '@/services/apiService';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { profilePictures } from '@/constants/profilePictures';
 
 const ChangeProfilesButton = () => {
   const { profiles, selectedProfile, setSelectedProfile } = useDataContext();
@@ -27,7 +28,10 @@ const ChangeProfilesButton = () => {
         <Pressable className='' onPress={() => setModalVisible(true)}>
           {selectedProfile ? (
             selectedProfile.picture ? (
-              <Image source={{ uri: selectedProfile.picture }}/>
+              <Image
+                className='w-[50px] h-[50px]'
+                source={profilePictures.filter((pic) => pic.id === selectedProfile.picture)[0].src}
+              />
             ) : (
               <FontAwesome6 name="face-grin-tongue" size={30} color="#91EE91" />
             )
