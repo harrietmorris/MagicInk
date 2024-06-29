@@ -12,6 +12,8 @@ import ReadingLevelPicker from './utils/ReadingLevelPicker';
 import NameEdit from './utils/NameEdit';
 import { profilePictures } from '../constants/profilePictures';
 import ImageChoice from './utils/ImageChoice';
+import Feather from '@expo/vector-icons/Feather';
+
 
 const Settings = () => {
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
@@ -75,11 +77,14 @@ const Settings = () => {
   return (
     <>
        <View className='flex flex-row items-center justify-center'>
-        <Pressable onPress={() => setImgModalVisible(true)}>
+        <View className='relative'>
+        <Pressable   onPress={() => setImgModalVisible(true)}>
           <Image
             source={profilePictures.find(item => item.id === selectedProfile?.picture)?.src}
           />
         </Pressable>
+        <Feather className= 'absolute top-0 right-0' name="edit" size={30} color="white" />
+        </View>
       </View>
 
        <ImageChoice
@@ -94,7 +99,7 @@ const Settings = () => {
           {selectedProfile?.name}{' '}
         </Text>
         <Pressable onPress={() => setNameModalVisible(true)}>
-          <FontAwesome name='pencil' size={30} color='white' />
+          <Feather name="edit" size={30} color="white" />
         </Pressable>
       </View>
 
