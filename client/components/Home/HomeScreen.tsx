@@ -28,22 +28,30 @@ const HomeScreen = () => {
 
 
   return (
-    // (selectedProfile.storiesList && selectedProfile.storiesList.length > 0 ?
     <View className=''>
     <View className='m-8'>
       <Text className='text-green text-3xl font-bold'>{selectedProfile.name},</Text>
-      <Text className='text-white text-3xl font-bold'>Ready To Make Magic?</Text>
+      <Text className='dark:text-white text-3xl font-bold'>Ready To Make Magic?</Text>
     </View>
-    <Text className='text-white text-xl font-bold mb-4 mt-3 text-left mx-8'>All Stories</Text>
-      <View>
-        <StoryList storyArray={selectedProfile.storiesList} buttonColor={'yellow'}></StoryList>
-      </View> 
-    <Text className='text-white text-xl font-bold mt-3 mb-4 text-left mx-8'>My Favorites</Text>
+    <Text className='dark:text-white text-xl font-bold mb-4 mt-3 text-left mx-8'>All Stories</Text>
     <View>
-        <StoryList storyArray={selectedProfile.favs} buttonColor={'dark-orange'}></StoryList>
-      </View>
+        {selectedProfile.storiesList && selectedProfile.storiesList.length > 0 ? (
+          <StoryList storyArray={selectedProfile.storiesList} buttonColor="yellow" />
+        ) : (
+          <View className='flex mx-8 my-20 items-center'>
+            <OrangeButton title='Create a new story' onPress={() => router.push('/newStoryScreen')}/>
+          </View>
+        )}
     </View>
-      // <OrangeButton onPress={() => router.push("./newStoryScreen")} title={'Add Story'} />)
+    <Text className='dark:text-white text-xl font-bold mt-3 mb-4 text-left mx-8'>My Favorites</Text>
+    <View>
+        {selectedProfile.favs && selectedProfile.favs.length > 0 ? (
+          <StoryList storyArray={selectedProfile.favs} buttonColor="dark-orange" />
+        ) : (
+          <Text className="dark:text-white text-lg text-center mx-8 my-20">Click on the ❤️ to add a story to your favorites</Text>
+        )}
+    </View>
+    </View>
   )
 }
 
