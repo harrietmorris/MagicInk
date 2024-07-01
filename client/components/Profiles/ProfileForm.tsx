@@ -63,7 +63,7 @@ const ProfileForm = () => {
         <SelectPicture control={control} />
 
 
-        <Text className='text-2xl font-bold mb-2 dark:text-white'>Choose Reading Level</Text>
+        <Text className='text-2xl font-bold mb-2 mt-10 dark:text-white'>Choose Reading Level</Text>
         <Controller
           control={control}
           render={({ field: { onChange, value } }) => (

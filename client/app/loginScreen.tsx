@@ -29,21 +29,21 @@ export default function loginScreen() {
 
   return (
     <>
-      <View className='p-8 flex flex-col flex-1 bg-dark-grey'>
+      <View className='p-8 flex flex-col flex-1 dark:bg-dark-grey'>
         {
           <>
             <Text className='text-4xl font-extrabold text-green mb-10 text-center'>magicInk</Text>
-            <Text className='text-2xl font-extrabold text-white text-center'>
+            <Text className='text-2xl font-extrabold text-black dark:text-white text-center'>
               Step into a realm of endless adventures!
             </Text>
-            <Text className='text-2xl font-bold mt-12 mb-4 text-white'>Username</Text>
+            <Text className='text-2xl font-bold mt-12 mb-4 text-black dark:text-white'>Username</Text>
             <Controller
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-[#333333] text-white mb-2'
+                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-white dark:bg-grey text-black dark:text-white  mb-2'
                   placeholder='Username'
-                  placeholderTextColor='white'
+                  placeholderTextColor='grey'
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
@@ -52,14 +52,14 @@ export default function loginScreen() {
               name='email'
               defaultValue=''
             />
-            <Text className='text-2xl font-bold mt-12 mb-4 text-white'>Password</Text>
+            <Text className='text-2xl font-bold mt-12 mb-4 text-black dark:text-white'>Password</Text>
             <Controller
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-grey text-white mb-2'
+                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-white dark:bg-grey text-black dark:text-white mb-2'
                   placeholder='Password'
-                  placeholderTextColor='white'
+                  placeholderTextColor='grey'
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
