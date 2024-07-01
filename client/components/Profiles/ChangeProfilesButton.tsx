@@ -24,7 +24,7 @@ const ChangeProfilesButton = () => {
     };
 
     return (
-      <View >
+      <View className='p-3'>
         <Pressable className='' onPress={() => setModalVisible(true)}>
           {selectedProfile ? (
             selectedProfile.picture ? (
