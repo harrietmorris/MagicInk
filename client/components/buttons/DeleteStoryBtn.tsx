@@ -33,7 +33,7 @@ const DeleteStoryBtn = ({ storyId }: DeleteStoryProps): React.JSX.Element => {
   return (
     <View>
       <Pressable onPress={() => setModalVisible(true)}>
-        <FontAwesome size={24} name='trash' color='#FFFFFF' />
+        <FontAwesome size={24} name='trash' color='#333233' />
       </Pressable>
       <PopUp
         modalVisible={modalVisible}
