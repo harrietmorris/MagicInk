@@ -38,6 +38,9 @@ model Story {
   readingTime   Int
   readingLevel  String
   themes        String
+  chooseYourStory Boolean  @default(false)
+  currentBreakpoint Int   @default(0)
+  breakpoints   Int       @default(0)
   favs          Profile[] @relation("FavStories")
   profiles      Profile[] @relation("ProfileStories")
   createdAt  DateTime  @default(now())

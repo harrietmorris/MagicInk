@@ -16,17 +16,17 @@ export default async function postNewStory(ctx: Koa.Context) {
     !('location' in ctx.request.body) ||
     !('readingTime' in ctx.request.body) ||
     !('themes' in ctx.request.body) ||
-    !('simpleLanguage' in ctx.request.body) ||
-    !('words' in ctx.request.body)
+    !('chooseYourStory' in ctx.request.body) ||
+    !('breakpoints' in ctx.request.body)
   ) {
     ctx.status = 400;
     ctx.body = 'Bad request';
     return;
   }
 
-  const { readingLevel, location, readingTime, themes, simpleLanguage, words } = ctx.request.body as StoryRequestBody
+  const { readingLevel, location, readingTime, themes, chooseYourStory, breakpoints} = ctx.request.body as StoryRequestBody
   try {
-    const prompt = createPrompt(readingLevel, location, readingTime, themes, simpleLanguage, words);
+    const prompt = createPrompt(readingLevel, location, readingTime, themes, chooseYourStory, breakpoints);
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
@@ -49,6 +49,9 @@ export default async function postNewStory(ctx: Koa.Context) {
         readingTime,
         readingLevel,
         themes,
+        chooseYourStory,
+        currentBreakpoint: 0,
+        breakpoints,
         profiles: {
           connect: {
             id: parseInt(profId, 10),

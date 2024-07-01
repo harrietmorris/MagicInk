@@ -24,24 +24,34 @@ Make the story as exciting and detailed as possible, always adding more rather t
 If you are not able to write the story for whatever reason you should return this message: "ERROR: could not write the story"`;
 
 
-function createPrompt (readingLevel: string, location: string, readingTime: number, themes: string, simpleLanguage=false, words: number[] = []) {
+function createPrompt (
+  readingLevel: string,
+  location: string,
+  readingTime: number,
+  themes: string, 
+  chooseYourStory: boolean = false, 
+  breakpoints: number = 2
+) {
+  let writingPrompt = 'Write the full story now.';
+
+  if (chooseYourStory && breakpoints > 0) {
+    writingPrompt = `Write 1/${breakpoints + 1} of the story now. Give the reader 3 options to choose from at this critical point in the story. Each option should be prepended with a number and a colon. For example, "1: Go through the door."`;
+  } 
   const starting_prompt = `
-    ${persona}
+    ${persona.trim()}
 
     Write a childrens story with the following parameters:
     - The story should be about: "${themes}"
     - The story must be age appropriate for children with a Lexile reading level of ${readingLevel}
     - The story must be located in ${location}
     - The story must be readable in ${readingTime} minutes for children with a Lexile reading level of ${readingLevel}
-    ${simpleLanguage ? '- The story must be written in simple language' : ''}
 
-    Write the full story now. 
+    ${writingPrompt.trim()}
     The first line of text should be the title of the story.
 
-    ${guidelines}`;
+    ${guidelines.trim()}`;
 
-  return starting_prompt;
-
+  return starting_prompt.trim();
 }
 
 
