@@ -34,6 +34,7 @@ export interface CreateStoryRequestBody {
   model?: string;
   readingTime: number;
   readingLevel: string;
+  location: string;
   themes: string;
   chooseYourStory: boolean;
   currentBreakpoint: number;

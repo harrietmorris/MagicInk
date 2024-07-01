@@ -38,6 +38,7 @@ model Story {
   readingTime   Int
   readingLevel  String
   themes        String
+  location      String
   chooseYourStory Boolean  @default(false)
   currentBreakpoint Int   @default(0)
   breakpoints   Int       @default(0)

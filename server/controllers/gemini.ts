@@ -1,10 +1,10 @@
-import createPrompt from '../prompt';
+import {createPrompt, createContinuationPrompt } from '../prompt';
 import model from '../gemini';
 import { StoryRequestBody } from '../serverTypes';
 import * as Koa from "koa"
 import prisma from '../models';
 
-export default async function postNewStory(ctx: Koa.Context) {
+export async function postNewStory(ctx: Koa.Context) {
   if (!ctx.request.body) {
     ctx.status = 400;
     ctx.body = 'Bad request';
@@ -48,6 +48,7 @@ export default async function postNewStory(ctx: Koa.Context) {
         model: 'gemini-1.5-flash',
         readingTime,
         readingLevel,
+        location,
         themes,
         chooseYourStory,
         currentBreakpoint: 0,
@@ -67,3 +68,65 @@ export default async function postNewStory(ctx: Koa.Context) {
     ctx.body = 'Error generating story';
   }
 }
+
+export async function continueStory(ctx: Koa.Context) {
+  const { storyId, optionSelected } = ctx.params;
+  try {
+    const originalSory = await prisma.story.findUnique({
+      where: {
+        id: parseInt(storyId, 10),
+      },
+    });
+    if (!originalSory) {
+      ctx.status = 404;
+      ctx.body = 'Story not found';
+      return;
+    }
+    if (originalSory.currentBreakpoint === originalSory.breakpoints) {
+      ctx.status = 400;
+      ctx.body = 'Story already complete';
+      return;
+    }
+    const prompt = createContinuationPrompt(
+      originalSory.storyString,
+      originalSory.currentBreakpoint + 1,
+      originalSory.breakpoints,
+      parseInt(optionSelected, 10),
+      originalSory.themes,
+      originalSory.readingLevel,
+      originalSory.location,
+      originalSory.readingTime
+    );
+    console.log('prompt', prompt);
+    
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    if (text.includes('ERROR: could not write the story')) {
+      ctx.status = 204;
+      return;
+    }
+
+    const story = originalSory.storyString + '\n' + text;
+    const updatedStory = await prisma.story.update({
+      where: {
+        id: parseInt(storyId, 10),
+      },
+      data: {
+        storyString: story,
+        currentBreakpoint: originalSory.currentBreakpoint + 1,
+      },
+    });
+
+    ctx.status = 201;
+    ctx.body = updatedStory
+
+  } catch (e) {
+    console.error(e);
+    ctx.status = 500;
+    ctx.body = 'Error generating story';  
+  }
+}
+
+
