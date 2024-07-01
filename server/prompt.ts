@@ -21,8 +21,7 @@ Remember, your main goal is to tell a full and engaging story.
 If you rush through it, children might lose interest.
 Make the story as exciting and detailed as possible, always adding more rather than summarizing.
 
-If you are not able to write the story for whatever reason you should return this message: "ERROR: could not write the story"
-`;
+If you are not able to write the story for whatever reason you should return this message: "ERROR: could not write the story"`;
 
 
 function createPrompt (readingLevel: string, location: string, readingTime: number, themes: string, simpleLanguage=false, words: number[] = []) {
@@ -33,10 +32,10 @@ function createPrompt (readingLevel: string, location: string, readingTime: numb
     - The story should be about: "${themes}"
     - The story must be age appropriate for children with a Lexile reading level of ${readingLevel}
     - The story must be located in ${location}
-    - The story must be readable in ${readingTime} minutes
+    - The story must be readable in ${readingTime} minutes for children with a Lexile reading level of ${readingLevel}
     ${simpleLanguage ? '- The story must be written in simple language' : ''}
 
-    Write the story. ${words.length == 2 ? `Try to write AT MINIMUM ${words[0]} WORDS and MAXIMUM ${words[1]} WORDS.` : ''}
+    Write the full story now. 
     The first line of text should be the title of the story.
 
     ${guidelines}`;
