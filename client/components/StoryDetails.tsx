@@ -21,7 +21,9 @@ const StoryDetails = () => {
           </View>
           <Text className='text-3xl mb-5 text-green font-black tracking-tight'>{selectedStory.title}</Text>
           <ScrollView>
-            <Text className='text-white text-base'>{selectedStory.storyString}</Text>
+            <Text className='text-3xl mb-10 text-green font-black tracking-tight'>{selectedStory.title}</Text>
+            <Text className='text-black dark:text-white text-base'>{selectedStory.storyString}</Text>
+            <FavButton storyId={selectedStory.id} />
           </ScrollView>
         </>
       ) : (

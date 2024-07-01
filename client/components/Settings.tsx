@@ -1,4 +1,4 @@
-import { Text, Pressable, TextInput, View, FlatList, Image } from 'react-native';
+import { Text, Pressable, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import { useDataContext } from '../context/globalContext';
 import { router } from 'expo-router';
@@ -11,12 +11,17 @@ import PopUp from './utils/PopUp';
 import ReadingLevelPicker from './utils/ReadingLevelPicker';
 import NameEdit from './utils/NameEdit';
 import { profilePictures } from '../constants/profilePictures';
+import { useColorScheme } from 'nativewind';
+import ImageChoice from './utils/ImageChoice';
+import Feather from '@expo/vector-icons/Feather';
+
 
 const Settings = () => {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
   const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
-  const [selectedImageId, setSelectedImageId] = useState(selectedProfile?.picture || '1');
   const [modalVisible, setModalVisible] = useState(false);
   const [nameModalVisible, setNameModalVisible] = useState(false);
+  const [imgModalVisible, setImgModalVisible] = useState(false);
 
   async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return; // TODO: we should always have a selected profile?
@@ -24,7 +29,7 @@ const Settings = () => {
       ...selectedProfile,
       [prop]: value,
     };
-    
+
     try {
       const profileToDb = { ...newProfile };
       delete profileToDb['storiesList'];
@@ -43,6 +48,10 @@ const Settings = () => {
 
   const handleUpdateName = (newName: string) => {
     handleProfileUpdate('name', newName);
+  };
+
+  const handleImageUpdate = (newImg: string) => {
+    handleProfileUpdate('picture', newImg);
   };
 
   function handleNewProfile() {
@@ -69,36 +78,30 @@ const Settings = () => {
 
   return (
     <>
-      <View>
-        <FlatList
-          data={profilePictures}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={1}
-          horizontal={true}
-          renderItem={({ item }) => (
-            <Pressable
-              onPress={async () => {
-                handleProfileUpdate('picture', item.id);
-                setSelectedImageId(item.id);
-              }}
-            >
-              <Image
-                source={item.src}
-                className={`m-2 rounded-lg ${
-                  selectedImageId === item.id ? 'w-[100px] h-[100px]' : 'w-[90px] h-[90px]'
-                }`}
-              />
-            </Pressable>
-          )}
-        />
+      <View className='items-center justify-center'>  
+          <Pressable className='relative' onPress={() => setImgModalVisible(true)}>
+            <View >
+            <Image  source={profilePictures.find((item) => item.id === selectedProfile?.picture)?.src} />
+            </View>
+            <View className='absolute z-10 top-5 right-0'>
+              <Feather  name='edit' size={30} color='white' />
+            </View>
+          </Pressable>
       </View>
 
+      <ImageChoice
+        imgVisible={imgModalVisible}
+        currentImg={selectedProfile?.picture || ''}
+        onClose={() => setImgModalVisible(false)}
+        onSave={handleImageUpdate}
+      />
+
       <View className='flex flex-row items-center justify-center'>
-        <Text className='text-white text-5xl' numberOfLines={1} adjustsFontSizeToFit={true}>
+        <Text className='text-black dark:text-white text-5xl' numberOfLines={1} adjustsFontSizeToFit={true}>
           {selectedProfile?.name}{' '}
         </Text>
         <Pressable onPress={() => setNameModalVisible(true)}>
-          <FontAwesome name='pencil' size={30} color='white' />
+          <Feather name='edit' size={30} color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'} />
         </Pressable>
       </View>
 
@@ -110,24 +113,36 @@ const Settings = () => {
       />
 
       <View className='w-full items-center'>
-        <Text className='text-white text-2xl self-start mb-4'>Username</Text>
-        <View className='bg-grey w-full rounded-full px-6 py-4'>
-          <Text className='text-white text-2xl'>{user?.email} </Text>
+        <Text className='text-black dark:text-white text-2xl self-start mb-4'>Username</Text>
+        <View className='bg-white dark:bg-grey w-full rounded-full px-6 py-4'>
+          <Text className='text-black dark:text-white text-2xl'>{user?.email} </Text>
         </View>
       </View>
 
-      <View className='w-full items-center text-white '>
-        <Text className='text-white text-2xl self-start mb-4'>Update Reading Level</Text>
+      <View className='w-full items-center'>
+        <Text className='text-black dark:text-white text-2xl self-start mb-4'>Update Reading Level</Text>
         <ReadingLevelPicker selectedValue={selectedProfile?.readingLevel} onValueChange={handleReadingLevelChange} />
       </View>
 
       <View className='flex flex-row items-center justify-center'>
         <BlueButton title='+ New Profile' onPress={handleNewProfile} />
       </View>
-
-      <Pressable onPress={() => setModalVisible(true)} className='self-end'>
-        <Ionicons name='trash-outline' size={40} color='#FFFFFF' />
-      </Pressable>
+      
+      <View className='flex flex-row justify-around'>
+        <Pressable
+          onPress={toggleColorScheme}
+        >
+          <Text
+            selectable={false}
+            className="dark:text-white text-4xl"
+          >
+            {`${colorScheme === 'light' ? '🌙' : '🌞'}`}
+          </Text>
+        </Pressable>
+        <Pressable onPress={() => setModalVisible(true)}>
+          <Ionicons name='trash-outline' size={40} color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'} />
+        </Pressable>
+      </View>
 
       <PopUp
         modalVisible={modalVisible}
