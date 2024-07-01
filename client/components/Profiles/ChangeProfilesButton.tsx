@@ -32,8 +32,10 @@ const ChangeProfilesButton = () => {
   };
 
     return (
+
       <View className='px-2.5'> 
          <Pressable ref={buttonRef} onPressIn={handlePressIn}>
+
           {selectedProfile ? (
             selectedProfile.picture ? (
               <Image

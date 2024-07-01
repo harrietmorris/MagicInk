@@ -1,7 +1,7 @@
 import { useDataContext } from '@/context/globalContext';
 import { getUser } from '@/services/apiService';
 import { UserType } from '@/types';
-import { Link, router } from 'expo-router';
+import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { View, Text, Pressable, TextInput } from 'react-native';
