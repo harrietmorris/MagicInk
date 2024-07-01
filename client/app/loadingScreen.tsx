@@ -16,13 +16,13 @@ const getRandomGif = () => {
 
 const LoadingScreen = () => {
   const [currentGif, setCurrentGif] = useState(getRandomGif());
-  
+
   return (
 
-    <View className='flex-1 bg-dark-grey justify-center items-center'>
+    <View className='flex-1 dark:bg-dark-grey justify-center items-center'>
       <Image source={currentGif} style={styles.gif}/>
     </View>
-    
+
   );
 };
 

@@ -6,7 +6,6 @@ import { ProfileType } from '../types';
 import { deleteProfile, updateProfile } from '@/services/apiService';
 import BlueButton from './style/BlueButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import PopUp from './utils/PopUp';
 import ReadingLevelPicker from './utils/ReadingLevelPicker';
 import NameEdit from './utils/NameEdit';
@@ -84,7 +83,7 @@ const Settings = () => {
             <Image  source={profilePictures.find((item) => item.id === selectedProfile?.picture)?.src} />
             </View>
             <View className='absolute z-10 top-5 right-0'>
-              <Feather  name='edit' size={30} color='white' />
+              <Feather  name='edit' size={30} color={colorScheme === 'dark' ? 'white' : 'black'} />
             </View>
           </Pressable>
       </View>
