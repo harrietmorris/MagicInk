@@ -50,8 +50,8 @@ export const createStory = async (
   location: string,
   readingTime: number,
   themes: string,
-  simpleLanguage: boolean = false,
-  words: number[] = [],
+  chooseYourStory: boolean = false,
+  breakpoints: number = 0,
 ) => {
   try {
     const response = await axios.post(`${BASE_URL}/profiles/${profId}/story`, {
@@ -59,9 +59,8 @@ export const createStory = async (
       location,
       readingTime,
       themes,
-      simpleLanguage,
-      words,
-      profId,
+      chooseYourStory,
+      breakpoints,
     });
     return {status: response.status, storyDetails: response.data};
   } catch (error) {
