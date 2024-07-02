@@ -10,6 +10,7 @@ export function createImagePrompt(readingLevel: string, location: string, themes
     - The story is about: "${themes}"
     - The story image must be age appropriate for children with a Lexile reading level of ${readingLevel}
     - The story must be located in ${location}
+    This should just be an image. Do not add any text or make it look like a book.
   `;
   return starting_prompt;
 }
