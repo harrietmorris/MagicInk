@@ -8,6 +8,8 @@ import DeleteStoryBtn from './buttons/DeleteStoryBtn';
 import { updateStory } from '@/services/apiService';
 import * as Speech from 'expo-speech';
 
+const voice = 'en-gb-x-gbg-local';
+
 const splitTextIntoChunks = (text: string, chunkSize: number) => {
   const regex = new RegExp(`(.{1,${chunkSize}})(\\s|$)`, 'g');
   return text.match(regex) || [];
@@ -35,7 +37,7 @@ const StoryDetails = () => {
         } else {
           lastOptions = [];
         }
-        lastOptions.forEach(option => {
+        options.forEach(option => {
           storyText = storyText.replace(option, '');
         });
     }
@@ -56,6 +58,7 @@ const StoryDetails = () => {
     if (isSpeaking && chunks.length > 0) {
       Speech.speak(chunks[currentChunk], {
         onDone: handleSpeechEnd,
+        voice
       });
     }
   }, [isSpeaking, currentChunk, handleSpeechEnd]);
@@ -65,7 +68,7 @@ const StoryDetails = () => {
       Speech.stop();
       setIsSpeaking(false);
     } else {
-      if (currentChunk === 0 && selectedStory) Speech.speak(selectedStory?.title)
+      if (currentChunk === 0 && selectedStory) Speech.speak(selectedStory?.title, { voice })
       setIsSpeaking(true);
     }
   };
