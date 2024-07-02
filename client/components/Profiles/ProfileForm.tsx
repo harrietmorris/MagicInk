@@ -6,10 +6,10 @@ import { ProfileType } from '@/types';
 import { newProfile } from '@/services/apiService';
 import { router } from 'expo-router';
 import OrangeButton from '../style/OrangeButton';
-import SelectPicture from '../SelectPicture';
 import ReadingLevelPicker from '../utils/ReadingLevelPicker';
 import UploadMediaFile from './UploadMedia';
 import ImageChoice from '../utils/ImageChoice';
+import BlueButton from '../style/BlueButton';
 
 const ProfileForm = () => {
 
@@ -36,21 +36,18 @@ const ProfileForm = () => {
 
   const onSubmit = async (data: Partial<ProfileType>) => {
     try {
-      console.log('submitted picture', data.picture)
       if (!user) return;
       data.userId = user.id;
       const addProfile = await newProfile(user.id, data as ProfileType);
       setProfiles([...profiles, addProfile]);
       setSelectedProfile(addProfile);
       router.replace('/homeScreen');
-    
     } catch (error) {
       console.error('Error creating profile', error);
     }
   };
 
   const handleImageUpdate = (newImg: string) => {
-    console.log('updating default image, form', newImg)
     setCurrentImg(newImg);
   };
 
@@ -80,15 +77,15 @@ const ProfileForm = () => {
 
         <Text className="text-2xl font-bold mt-12 mb-2 dark:text-white">Picture</Text>
         <Pressable className="mb-4" onPress={() => setImgModalVisible(true)}>
-          <Text className="text-lg">Select from predefined images</Text>
+          <Text className="text-lg">Choose avatar</Text>
         </Pressable>
+        <BlueButton onPress={() => setImgModalVisible(true) } title={'Choose avatar'} />
         <UploadMediaFile onImageUpload={handleImageUpdate} />
 
         <Controller
           control={control}
           name="picture"
           render={({ field }) => (
-            // Display current image
             <View>
               <Text>Selected Image: {currentImg}</Text>
             </View>

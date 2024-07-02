@@ -4,7 +4,6 @@ import { useDataContext } from '@/context/globalContext';
 import { ProfileType } from '@/types';
 import { getSelectedProfile } from '@/services/apiService';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import { profilePictures } from '@/constants/profilePictures';
 import DropButton from './DropButton';
 import RenderImage from './RenderImg'; 
 
@@ -14,13 +13,10 @@ const ChangeProfilesButton = () => {
   const [buttonLayout, setButtonLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const buttonRef = useRef<View>(null);
 
-  console.log('profile button', selectedProfile);
-
   const handleProfilePress = async (profile: ProfileType) => {
     try {
       const profileId = profile.id;
       const fetchedProfile = await getSelectedProfile(profileId);
-      console.log('fetched profile', fetchedProfile);
       setSelectedProfile(fetchedProfile);
       setModalVisible(false);
     } catch (error) {
@@ -43,7 +39,7 @@ const ChangeProfilesButton = () => {
           selectedProfile.picture ? (
             <RenderImage
               imageUrl={selectedProfile!.picture}
-              style={{ width: 50, height: 50 }}
+              style={{ width: 50, height: 50, borderRadius: 50 }}
             />
           ) : (
             <FontAwesome6 name="face-grin-tongue" size={30} color="#91EE91" />

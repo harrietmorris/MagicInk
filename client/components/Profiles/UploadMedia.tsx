@@ -1,11 +1,11 @@
-import { View, Text, Pressable, StyleSheet, Alert, Image } from 'react-native'
+import { View, Text, Pressable, StyleSheet, Alert } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import { firebaseConfig } from '../../firebaseConfig'
 import React, { useState } from 'react'
 import * as FileSystem from 'expo-file-system'
 import { initializeApp } from 'firebase/app'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { useDataContext } from '@/context/globalContext'
+import BlueButton from '../style/BlueButton'
 
 const app = initializeApp(firebaseConfig)
 const storage = getStorage(app)
@@ -15,7 +15,6 @@ interface UploadMediaFileProps {
 }
 
 const UploadMediaFile: React.FC<UploadMediaFileProps> = ({ onImageUpload }) => {
-    const { user } = useDataContext()
     const [image, setImage] = useState<string | null>(null)
     const [uploading, setUploading] = useState<boolean>(false)
 
@@ -77,22 +76,13 @@ const UploadMediaFile: React.FC<UploadMediaFileProps> = ({ onImageUpload }) => {
         }
     }
 
-    const renderImage = (image: string) => {
-        if (image.startsWith('../')) {
-            return null;
-            // return <Image source={require(image)} style={{ width: 300, height: 300, borderRadius: 150 }} />
-        } else {
-            return <Image source={{ uri: image }} style={{ width: 300, height: 300, borderRadius: 150 }} />
-        }
-    }
-
     return (
         <View>
+            <BlueButton onPress={pickImage} title={'Upload image'} />
             <Pressable style={styles.button} onPress={pickImage}>
                 <Text>Pick Image</Text>
             </Pressable>
             <View>
-                {image && renderImage(image)}
                 <Pressable style={styles.button} onPress={uploadMedia} disabled={uploading}>
                     <Text>{uploading ? 'Uploading...' : 'Upload Image'}</Text>
                 </Pressable>

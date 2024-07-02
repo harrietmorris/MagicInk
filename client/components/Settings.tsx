@@ -9,7 +9,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import PopUp from './utils/PopUp';
 import ReadingLevelPicker from './utils/ReadingLevelPicker';
 import NameEdit from './utils/NameEdit';
-import { profilePictures } from '../constants/profilePictures';
 import { useColorScheme } from 'nativewind';
 import ImageChoice from './utils/ImageChoice';
 import Feather from '@expo/vector-icons/Feather';
@@ -75,8 +74,6 @@ const Settings = () => {
     }
   }
 
-  const fallbackImageSource = profilePictures[0]?.src; // Default to the first profile picture
-
   return (
     <>
       <View className='items-center justify-center'>
@@ -85,7 +82,7 @@ const Settings = () => {
             {selectedProfile && (
               <RenderImage
                 imageUrl={selectedProfile.picture}
-                style={{ width: 100, height: 100, borderRadius: 50 }}
+                style={{ width: 150, height: 150, borderRadius: 150 }}
               />
             )}
           </View>

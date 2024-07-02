@@ -13,7 +13,6 @@ const RenderImage: React.FC<RenderImageProps> = ({ imageUrl, style }) => {
 
     const handleFind = () => {
         const found = profilePictures.find((pic) => pic.id === imageUrl)
-        console.log('found', found)
         return found!.src
       }
       let resolvedSrc;
@@ -22,14 +21,10 @@ const RenderImage: React.FC<RenderImageProps> = ({ imageUrl, style }) => {
       let localUrl = handleFind();
       let numUrl = Number(localUrl);
       resolvedSrc = Image.resolveAssetSource(numUrl)
-      console.log('resolved local', resolvedSrc);
     }
     else {
         resolvedSrc = {uri : imageUrl}
-
-        console.log('resolved online', resolvedSrc);
     }
-
     return <Image source={resolvedSrc} style={style} /> 
 };
 
