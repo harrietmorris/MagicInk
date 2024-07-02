@@ -91,7 +91,7 @@ const StoryDetails = () => {
     <SafeAreaView className='mx-8 mt-20 flex-1'>
       {selectedStory ? (
         <>
-          <View className='flex flex-row justify-between mb-5'>
+          <View className='flex flex-row justify-between mb-5 items-center'>
             <DeleteStoryBtn storyId={selectedStory.id} />
             <Pressable onPress={toggleSpeech}>
               <Text className='text-2xl'>
