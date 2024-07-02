@@ -21,7 +21,7 @@ export async function getStoryById(ctx: Context) {
 
     ctx.body = story;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     ctx.status = 400;
     ctx.body = { error: 'Error fetching story' };
   }

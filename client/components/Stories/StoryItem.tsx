@@ -14,7 +14,8 @@ const StoryItem = ({ story, handlePress, buttonColor }: StoryItemProps) => {
   return (
     <View>
       <Pressable
-        className={`w-[200px] h-[200px] bg-${buttonColor} aspect-square rounded-lg ml-5 p-2 flex items-center justify-center`}
+        // TODO: fix this hack to get light-orange to work
+        className={`w-[200px] h-[200px] bg-${buttonColor == 'light-orange'? '[#F4A662]': buttonColor} aspect-square rounded-lg ml-5 p-2 flex items-center justify-center`}
         onPress={() => handlePress(story)}
       >
         <Text className='text-base text-black text-center text-lg font-bold'>{story.title}</Text>

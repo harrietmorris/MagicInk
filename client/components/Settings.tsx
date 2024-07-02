@@ -100,7 +100,7 @@ const Settings = () => {
       />
 
       <View className='flex flex-row items-center justify-center'>
-        <Text className='text-black dark:text-white text-5xl' numberOfLines={1} adjustsFontSizeToFit={true}>
+        <Text className='text-black dark:text-white text-5xl font-black tracking-tighter' numberOfLines={1} adjustsFontSizeToFit={true}>
           {selectedProfile?.name}{' '}
         </Text>
         <Pressable onPress={() => setNameModalVisible(true)}>

@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './app/**/*.{js,jsx,ts,tsx}',
@@ -17,7 +18,13 @@ module.exports = {
         "grey": '#333233',
         "dark-grey": '#2B2936',
         'light': '#FFFFFF',
-      }
+      },
+      fontFamily: {
+        poppins: ['Poppins_500Medium,']
+      },
+    },
+    fontFamily: {
+      sans: ['Poppins_500Medium', 'ui-sans-serif', 'system-ui'],
     },
   },
   plugins: [],

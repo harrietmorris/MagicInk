@@ -11,7 +11,7 @@ const LogOutButton = () => {
       }
 
   return (
-    <View>
+    <View className='px-2.5'>
       <OrangeButton title="Logout" onPress={handleLogout}/>
     </View>
   )
