@@ -1,41 +1,88 @@
-import { Text, ScrollView, SafeAreaView, View } from 'react-native';
-import React from 'react';
+import { Text, ScrollView, SafeAreaView, View, Pressable } from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { router } from 'expo-router';
 import FavButton from './buttons/favButton';
 import OrangeButton from './style/OrangeButton';
 import DeleteStoryBtn from './buttons/DeleteStoryBtn';
 import { updateStory } from '@/services/apiService';
+import * as Speech from 'expo-speech';
+
+const splitTextIntoChunks = (text: string, chunkSize: number) => {
+  const regex = new RegExp(`(.{1,${chunkSize}})(\\s|$)`, 'g');
+  return text.match(regex) || [];
+};
 
 const StoryDetails = () => {
-  //TODO: save selected story to device storage
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [currentChunk, setCurrentChunk] = useState(0);
   const { selectedStory, selectedProfile, setSelectedStory } = useDataContext();
+  let lastOptions: string[] | RegExpMatchArray = [];
+  
   if (!selectedStory) {
     router.replace('/newStoryScreen');
-    return;
+    return null;
   }
-  let storyText = selectedStory.storyString.replaceAll('*','');
-  let lastOptions: string[] = [];
-  if (selectedStory.chooseYourStory) {
-    const options = storyText.match(/(\d:.+)/g) || []
-    if (options.length > 0) {
-      lastOptions = options.slice(-3)
-      lastOptions.forEach(option => {
-      storyText = storyText.replace(option, '')})
+  
+  let storyText = selectedStory?.storyString || '';
+  if (storyText && selectedStory) {
+    storyText = storyText.replaceAll('*', '');
+    // Prepare interactive story options
+    if (selectedStory.chooseYourStory) {
+      const options = storyText.match(/(\d:.+)/g) || [];
+      if (options.length > 0) {
+        lastOptions = options.slice(-3);
+        } else {
+          lastOptions = [];
+        }
+        lastOptions.forEach(option => {
+          storyText = storyText.replace(option, '');
+        });
     }
   }
-  async function continueStory(option: string) {
-    if(!selectedProfile || !selectedStory) {
+  // Split text into chunks for speech
+  const charLimit = Speech.maxSpeechInputLength;
+  const chunks = splitTextIntoChunks(storyText, charLimit);
+
+  const handleSpeechEnd = useCallback(() => {
+    if (currentChunk < chunks.length - 1 && isSpeaking) {
+      setCurrentChunk(prev => prev + 1);
+    } else {
+      setIsSpeaking(false);
+    }
+  }, [currentChunk, isSpeaking]);
+
+  useEffect(() => {
+    if (isSpeaking && chunks.length > 0) {
+      Speech.speak(chunks[currentChunk], {
+        onDone: handleSpeechEnd,
+      });
+    }
+  }, [isSpeaking, currentChunk, handleSpeechEnd]);
+
+  const toggleSpeech = () => {
+    if (isSpeaking) {
+      Speech.stop();
+      setIsSpeaking(false);
+    } else {
+      if (currentChunk === 0 && selectedStory) Speech.speak(selectedStory?.title)
+      setIsSpeaking(true);
+    }
+  };
+
+
+
+  const handleContinueStory = async (option: string) => {
+    if (!selectedProfile || !selectedStory) {
       return;
     }
-  router.replace('/loadingScreen');
-  const optionNumber = option.split(':')[0];
-  const response = await updateStory(selectedProfile?.id, selectedStory.id, optionNumber);
-  const storyDetails = response?.storyDetails;
-  setSelectedStory(storyDetails);
-  router.replace('/keepReadingScreen');
-}
-
+    router.replace('/loadingScreen');
+    const optionNumber = option.split(':')[0];
+    const response = await updateStory(selectedProfile.id, selectedStory.id, optionNumber);
+    const storyDetails = response.storyDetails;
+    setSelectedStory(storyDetails);
+    router.replace('/keepReadingScreen');
+  };
 
   return (
     <SafeAreaView className='mx-8 mt-20 flex-1'>
@@ -43,6 +90,11 @@ const StoryDetails = () => {
         <>
           <View className='flex flex-row justify-between mb-5'>
             <DeleteStoryBtn storyId={selectedStory.id} />
+            <Pressable onPress={toggleSpeech}>
+              <Text className='text-2xl'>
+                {isSpeaking ? '🔇': '🔊' }
+              </Text>
+            </Pressable>
             <FavButton storyId={selectedStory.id} />
           </View>
           <Text className='text-3xl mb-5 text-green font-black tracking-tight'>{selectedStory.title}</Text>
@@ -52,7 +104,7 @@ const StoryDetails = () => {
           && selectedStory.currentBreakpoint < selectedStory.breakpoints
           && lastOptions.map((option) => (
             <View className='p-1'>
-              <OrangeButton title={option} onPress={() => {continueStory(option);}} />
+              <OrangeButton title={option} onPress={() => {handleContinueStory(option);}} />
             </View>
           ))}
           </ScrollView>
