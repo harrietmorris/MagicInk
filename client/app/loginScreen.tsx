@@ -32,7 +32,7 @@ export default function loginScreen() {
       <View className='p-8 flex flex-col flex-1 dark:bg-dark-grey'>
         {
           <>
-            <Text className='text-4xl font-extrabold text-green mb-10 text-center'>magicInk</Text>
+            <Text className='tracking-tighter text-4xl font-black text-green mb-10 text-center'>magicInk</Text>
             <Text className='text-2xl font-extrabold text-black dark:text-white text-center'>
               Step into a realm of endless adventures!
             </Text>
