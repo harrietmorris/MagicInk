@@ -1,11 +1,10 @@
-import { View, Text, Pressable, StyleSheet, Alert } from 'react-native'
+import { View, Text, Pressable, Alert, ActivityIndicator } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import { firebaseConfig } from '../../firebaseConfig'
 import React, { useState } from 'react'
 import * as FileSystem from 'expo-file-system'
 import { initializeApp } from 'firebase/app'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import BlueButton from '../style/BlueButton'
 
 const app = initializeApp(firebaseConfig)
 const storage = getStorage(app)
@@ -15,34 +14,32 @@ interface UploadMediaFileProps {
 }
 
 const UploadMediaFile: React.FC<UploadMediaFileProps> = ({ onImageUpload }) => {
-    const [image, setImage] = useState<string | null>(null)
     const [uploading, setUploading] = useState<boolean>(false)
 
-    const pickImage = async () => {
+
+    const pickAndUploadImage = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
 
         if (status !== "granted") {
             Alert.alert(
                 "Permission Denied",
-                `Sorry, we need camera roll permission to upload images.`
+                "Sorry, we need camera roll permission to upload images."
             )
-        } else {
-            let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [1, 1],
-                quality: 1,
-            })
-
-            if (!result.canceled) {
-                setImage(result.assets[0].uri)
-            }
+            return
         }
-    }
 
-    const uploadMedia = async () => {
-        if (!image) return
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+        })
 
+        if (result.canceled || !result.assets || !result.assets.length) {
+            return
+        }
+
+        const image = result.assets[0].uri
         setUploading(true)
 
         try {
@@ -68,7 +65,6 @@ const UploadMediaFile: React.FC<UploadMediaFileProps> = ({ onImageUpload }) => {
 
             setUploading(false)
             Alert.alert('Photo uploaded')
-            setImage(null)
             onImageUpload(imageUrl)
         } catch (error) {
             console.error(error)
@@ -76,30 +72,14 @@ const UploadMediaFile: React.FC<UploadMediaFileProps> = ({ onImageUpload }) => {
         }
     }
 
+
     return (
         <View>
-            <BlueButton onPress={pickImage} title={'Upload image'} />
-            <Pressable style={styles.button} onPress={pickImage}>
-                <Text>Pick Image</Text>
+            <Pressable className="bg-blue rounded-full px-4 py-2" onPress={pickAndUploadImage} disabled={uploading}>
+                {uploading ? <ActivityIndicator color="#fff" /> : <Text className="text-white text-lg font-bold">Upload Image</Text>}
             </Pressable>
-            <View>
-                <Pressable style={styles.button} onPress={uploadMedia} disabled={uploading}>
-                    <Text>{uploading ? 'Uploading...' : 'Upload Image'}</Text>
-                </Pressable>
-            </View>
         </View>
     )
 }
 
 export default UploadMediaFile
-
-const styles = StyleSheet.create({
-    button: {
-        borderRadius: 5,
-        width: 150,
-        height: 50,
-        backgroundColor: 'blue',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-})

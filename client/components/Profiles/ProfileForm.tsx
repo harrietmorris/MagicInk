@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView, Pressable} from 'react-native';
+import { View, Text, TextInput, ScrollView} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { Controller, useForm } from 'react-hook-form';
@@ -12,7 +12,6 @@ import ImageChoice from '../utils/ImageChoice';
 import BlueButton from '../style/BlueButton';
 
 const ProfileForm = () => {
-
 
   const { profiles, setProfiles, setSelectedProfile, user } = useDataContext();
   const {
@@ -76,21 +75,11 @@ const ProfileForm = () => {
         {errors.name && <Text className='text-dark-orange text-center'>{errors.name.message}</Text>}
 
         <Text className="text-2xl font-bold mt-12 mb-2 dark:text-white">Picture</Text>
-        <Pressable className="mb-4" onPress={() => setImgModalVisible(true)}>
-          <Text className="text-lg">Choose avatar</Text>
-        </Pressable>
+        <View className='justify-center content-center items-center mt-2'> 
         <BlueButton onPress={() => setImgModalVisible(true) } title={'Choose avatar'} />
+        <Text className="text-2xl font-bold dark:text-white text-center mt-2 mb-2">OR</Text>
         <UploadMediaFile onImageUpload={handleImageUpdate} />
-
-        <Controller
-          control={control}
-          name="picture"
-          render={({ field }) => (
-            <View>
-              <Text>Selected Image: {currentImg}</Text>
-            </View>
-          )}
-        />
+        </View>
 
         <Text className='text-2xl font-bold mb-2 mt-10 dark:text-white'>Choose Reading Level</Text>
         <Controller

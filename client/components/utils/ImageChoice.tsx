@@ -17,7 +17,6 @@ const ImageChoice = ({ imgVisible, currentImg, onClose, onSave} : ImageChoicePro
     const [selectedImageId, setSelectedImageId] = useState(selectedProfile?.picture || '1');
 
     const handleSave = () => {
-      console.log('handle save ImageChoice', newImg)
         onSave(newImg);
         onClose();
     };
