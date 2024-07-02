@@ -1,4 +1,4 @@
-import { Text, Pressable, View, Image } from 'react-native';
+import { Text, Pressable, View } from 'react-native';
 import React, { useState } from 'react';
 import { useDataContext } from '../context/globalContext';
 import { router } from 'expo-router';
@@ -13,7 +13,7 @@ import { profilePictures } from '../constants/profilePictures';
 import { useColorScheme } from 'nativewind';
 import ImageChoice from './utils/ImageChoice';
 import Feather from '@expo/vector-icons/Feather';
-
+import RenderImage from './Profiles/RenderImg';
 
 const Settings = () => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
@@ -23,7 +23,7 @@ const Settings = () => {
   const [imgModalVisible, setImgModalVisible] = useState(false);
 
   async function handleProfileUpdate(prop: string, value: string) {
-    if (!selectedProfile) return; // TODO: we should always have a selected profile?
+    if (!selectedProfile) return;
     const newProfile = {
       ...selectedProfile,
       [prop]: value,
@@ -62,7 +62,7 @@ const Settings = () => {
       alert('You must have at least one profile');
       return;
     }
-    if (!selectedProfile) return; // TODO: we should always have a selected profile?
+    if (!selectedProfile) return;
     const id = selectedProfile.id;
     try {
       await deleteProfile(id);
@@ -75,17 +75,24 @@ const Settings = () => {
     }
   }
 
+  const fallbackImageSource = profilePictures[0]?.src; // Default to the first profile picture
+
   return (
     <>
-      <View className='items-center justify-center'>  
-          <Pressable className='relative' onPress={() => setImgModalVisible(true)}>
-            <View >
-            <Image  source={profilePictures.find((item) => item.id === selectedProfile?.picture)?.src} />
-            </View>
-            <View className='absolute z-10 top-5 right-0'>
-              <Feather  name='edit' size={30} color={colorScheme === 'dark' ? 'white' : 'black'} />
-            </View>
-          </Pressable>
+      <View className='items-center justify-center'>
+        <Pressable className='relative' onPress={() => setImgModalVisible(true)}>
+          <View>
+            {selectedProfile && (
+              <RenderImage
+                imageUrl={selectedProfile.picture}
+                style={{ width: 100, height: 100, borderRadius: 50 }}
+              />
+            )}
+          </View>
+          <View className='absolute z-10 top-5 right-0'>
+            <Feather name='edit' size={30} color={colorScheme === 'dark' ? 'white' : 'black'} />
+          </View>
+        </Pressable>
       </View>
 
       <ImageChoice
@@ -126,20 +133,19 @@ const Settings = () => {
       <View className='flex flex-row items-center justify-center'>
         <BlueButton title='+ New Profile' onPress={handleNewProfile} />
       </View>
-      
+
       <View className='flex flex-row justify-around'>
-        <Pressable
-          onPress={toggleColorScheme}
-        >
-          <Text
-            selectable={false}
-            className="dark:text-white text-4xl"
-          >
+        <Pressable onPress={toggleColorScheme}>
+          <Text selectable={false} className="dark:text-white text-4xl">
             {`${colorScheme === 'light' ? '🌙' : '🌞'}`}
           </Text>
         </Pressable>
         <Pressable onPress={() => setModalVisible(true)}>
-          <Ionicons name='trash-outline' size={40} color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'} />
+          <Ionicons
+            name='trash-outline'
+            size={40}
+            color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'}
+          />
         </Pressable>
       </View>
 

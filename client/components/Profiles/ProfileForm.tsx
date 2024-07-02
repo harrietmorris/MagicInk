@@ -1,5 +1,5 @@
-import { View, Text, TextInput} from 'react-native';
-import React from 'react';
+import { View, Text, TextInput, ScrollView, Pressable} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { Controller, useForm } from 'react-hook-form';
 import { ProfileType } from '@/types';
@@ -8,6 +8,8 @@ import { router } from 'expo-router';
 import OrangeButton from '../style/OrangeButton';
 import SelectPicture from '../SelectPicture';
 import ReadingLevelPicker from '../utils/ReadingLevelPicker';
+import UploadMediaFile from './UploadMedia';
+import ImageChoice from '../utils/ImageChoice';
 
 const ProfileForm = () => {
 
@@ -17,27 +19,44 @@ const ProfileForm = () => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<Partial<ProfileType>>({
     defaultValues: {
       picture: '1'
     },
   });
 
+  const [imgModalVisible, setImgModalVisible] = useState(false);
+  const [currentImg, setCurrentImg] = useState<string>('1');
+
+  useEffect(() => {
+    setValue('picture', currentImg);
+  }, [currentImg, setValue]);
+
+
   const onSubmit = async (data: Partial<ProfileType>) => {
     try {
+      console.log('submitted picture', data.picture)
       if (!user) return;
       data.userId = user.id;
       const addProfile = await newProfile(user.id, data as ProfileType);
       setProfiles([...profiles, addProfile]);
       setSelectedProfile(addProfile);
       router.replace('/homeScreen');
+    
     } catch (error) {
       console.error('Error creating profile', error);
     }
   };
 
+  const handleImageUpdate = (newImg: string) => {
+    console.log('updating default image, form', newImg)
+    setCurrentImg(newImg);
+  };
+
+
   return (
-    <>
+    <ScrollView contentContainerStyle={{ padding: 16 }}>
       <View>
         <Text className='text-4xl font-extrabold color-green mb-10'>Create New Profile</Text>
         <Text className='text-2xl font-bold mb-2 dark:text-white'>Name</Text>
@@ -59,9 +78,22 @@ const ProfileForm = () => {
         />
         {errors.name && <Text className='text-dark-orange text-center'>{errors.name.message}</Text>}
 
-        <Text className='text-2xl font-bold mt-12 mb-2 dark:text-white'>Picture</Text>
-        <SelectPicture control={control} />
+        <Text className="text-2xl font-bold mt-12 mb-2 dark:text-white">Picture</Text>
+        <Pressable className="mb-4" onPress={() => setImgModalVisible(true)}>
+          <Text className="text-lg">Select from predefined images</Text>
+        </Pressable>
+        <UploadMediaFile onImageUpload={handleImageUpdate} />
 
+        <Controller
+          control={control}
+          name="picture"
+          render={({ field }) => (
+            // Display current image
+            <View>
+              <Text>Selected Image: {currentImg}</Text>
+            </View>
+          )}
+        />
 
         <Text className='text-2xl font-bold mb-2 mt-10 dark:text-white'>Choose Reading Level</Text>
         <Controller
@@ -81,8 +113,15 @@ const ProfileForm = () => {
         <View className='justify-center content-center items-center mt-8'>
           <OrangeButton title='Create Profile' onPress={handleSubmit(onSubmit)} />
         </View>
+
+        <ImageChoice
+          imgVisible={imgModalVisible}
+          currentImg={currentImg}
+          onClose={() => setImgModalVisible(false)}
+          onSave={handleImageUpdate}
+        />
       </View>
-    </>
+      </ScrollView>
   );
 };
 
