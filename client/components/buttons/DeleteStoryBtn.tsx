@@ -25,7 +25,7 @@ const DeleteStoryBtn = ({ storyId }: DeleteStoryProps): React.JSX.Element => {
         setSelectedProfile(updatedProfile);
         router.replace('/homeScreen');
       } catch (error) {
-        console.log('Error deleting story from profile:', error);
+        console.error('Error deleting story from profile:', error);
       }
     }
   };

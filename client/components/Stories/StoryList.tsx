@@ -29,7 +29,6 @@ const StoryList = ({ storyArray, color }: StoryItemProps) => {
                       let buttonColor;
                       if (!color) buttonColor = colors[index % 3];
                       else buttonColor = color;
-                      console.log(buttonColor);
                       return <StoryItem key={story.id} story={story} handlePress={handlePress} buttonColor={buttonColor}></StoryItem>
                     })}
                 </View>
