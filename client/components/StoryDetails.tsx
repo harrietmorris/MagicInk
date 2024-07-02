@@ -5,10 +5,11 @@ import { router } from 'expo-router';
 import FavButton from './buttons/favButton';
 import OrangeButton from './style/OrangeButton';
 import DeleteStoryBtn from './buttons/DeleteStoryBtn';
+import { updateStory } from '@/services/apiService';
 
 const StoryDetails = () => {
   //TODO: save selected story to device storage
-  const { selectedStory } = useDataContext();
+  const { selectedStory, selectedProfile, setSelectedStory } = useDataContext();
   if (!selectedStory) {
     router.replace('/newStoryScreen');
     return;
@@ -23,6 +24,18 @@ const StoryDetails = () => {
       storyText = storyText.replace(option, '')})
     }
   }
+  async function continueStory(option: string) {
+    if(!selectedProfile || !selectedStory) {
+      return;
+    }
+  router.replace('/loadingScreen');
+  const optionNumber = option.split(':')[0];
+  const response = await updateStory(selectedProfile?.id, selectedStory.id, optionNumber);
+  const storyDetails = response?.storyDetails;
+  setSelectedStory(storyDetails);
+  router.replace('/keepReadingScreen');
+}
+
 
   return (
     <SafeAreaView className='mx-8 mt-20 flex-1'>
@@ -35,9 +48,11 @@ const StoryDetails = () => {
           <Text className='text-3xl mb-5 text-green font-black tracking-tight'>{selectedStory.title}</Text>
           <ScrollView>
             <Text className='text-black dark:text-white text-base'>{storyText}</Text>
-          { selectedStory.chooseYourStory && lastOptions.map((option) => (
+          { selectedStory.chooseYourStory
+          && selectedStory.currentBreakpoint < selectedStory.breakpoints
+          && lastOptions.map((option) => (
             <View className='p-1'>
-              <OrangeButton title={option} onPress={() => {console.log(option);}} />
+              <OrangeButton title={option} onPress={() => {continueStory(option);}} />
             </View>
           ))}
           </ScrollView>
