@@ -22,6 +22,9 @@ export interface StoryType {
   model?: string;
   readingTime: number;
   themes: string[];
+  chooseYourStory: boolean;
+  breakpoints: number;
+  currentBreakpoint: number;
 }
 
 export type FormData = {
