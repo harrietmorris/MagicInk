@@ -69,6 +69,19 @@ export const createStory = async (
   }
 }
 
+export const updateStory = async (
+  profId: number,
+  storyId: number,
+  optionSelected: string,
+) => {
+  try {
+    const response = await axios.patch(`${BASE_URL}/profiles/${profId}/story/${storyId}/${optionSelected}`);
+    return {status: response.status, storyDetails: response.data};
+  } catch (error) {
+    console.error('Error updating story', error);
+  }
+}
+
 export async function updateProfile(profile: ProfileType) {
   try {
     const response = await axios.patch(BASE_URL + `/profiles/${profile.id}`, profile);

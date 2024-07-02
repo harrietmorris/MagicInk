@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { TextInput, Text, View  } from 'react-native';
+import { useEffect, useState } from 'react';
+import { TextInput, Text, View, Switch  } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
 import { createStory } from '@/services/apiService';
@@ -13,6 +13,7 @@ import { locationOptions, readingTimeOptions } from '../constants/Surprise';
 
 export default function NewStory() {
   const { setSelectedStory, selectedProfile } = useDataContext();
+  const [isInteractiveEnabled, setIsInteractiveEnabled ] = useState(false);
 
   const {
     control,
@@ -38,12 +39,15 @@ export default function NewStory() {
     router.replace('/loadingScreen');
 
     const profId = selectedProfile?.id ? selectedProfile.id: 1;
+    
     const {status, storyDetails} = await createStory(
       profId,
       readingLevelOptions[data.readingLevel[0]],
       data.location[0],
       readingTimeOptions[data.readingTime[0]],
       data.themes,
+      isInteractiveEnabled,
+      isInteractiveEnabled ? 3 : 0,
     );
     if (status === 204) {
       alert('Error creating story. please review your inputs and try again.');
@@ -102,6 +106,14 @@ export default function NewStory() {
           )}
         />
       </View>
+      <View className='flex flex-row items-center content-start'>
+        <Text  className='text-lg text-black dark:text-white mx-2'>Interactive Story?</Text>
+        <Switch
+          value={isInteractiveEnabled}
+          onValueChange={() => setIsInteractiveEnabled(!isInteractiveEnabled)}
+          thumbColor={isInteractiveEnabled ? '#91EE91' : 'lightgray'}
+        ></Switch>
+      </View>
       <View>
         <Text  className='text-lg text-black dark:text-white'>Choose Your Adventure</Text>
         <Controller
@@ -109,6 +121,7 @@ export default function NewStory() {
           control={control}
           rules={{
             maxLength: {value: 100, message: 'Maximum length is 100 characters!'},
+            required: {value: true, message: 'Please enter a theme for your story!'}
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
