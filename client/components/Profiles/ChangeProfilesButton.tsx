@@ -1,4 +1,4 @@
-import { View, Pressable, Modal, FlatList, Image} from 'react-native';
+import { View, Pressable, Modal, FlatList} from 'react-native';
 import React, { useRef, useState } from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { ProfileType } from '@/types';
@@ -6,6 +6,7 @@ import { getSelectedProfile } from '@/services/apiService';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { profilePictures } from '@/constants/profilePictures';
 import DropButton from './DropButton';
+
 
 const ChangeProfilesButton = () => {
   const { profiles, selectedProfile, setSelectedProfile } = useDataContext();
