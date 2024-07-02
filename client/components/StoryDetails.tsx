@@ -45,7 +45,7 @@ const StoryDetails = () => {
             <DeleteStoryBtn storyId={selectedStory.id} />
             <FavButton storyId={selectedStory.id} />
           </View>
-          <Text className='text-3xl mb-5 text-green font-black tracking-tight'>{selectedStory.title}</Text>
+          <Text className='text-3xl mb-5 text-green font-black tracking-tighter'>{selectedStory.title}</Text>
           <ScrollView>
             <Text className='text-black dark:text-white text-base'>{storyText}</Text>
           { selectedStory.chooseYourStory

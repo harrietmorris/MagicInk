@@ -30,8 +30,8 @@ const HomeScreen = () => {
   return (
     <View className=''>
     <View className='m-8'>
-      <Text className='text-green text-3xl font-bold'>{selectedProfile.name},</Text>
-      <Text className='dark:text-white text-3xl font-bold'>Ready To Make Magic?</Text>
+      <Text className='tracking-tighter text-green text-3xl font-black'>{selectedProfile.name},</Text>
+      <Text className='tracking-tighter dark:text-white text-3xl font-black'>Ready To Make Magic?</Text>
     </View>
     <Text className='dark:text-white text-xl font-bold mb-4 mt-3 text-left mx-8'>All Stories</Text>
     <View>

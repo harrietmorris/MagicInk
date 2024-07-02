@@ -63,8 +63,8 @@ export default function NewStory() {
     <>
       <SurpriseButton/>
       <Text>
-        <Text className="font-black text-2xl text-black dark:text-white">Let Your Imagination Run</Text>
-        <Text className="font-black text-2xl text-green"> Wild!</Text>
+        <Text className="tracking-tighter font-black text-2xl text-black dark:text-white">Let Your Imagination Run</Text>
+        <Text className="tracking-tighter font-black text-2xl text-green"> Wild!</Text>
       </Text>
       <View className='m-2'>
         <Text className='text-lg text-black dark:text-white m-2'>Choose Reading Level</Text>
