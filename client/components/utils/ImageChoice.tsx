@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, View, Text, Pressable, FlatList, Image } from 'react-native';
+import { Modal, View, Text, Pressable, FlatList } from 'react-native';
 import { profilePictures } from '../../constants/profilePictures'; 
 import { useDataContext } from '@/context/globalContext';
+import { Image } from 'expo-image';
 
 interface ImageChoiceProps {
     imgVisible: boolean;

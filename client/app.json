@@ -30,15 +30,13 @@
     "plugins": [
       "expo-router",
       [
-        "expo-asset",
+        "expo-image-picker",
         {
-          "assets": [
-            "./assets/images/bear.gif"
-          ]
-        }
-      ],
-      "expo-font"
-    ],
+        "photosPermission":"The app accesses your photos to let you share them with your friends."
+        }],
+        "expo-font"
+
+],
     "experiments": {
       "typedRoutes": true
     }
