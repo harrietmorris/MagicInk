@@ -7,7 +7,7 @@ interface RenderImageProps {
   style?: StyleProp<ImageStyle>;
 }
 
-const RenderImage: React.FC<RenderImageProps> = ({ imageUrl, style }) => {
+const RenderImage = ({ imageUrl, style }: RenderImageProps) => {
 
     if (!imageUrl) return <View/>
 

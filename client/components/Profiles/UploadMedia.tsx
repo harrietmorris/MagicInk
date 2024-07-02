@@ -13,7 +13,7 @@ interface UploadMediaFileProps {
     onImageUpload: (imageUrl: string) => void
 }
 
-const UploadMediaFile: React.FC<UploadMediaFileProps> = ({ onImageUpload }) => {
+const UploadMediaFile = ({ onImageUpload }: UploadMediaFileProps) => {
     const [uploading, setUploading] = useState<boolean>(false)
 
 
@@ -71,7 +71,6 @@ const UploadMediaFile: React.FC<UploadMediaFileProps> = ({ onImageUpload }) => {
             setUploading(false)
         }
     }
-
 
     return (
         <View>
