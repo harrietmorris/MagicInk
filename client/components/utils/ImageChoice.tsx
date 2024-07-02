@@ -41,7 +41,7 @@ const ImageChoice = ({ imgVisible, currentImg, onClose, onSave} : ImageChoicePro
                 }}
               >
                 <Image
-                  source= {item.src}
+                  source={item.src}
                   className={`m-2 rounded-lg ${
                     selectedImageId === item.id ? 'w-[100px] h-[100px]' : 'w-[90px] h-[90px]'
                   }`}

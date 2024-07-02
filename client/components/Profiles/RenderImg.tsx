@@ -9,7 +9,7 @@ interface RenderImageProps {
 
 const RenderImage = ({ imageUrl, style }: RenderImageProps) => {
 
-    if (!imageUrl) return <View/>
+    if (!imageUrl) return null;
 
     const handleFind = () => {
         const found = profilePictures.find((pic) => pic.id === imageUrl)
