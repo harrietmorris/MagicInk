@@ -10,7 +10,7 @@ import { readingLevelOptions } from '@/constants/readingLevels';
 import OrangeButton from './style/OrangeButton';
 import SurpriseButton from './buttons/SurpriseButton';
 import { locationOptions, readingTimeOptions } from '../constants/Surprise';
-import { getStoryImage } from './utils/getStoryImage';
+import { storeStoryImage } from './utils/getStoryImage';
 
 export default function NewStory() {
   const { setSelectedStory, selectedProfile } = useDataContext();
@@ -58,11 +58,8 @@ export default function NewStory() {
 
     //Create story image based on title and update the story in db and state
     const image_url = await createImage(readingLevelOptions[data.readingLevel[0]], data.location[0], data.themes);
-    console.log("🚀 ~ onSubmit ~ image_url:", image_url)
-    const filename = `${storyDetails.id}.jpg`
-    const firebaseURL = getStoryImage(image_url, filename)
-    console.log("🚀 ~ onSubmit ~ firebaseURL:", firebaseURL)
-
+    const filename = `${storyDetails.id}.jpeg`
+    await storeStoryImage(image_url, filename);
 
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
