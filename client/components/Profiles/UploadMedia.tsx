@@ -76,7 +76,7 @@ const UploadMediaFile: React.FC<UploadMediaFileProps> = ({ onImageUpload }) => {
     return (
         <View>
             <Pressable className="bg-blue rounded-full px-4 py-2" onPress={pickAndUploadImage} disabled={uploading}>
-                {uploading ? <ActivityIndicator color="#fff" /> : <Text className="text-white text-lg font-bold">Upload Image</Text>}
+                {uploading ? <ActivityIndicator color="#fff" /> : <Text className="text-white text-lg font-bold">Upload</Text>}
             </Pressable>
         </View>
     )

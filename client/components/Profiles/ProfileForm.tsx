@@ -10,6 +10,7 @@ import ReadingLevelPicker from '../utils/ReadingLevelPicker';
 import UploadMediaFile from './UploadMedia';
 import ImageChoice from '../utils/ImageChoice';
 import BlueButton from '../style/BlueButton';
+import RenderImage from './RenderImg';
 
 const ProfileForm = () => {
 
@@ -74,10 +75,17 @@ const ProfileForm = () => {
         />
         {errors.name && <Text className='text-dark-orange text-center'>{errors.name.message}</Text>}
 
-        <Text className="text-2xl font-bold mt-12 mb-2 dark:text-white">Picture</Text>
-        <View className='justify-center content-center items-center mt-2'> 
-        <BlueButton onPress={() => setImgModalVisible(true) } title={'Choose avatar'} />
-        <Text className="text-2xl font-bold dark:text-white text-center mt-2 mb-2">OR</Text>
+        
+        <Text className="text-2xl font-bold mt-2 dark:text-white">Picture</Text>
+        <View className='justify-center content-center items-center'> 
+        <RenderImage
+                imageUrl={currentImg}
+                style={{ width: 150, height: 150, borderRadius: 150 }}
+              />
+         </View>
+        <View className='flex-row content-center justify-center items-center mt-2'> 
+        <BlueButton onPress={() => setImgModalVisible(true) } title={'Choose'} />
+        <Text className="text-2xl font-bold dark:text-white text-center mt-2 mb-2"> or </Text>
         <UploadMediaFile onImageUpload={handleImageUpdate} />
         </View>
 
