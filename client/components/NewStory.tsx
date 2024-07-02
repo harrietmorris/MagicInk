@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { TextInput, Text, View, Switch  } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
-import { createStory } from '@/services/apiService';
+import { createImage, createStory } from '@/services/apiService';
 import { FormData } from '@/types';
 import { router } from 'expo-router';
 import { useDataContext } from '@/context/globalContext';
@@ -10,6 +10,7 @@ import { readingLevelOptions } from '@/constants/readingLevels';
 import OrangeButton from './style/OrangeButton';
 import SurpriseButton from './buttons/SurpriseButton';
 import { locationOptions, readingTimeOptions } from '../constants/Surprise';
+import { getStoryImage } from './utils/getStoryImage';
 
 export default function NewStory() {
   const { setSelectedStory, selectedProfile } = useDataContext();
@@ -39,7 +40,7 @@ export default function NewStory() {
     router.replace('/loadingScreen');
 
     const profId = selectedProfile?.id ? selectedProfile.id: 1;
-    
+
     const {status, storyDetails} = await createStory(
       profId,
       readingLevelOptions[data.readingLevel[0]],
@@ -54,6 +55,14 @@ export default function NewStory() {
       router.replace('/newStoryScreen');
       return;
     }
+
+    //Create story image based on title and update the story in db and state
+    const image_url = await createImage(readingLevelOptions[data.readingLevel[0]], data.location[0], data.themes);
+    console.log("🚀 ~ onSubmit ~ image_url:", image_url)
+    const filename = `${storyDetails.id}.jpg`
+    const firebaseURL = getStoryImage(image_url, filename)
+    console.log("🚀 ~ onSubmit ~ firebaseURL:", firebaseURL)
+
 
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
