@@ -9,7 +9,7 @@ export async function createProfile(ctx: Context) {
   try {
     const profile = await prisma.profile.create({
       data: {
-        userId: parseInt(userId, 10),
+        userId: userId,
         name,
         picture,
         readingLevel,
