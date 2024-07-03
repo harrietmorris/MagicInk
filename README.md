@@ -6,7 +6,11 @@ Senior thesis project - interactive storyteller app
 ### Android
 
 * Set up your Android device or Android Emulator using [Expo Go](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=physical)
-* Once your Android device/emulator is up and running - start the development server, run the command `npx expo start`
+* Using Expo Go - Once your Android device/emulator is up and running - start the development server, run the command `npx expo start`
+
+* Using Expo Dev
+- download the build and add the attachment to emulator home screen as an application
+- run the command `npx expo start --dev-client` in the terminal (ensure you are Using development build)
 
 
 

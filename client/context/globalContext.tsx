@@ -6,7 +6,7 @@ type ProviderProps = {
 };
 
 const initialDataContext: DataContextProps = {
-  user: null,
+  user: undefined,
   setUser: () => {},
   profiles: [],
   setProfiles: () => {},
@@ -21,7 +21,7 @@ const initialDataContext: DataContextProps = {
 const dataContext = createContext<DataContextProps>(initialDataContext);
 
 export const GetUserProvider = ({ children }: ProviderProps) => {
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserType | undefined>(undefined);
   const [profiles, setProfiles] = useState<ProfileType[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<ProfileType | null>(null);
   const [selectedStory, setSelectedStory] = useState<StoryType | null>(null);

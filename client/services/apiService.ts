@@ -4,10 +4,23 @@ import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
 // const BASE_URL = 'http://localhost:3000'; //this may need to change to IP address
 const BASE_URL = 'http://10.0.2.2:3000'; //this is the URL used for android simulator
+// const BASE_URL = 'http://192.168.0.22:3000'; //this is the URL used for ios
 
-export const getUser = async (id: number): Promise<UserType> => {
+
+export const loginUser = async (userData: UserType): Promise<UserType> => {
   try {
-    const response: AxiosResponse<UserType> = await axios.get(`${BASE_URL}/users/${id}`);
+    const { id, email, givenName, familyName, name } = userData;
+    const response = await axios.post(`${BASE_URL}/users/login`, { id, email, givenName, familyName, name });
+    return response.data;
+  } catch (error) {
+    console.error('Error logging user in', error);
+    throw error;
+  }
+}
+
+export const getUser = async (userId: string): Promise<UserType> => {
+  try {
+    const response: AxiosResponse<UserType> = await axios.get(`${BASE_URL}/users/${userId}`);
     return response.data;
   } catch (e) {
     console.error('error getting user', e);
@@ -15,7 +28,7 @@ export const getUser = async (id: number): Promise<UserType> => {
   }
 };
 
-export const getAllProfiles = async (userId: number): Promise<ProfileType[]> => {
+export const getAllProfiles = async (userId: string): Promise<ProfileType[]> => {
   try {
     const response = await axios.get(`${BASE_URL}/users/${userId}/profiles`);
     return response.data;
@@ -40,7 +53,7 @@ export const getSelectedStory = async (storyId: number): Promise<StoryType> => {
     const response = await axios.get(`${BASE_URL}/stories/${storyId}`);
     return response.data;
   } catch (error) {
-    console.error('Error creating story', error);
+    console.error('Error getting selected story', error);
     throw error;
   }
 };
@@ -101,7 +114,7 @@ export async function deleteProfile(profileId: number) {
   }
 }
 
-export const newProfile  = async (userId: number, profileData: ProfileType): Promise<ProfileType> => {
+export const newProfile  = async (profileData: ProfileType, userId: string): Promise<ProfileType> => {
   try {
     const response: AxiosResponse<ProfileType> = await axios.post(`${BASE_URL}/users/${userId}/profiles`, profileData);
     return response.data;

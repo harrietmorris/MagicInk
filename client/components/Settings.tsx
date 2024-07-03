@@ -13,13 +13,15 @@ import { useColorScheme } from 'nativewind';
 import Feather from '@expo/vector-icons/Feather';
 import RenderImage from './Profiles/RenderImg';
 import ChangeImgModal from './utils/ChangeImg';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Settings = () => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  const { user, profiles, setProfiles, selectedProfile, setSelectedProfile } = useDataContext();
   const [modalVisible, setModalVisible] = useState(false);
   const [nameModalVisible, setNameModalVisible] = useState(false);
   const [imgModalVisible, setImgModalVisible] = useState(false);
+  const { user, profiles, setProfiles, selectedProfile, setSelectedProfile, setUser } = useDataContext();
+
 
   async function handleProfileUpdate(prop: string, value: string) {
     if (!selectedProfile) return;
@@ -51,6 +53,13 @@ const Settings = () => {
   const handleImageUpdate = (newImg: string) => {
     handleProfileUpdate('picture', newImg);
   };
+
+  function handleLogout() {
+    setUser(undefined);
+    GoogleSignin.revokeAccess();
+    GoogleSignin.signOut();
+    router.replace('/loginScreen');
+  }
 
   function handleNewProfile() {
     router.replace('/newProfileScreen');
