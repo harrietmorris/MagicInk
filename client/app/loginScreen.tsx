@@ -27,65 +27,69 @@ export default function loginScreen() {
     router.replace('/profilesScreen');
   };
 
-  const {width, height} = Dimensions.get('window');
+  const { width, height } = Dimensions.get('window');
 
-  const imgHeight = height/2
+  const imgHeight = height / 2;
 
   return (
     <>
       <View className='flex-1 dark:bg-dark-grey items-center'>
-
-        <View className='aspect-square'>
-          <Image source={require('../assets/images/magicInkLogo.png')} className='w-full' style={{height: imgHeight}} resizeMode='cover'></Image>
+        <View className='w-full'>
+          <Image
+            source={require('../assets/images/magicInkLogo.png')}
+            className='w-full'
+            style={{ height: imgHeight }}
+            resizeMode='cover'
+          ></Image>
         </View>
-        <View className='bg-black dark:bg-grey'>
-        <View className='bg-blue dark:bg-grey border-tl-lg m-50'>
-<Text>HELLO</Text>
 
-
+        <View className='flex-1 w-full justify-start bg-[#FEF7D8] dark:bg-dark-grey'>
+          <View className='px-8 py-2 flex w-full'>
+          <Text className='text-2xl font-extrabold text-black dark:text-white text-center'>
+            Step into a realm of endless adventures!
+          </Text>
+          <Text className='text-lg font-bold text-black dark:text-white mt-2'>Username</Text>
+      
+          <Controller
+            
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                className='rounded-full px-4 py-3 w-full text-lg border-blue border-2 bg-white dark:bg-grey text-black dark:text-white '
+                placeholder='Username'
+                placeholderTextColor='grey'
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name='email'
+            defaultValue=''
+          />
+        
+          <Text className='text-lg font-bold text-black dark:text-white mt-2'>Password</Text>
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                className='rounded-full px-4 py-3 w-full text-lg border-blue border-2 bg-white dark:bg-grey text-black dark:text-white mb-2'
+                placeholder='Password'
+                placeholderTextColor='grey'
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name='password'
+            defaultValue=''
+          />
+          <View className='justify-center content-center items-center'>
+            <Pressable className='bg-blue rounded-full px-4 py-2 w-44 mt-4' onPress={handleSubmit(onSubmit)}>
+              <Text className='text-white text-lg font-bold text-center'>Login</Text>
+            </Pressable>
+          </View>
+          </View>
         </View>
-        </View>
-            {/* <Text className='text-2xl font-extrabold text-black dark:text-white text-center'>
-              Step into a realm of endless adventures!
-            </Text>
-            <Text className='text-2xl font-bold mt-12 mb-4 text-black dark:text-white'>Username</Text>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  className='rounded-full px-5 py-4 text-lg border-green border-2 bg-white dark:bg-grey text-black dark:text-white  mb-2'
-                  placeholder='Username'
-                  placeholderTextColor='grey'
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-              name='email'
-              defaultValue=''
-            />
-            <Text className='text-2xl font-bold mt-12 mb-4 text-black dark:text-white'>Password</Text>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  className='rounded-full px-5 py-4 text-lg border-green border-2 bg-white dark:bg-grey text-black dark:text-white mb-2'
-                  placeholder='Password'
-                  placeholderTextColor='grey'
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-              name='password'
-              defaultValue=''
-            />
-            <View className='justify-center content-center items-center mt-8'>
-              <Pressable className='bg-dark-orange rounded-full px-4 py-2 w-44' onPress={handleSubmit(onSubmit)}>
-                <Text className='text-white text-lg font-bold text-center'>Login</Text>
-              </Pressable>
-            </View> */}
-          
         
       </View>
     </>
