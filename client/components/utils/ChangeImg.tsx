@@ -30,10 +30,10 @@ const ChangeImgModal = ({ visible, onClose, onImageUpload }: ChangeImgModalProps
           <Pressable className="absolute top-2 right-2" onPress={onClose}>
             <Ionicons name="close" size={24} color="white" />
           </Pressable>
-          <Text className="mb-5 text-2xl font-bold text-white p-2">Choose an option</Text>
+          <Text className="mb-5 text-2xl font-bold text-white p-2 text-center">Select an option</Text>
           <View className="flex-row justify-center">
             <Pressable className="bg-grey rounded-md py-2 px-4 m-2" onPress={handleChooseImage} disabled={uploading}>
-              <Text className="text-white font-semibold text-lg text-center">Choose</Text>
+              <Text className="text-white font-semibold text-lg text-center">Avatar</Text>
             </Pressable>
             <Pressable className="bg-grey rounded-md py-2 px-4 m-2" onPress={handleUploadImage} disabled={uploading}>
               <Text className="text-white font-semibold text-lg text-center">{uploading ? <ActivityIndicator color="#fff" /> : 'Upload'}</Text>

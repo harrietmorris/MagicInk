@@ -30,13 +30,14 @@ const ListedProfiles = () => {
   if (!profiles || profiles.length === 0) {
     return <Text>No profiles available, please create new profile.</Text>;
   }
-
+  
+  const colorList = ['#4682B4', '#91EE91', '#F4A662', '#F0E68F', '#4682B4', '#91EE91', '#F4A662', '#F0E68F']
   return (
     <FlatList
       data={profiles}
       keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item }) => (
-        <ProfileButton profileName={item.name} route='/homeScreen' onPress={() => handleProfilePress(item)} />
+      renderItem={({ item, index }) => (
+        <ProfileButton profileName={item.name} itemColour={colorList[index]} profileImg={item!.picture} route='/homeScreen' onPress={() => handleProfilePress(item)} />
       )}
     />
   );

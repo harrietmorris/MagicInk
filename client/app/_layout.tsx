@@ -42,6 +42,7 @@ export default function Layout() {
           title: '',
         }}
       >
+         <Stack.Screen name='loginScreen' options={{ headerShown: false }} />
         <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
       </Stack>
     </GetUserProvider>
