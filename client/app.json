@@ -13,14 +13,16 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.src"
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.magicInk"
     },
     "web": {
       "bundler": "metro",
@@ -29,16 +31,25 @@
     },
     "plugins": [
       "expo-router",
+      "expo-font",
+      "expo-dev-client",
+      "@react-native-google-signin/google-signin",
       [
         "expo-image-picker",
         {
         "photosPermission":"The app accesses your photos to let you share them with your friends."
-        }],
-        "expo-font"
-
-],
+        }]
+    ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6f69be41-4d10-43a7-9777-c3b5b3c12d6a"
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import {useEffect} from 'react';
 import {  useFonts, Poppins_500Medium, } from '@expo-google-fonts/poppins';
+import 'expo-dev-client';
 
 SplashScreen.preventAutoHideAsync();
 

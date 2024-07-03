@@ -8,25 +8,28 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique
-  password String
-  profiles Profile[]
+  id         String    @id @unique @default("123")
+  email      String    @unique
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
+  familyName String
+  givenName  String
+  name       String
+  photo      String?
+  profiles   Profile[]
 }
 
 model Profile {
-  id          Int     @id @default(autoincrement())
-  userId      Int
-  name        String
-  picture     String?
-  readingLevel     String
-  user        User    @relation(fields: [userId], references: [id])
-  favs        Story[] @relation("FavStories")
-  storiesList Story[] @relation("ProfileStories")
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id           Int      @id @default(autoincrement())
+  userId       String
+  name         String
+  picture      String?
+  readingLevel String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
+  favs         Story[]  @relation("FavStories")
+  storiesList  Story[]  @relation("ProfileStories")
 }
 
 model Story {

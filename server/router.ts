@@ -2,7 +2,7 @@ import Router from '@koa/router';
 import { postNewStory, continueStory } from './controllers/gemini';
 import { addToFavs, createProfile, getProfile, updateProfile, deleteProfile, removeFromFavs, removeStoryFromProfile } from './controllers/profile';
 import { getStoryById } from './controllers/story';
-import { createUser, getUserInfo, getUserProfiles, loginUser } from './controllers/user';
+import { getUserInfo, getUserProfiles, loginUser } from './controllers/user';
 
 const router = new Router();
 
@@ -11,8 +11,7 @@ router.post('/profiles/:profId/story', postNewStory);
 router.patch('/profiles/:profId/story/:storyId/:optionSelected', continueStory);
 
 //prisma
-router.post('/user', createUser)
-router.post('/users/login', loginUser); //checks that login is correct, we may not need this though with oAuth?
+router.post('/users/login', loginUser);
 router.get('/users/:userId', getUserInfo);
 router.get('/users/:userId/profiles', getUserProfiles);
 
