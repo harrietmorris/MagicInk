@@ -56,7 +56,6 @@ export default function NewStory() {
       return;
     }
 
-    //Create story image based on title and update the story in db and state
     const image_url = await createImage(readingLevelOptions[data.readingLevel[0]], data.location[0], data.themes);
     const filename = `${storyDetails.id}.jpeg`
     await storeStoryImage(image_url, filename);
