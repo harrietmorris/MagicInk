@@ -10,9 +10,9 @@ import PopUp from './utils/PopUp';
 import ReadingLevelPicker from './utils/ReadingLevelPicker';
 import NameEdit from './utils/NameEdit';
 import { useColorScheme } from 'nativewind';
-import ImageChoice from './utils/ImageChoice';
 import Feather from '@expo/vector-icons/Feather';
 import RenderImage from './Profiles/RenderImg';
+import ChangeImgModal from './utils/ChangeImg';
 
 const Settings = () => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
@@ -76,28 +76,29 @@ const Settings = () => {
 
   return (
     <>
-      <View className='items-center justify-center'>
-        <Pressable className='relative' onPress={() => setImgModalVisible(true)}>
-          <View>
-            {selectedProfile && (
-              <RenderImage
-                imageUrl={selectedProfile.picture}
-                style={{ width: 150, height: 150, borderRadius: 150 }}
-              />
-            )}
-          </View>
-          <View className='absolute z-10 top-5 right-0'>
-            <Feather name='edit' size={30} color={colorScheme === 'dark' ? 'white' : 'black'} />
-          </View>
-        </Pressable>
-      </View>
+      <View>
+        <View className='items-center justify-center'>
+          <Pressable className='relative' onPress={() => setImgModalVisible(true)}>
+            <View>
+              {selectedProfile && (
+                <RenderImage
+                  imageUrl={selectedProfile.picture}
+                  style={{ width: 150, height: 150, borderRadius: 150 }}
+                />
+              )}
+            </View>
+            <View className='absolute z-10 top-5 right-0'>
+              <Feather name='edit' size={30} color={'black'} />
+            </View>
+          </Pressable>
+        </View>
 
-      <ImageChoice
-        imgVisible={imgModalVisible}
-        currentImg={selectedProfile?.picture || ''}
-        onClose={() => setImgModalVisible(false)}
-        onSave={handleImageUpdate}
-      />
+        <ChangeImgModal
+          visible={imgModalVisible}
+          onClose={() => setImgModalVisible(false)}
+          onImageUpload={handleImageUpdate}
+        />
+      </View>
 
       <View className='flex flex-row items-center justify-center'>
         <Text className='text-black dark:text-white text-5xl font-black tracking-tighter' numberOfLines={1} adjustsFontSizeToFit={true}>
