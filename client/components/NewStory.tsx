@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { TextInput, Text, View, Switch  } from 'react-native';
+import { TextInput, Text, View, Switch } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import MultiSelectComponent from '@/components/MultiSelect';
-import { createStory } from '@/services/apiService';
+import { createImage, createStory } from '@/services/apiService';
 import { FormData } from '@/types';
 import { router } from 'expo-router';
 import { useDataContext } from '@/context/globalContext';
@@ -10,10 +10,11 @@ import { readingLevelOptions } from '@/constants/readingLevels';
 import OrangeButton from './style/OrangeButton';
 import SurpriseButton from './buttons/SurpriseButton';
 import { locationOptions, readingTimeOptions } from '../constants/Surprise';
+import { storeStoryImage } from '../services/apiStoryImage';
 
 export default function NewStory() {
   const { setSelectedStory, selectedProfile } = useDataContext();
-  const [isInteractiveEnabled, setIsInteractiveEnabled ] = useState(false);
+  const [isInteractiveEnabled, setIsInteractiveEnabled] = useState(false);
 
   const {
     control,
@@ -38,9 +39,9 @@ export default function NewStory() {
   async function onSubmit(data: FormData) {
     router.replace('/loadingScreen');
 
-    const profId = selectedProfile?.id ? selectedProfile.id: 1;
-    
-    const {status, storyDetails} = await createStory(
+    const profId = selectedProfile?.id ? selectedProfile.id : 1;
+
+    const promiseStory = createStory(
       profId,
       readingLevelOptions[data.readingLevel[0]],
       data.location[0],
@@ -49,6 +50,10 @@ export default function NewStory() {
       isInteractiveEnabled,
       isInteractiveEnabled ? 3 : 0,
     );
+    const promiseImage = createImage(readingLevelOptions[data.readingLevel[0]], data.location[0], data.themes);
+
+    const [{ status, storyDetails }, image_url] = await Promise.all([promiseStory, promiseImage]);
+
     if (status === 204) {
       alert('Error creating story. please review your inputs and try again.');
       router.replace('/newStoryScreen');
@@ -57,14 +62,19 @@ export default function NewStory() {
 
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
+
+    const filename = `${storyDetails.id}.jpeg`;
+    await storeStoryImage(image_url, filename);
   }
 
   return (
     <>
-      <SurpriseButton/>
+      <SurpriseButton />
       <Text>
-        <Text className="tracking-tighter font-black text-2xl text-black dark:text-white">Let Your Imagination Run</Text>
-        <Text className="tracking-tighter font-black text-2xl text-green"> Wild!</Text>
+        <Text className='tracking-tighter font-black text-2xl text-black dark:text-white'>
+          Let Your Imagination Run
+        </Text>
+        <Text className='tracking-tighter font-black text-2xl text-green'> Wild!</Text>
       </Text>
       <View className='m-2'>
         <Text className='text-lg text-black dark:text-white m-2'>Choose Reading Level</Text>
@@ -73,41 +83,33 @@ export default function NewStory() {
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
-            <MultiSelectComponent
-              itemOptions={Object.keys(readingLevelOptions)}
-              value={value}
-              onChange={onChange}
-            />
+            <MultiSelectComponent itemOptions={Object.keys(readingLevelOptions)} value={value} onChange={onChange} />
           )}
         />
       </View>
       <View className='m-2'>
-        <Text  className='text-lg text-black dark:text-white m-2'>Choose Your Location</Text>
+        <Text className='text-lg text-black dark:text-white m-2'>Choose Your Location</Text>
         <Controller
           name='location'
           control={control}
           render={({ field: { onChange, value } }) => (
-            <MultiSelectComponent itemOptions={locationOptions} value={value} onChange={onChange}/>
+            <MultiSelectComponent itemOptions={locationOptions} value={value} onChange={onChange} />
           )}
         />
       </View>
       <View className='m-2'>
-        <Text  className='text-lg text-black dark:text-white m-2'>How long do you want to read for?</Text>
+        <Text className='text-lg text-black dark:text-white m-2'>How long do you want to read for?</Text>
         <Controller
           name='readingTime'
           control={control}
           rules={{ required: true }}
           render={({ field: { onChange, value } }) => (
-            <MultiSelectComponent
-              itemOptions={Object.keys(readingTimeOptions)}
-              value={value}
-              onChange={onChange}
-            />
+            <MultiSelectComponent itemOptions={Object.keys(readingTimeOptions)} value={value} onChange={onChange} />
           )}
         />
       </View>
       <View className='flex flex-row items-center content-start'>
-        <Text  className='text-lg text-black dark:text-white mx-2'>Interactive Story?</Text>
+        <Text className='text-lg text-black dark:text-white mx-2'>Interactive Story?</Text>
         <Switch
           value={isInteractiveEnabled}
           onValueChange={() => setIsInteractiveEnabled(!isInteractiveEnabled)}
@@ -115,13 +117,13 @@ export default function NewStory() {
         ></Switch>
       </View>
       <View>
-        <Text  className='text-lg text-black dark:text-white'>Choose Your Adventure</Text>
+        <Text className='text-lg text-black dark:text-white'>Choose Your Adventure</Text>
         <Controller
           name='themes'
           control={control}
           rules={{
-            maxLength: {value: 100, message: 'Maximum length is 100 characters!'},
-            required: {value: true, message: 'Please enter a theme for your story!'}
+            maxLength: { value: 100, message: 'Maximum length is 100 characters!' },
+            required: { value: true, message: 'Please enter a theme for your story!' },
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
@@ -133,11 +135,9 @@ export default function NewStory() {
             />
           )}
         />
-        {errors.themes && (
-          <Text>{errors.themes.message}</Text>
-        )}
+        {errors.themes && <Text>{errors.themes.message}</Text>}
       </View>
-      <OrangeButton title="Create!" onPress={handleSubmit(onSubmit)}/>
+      <OrangeButton title='Create!' onPress={handleSubmit(onSubmit)} />
     </>
   );
 }

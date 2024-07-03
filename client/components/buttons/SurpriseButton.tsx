@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDataContext } from '@/context/globalContext';
-import { createStory } from '@/services/apiService';
+import { createImage, createStory } from '@/services/apiService';
 import { themeOptions, locationOptions, readingTimeOptions } from '../../constants/Surprise';
 import { router } from 'expo-router';
 import OrangeButton from '../style/OrangeButton';
+import { storeStoryImage } from '../../services/apiStoryImage';
 
 const SurpriseButton = () => {
   const { setSelectedStory, selectedProfile } = useDataContext();
@@ -27,21 +28,25 @@ const SurpriseButton = () => {
     router.replace('/loadingScreen');
 
     const profId = selectedProfile?.id ? selectedProfile.id : 1;
-    const { storyDetails } = await createStory(
+
+    const promiseStory = createStory(
       profId,
       readingLevels,
       randomLocation,
       readingTimeOptions[randomReadingTime],
-      randomThemes.join(', ')
+      randomThemes.join(', '),
     );
+    const promiseImage = createImage(readingLevels, randomLocation, randomThemes.join(', '));
+    const [{ storyDetails }, image_url] = await Promise.all([promiseStory, promiseImage]);
 
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
+
+    const filename = `${storyDetails.id}.jpeg`;
+    await storeStoryImage(image_url, filename);
   };
 
-  return (
-    <OrangeButton title="Surprise Me!" onPress={handleSuprise}/>
-  );
+  return <OrangeButton title='Surprise Me!' onPress={handleSuprise} />;
 };
 
 export default SurpriseButton;
