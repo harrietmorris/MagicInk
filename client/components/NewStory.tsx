@@ -10,7 +10,8 @@ import { readingLevelOptions } from '@/constants/readingLevels';
 import OrangeButton from './style/OrangeButton';
 import SurpriseButton from './buttons/SurpriseButton';
 import { locationOptions, readingTimeOptions } from '../constants/Surprise';
-import { storeStoryImage } from './utils/getStoryImage';
+import { storeStoryImage } from '../services/apiStoryImage';
+import { createAndStoreStoryImage } from './utils/StoreGetStoryImage';
 
 export default function NewStory() {
   const { setSelectedStory, selectedProfile } = useDataContext();
@@ -56,9 +57,12 @@ export default function NewStory() {
       return;
     }
 
-    const image_url = await createImage(readingLevelOptions[data.readingLevel[0]], data.location[0], data.themes);
-    const filename = `${storyDetails.id}.jpeg`
-    await storeStoryImage(image_url, filename);
+    await createAndStoreStoryImage(
+      storyDetails,
+      readingLevelOptions[data.readingLevel[0]],
+      data.location[0],
+      data.themes,
+    );
 
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
