@@ -69,21 +69,17 @@ export default function NewStory() {
 
   return (
     <>
-      <View className='items-center mt-8 '>
-        <SurpriseButton/>
-      </View>
-
-      <View className='items-center mt-2 '>
-        <Text >
+      <View className='items-center mt-8'>
+        <Text>
           <Text className='tracking-tighter font-black text-2xl text-black dark:text-white'>
             Let Your Imagination Run
           </Text>
-          <Text className='tracking-tighter font-black text-2xl text-green'> Wild!</Text>
+          <Text className='tracking-tighter font-black text-3xl text-green'> Wild!</Text>
         </Text>
       </View>
-      
+
       <View className='mt-2'>
-        <Text className='text-lg text-black dark:text-white mt-2'>Choose Reading Level</Text>
+        <Text className='text-lg text-blue dark:text-white mt-2 mb-2'>Choose Reading Level</Text>
         <Controller
           name='readingLevel'
           control={control}
@@ -94,7 +90,7 @@ export default function NewStory() {
         />
       </View>
       <View className='mt-2'>
-        <Text className='text-lg text-black dark:text-white mt-2'>Choose Your Location</Text>
+        <Text className='text-lg text-blue dark:text-white mt-2 mb-2'>Choose Your Location</Text>
         <Controller
           name='location'
           control={control}
@@ -104,7 +100,7 @@ export default function NewStory() {
         />
       </View>
       <View className='mt-2'>
-        <Text className='text-lg text-black dark:text-white mt-2'>How long do you want to read for?</Text>
+        <Text className='text-lg text-blue dark:text-white mt-2 mb-2'>How long do you want to read for?</Text>
         <Controller
           name='readingTime'
           control={control}
@@ -114,16 +110,18 @@ export default function NewStory() {
           )}
         />
       </View>
-      <View className='flex flex-row items-center content-start'>
-        <Text className='text-lg text-black dark:text-white mx-2'>Interactive Story?</Text>
+
+      <View className='flex flex-row items-center justify-center'>
+        <Text className='text-lg text-blue dark:text-white mx-2'>Interactive Story?</Text>
         <Switch
           value={isInteractiveEnabled}
           onValueChange={() => setIsInteractiveEnabled(!isInteractiveEnabled)}
           thumbColor={isInteractiveEnabled ? '#91EE91' : 'lightgray'}
         ></Switch>
       </View>
+
       <View>
-        <Text className='text-lg text-black dark:text-white'>Choose Your Adventure</Text>
+        <Text className='text-lg text-blue dark:text-white'>Choose Your Adventure</Text>
         <Controller
           name='themes'
           control={control}
@@ -133,7 +131,7 @@ export default function NewStory() {
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              className='rounded-xl h-20 bg-white dark:bg-grey text-black dark:text-white m-1 p-2'
+              className='rounded-xl h-20 bg-white text-lg dark:bg-grey border-green border-2 text-black dark:text-white m-1 p-2'
               onChangeText={onChange}
               value={value}
               placeholder='Create your own characters, themes and plots.'
@@ -141,9 +139,16 @@ export default function NewStory() {
             />
           )}
         />
-        {errors.themes && <Text>{errors.themes.message}</Text>}
+        {errors.themes && <Text className='text-dark-orange text-center'>{errors.themes.message}</Text>}
       </View>
-      <OrangeButton title='Create!' onPress={handleSubmit(onSubmit)} />
+
+      <View className='items-center '>
+        <OrangeButton title='Create!' onPress={handleSubmit(onSubmit)} />
+      </View>
+
+      <View className='items-center  border-t-4 border-blue border-dotted pt-4 '>
+        <SurpriseButton />
+      </View>
     </>
   );
 }

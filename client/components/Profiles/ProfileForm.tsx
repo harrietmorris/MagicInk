@@ -9,7 +9,6 @@ import OrangeButton from '../style/OrangeButton';
 import ReadingLevelPicker from '../utils/ReadingLevelPicker';
 import UploadMediaFile from './UploadMedia';
 import ImageChoice from '../utils/ImageChoice';
-import BlueButton from '../style/BlueButton';
 import RenderImage from './RenderImg';
 import GreenButton from '../style/GreenButton';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, Text, StyleProp, ViewStyle } from 'react-native';
 import { styled } from 'nativewind';
 
-interface BlueButtonProps {
+interface OptionsButtonProps {
     onPress: () => void;
     title: string;
     style?: StyleProp<ViewStyle>;
@@ -11,18 +11,18 @@ interface BlueButtonProps {
 const StyledPressable = styled(Pressable);
 const StyledText = styled(Text);
 
-const GreenButton = ({ onPress, title, style }: BlueButtonProps ) => {
+const OptionsButton = ({ onPress, title, style }: OptionsButtonProps) => {
     return (
         <StyledPressable
             onPress={onPress}
-            className="bg-green rounded-full px-4 py-2"
+            className="bg-light-orange rounded-lg px-4 py-2"
             style={style}
         >
-            <StyledText className="text-grey text-lg font-bold">
+            <StyledText className="text-white text-lg font-bold text-center">
                 {title}
             </StyledText>
         </StyledPressable>
     );
 };
 
-export default GreenButton;
+export default OptionsButton;
