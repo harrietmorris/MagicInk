@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StoryType } from '@/types';
 import FavButton from '../buttons/favButton';
 import DeleteStoryBtn from '../buttons/DeleteStoryBtn';
-import { getStoryImage } from '../utils/getStoryImage';
+import { getStoryImage } from '../../services/apiStoryImage';
 
 interface StoryItemProps {
   story: StoryType;

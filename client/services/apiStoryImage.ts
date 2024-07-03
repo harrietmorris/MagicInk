@@ -6,6 +6,7 @@ const app = initializeApp(firebaseConfig);
 const firebaseApp = getApp();
 const storyImageStorage = getStorage(firebaseApp, process.env.FIREBASE_STORY_API);
 
+
 export const storeStoryImage = async (imageURL: string, filepath: string) => {
   const response = await fetch(imageURL);
   const imageBlob = await response.blob();
@@ -19,6 +20,7 @@ export const storeStoryImage = async (imageURL: string, filepath: string) => {
   console.log('Image uploaded successfully!');
   return result;
 };
+
 
 export const getStoryImage = async (storyId: number) => {
   const gsRef = ref(storyImageStorage, `gs://magicink-427207-story-image/${storyId}.jpeg`);
