@@ -3,7 +3,6 @@ import { storage } from '../../firebaseConfig'
 import React, { useState } from 'react'
 import pickAndUploadImage from '../utils/PickUploadImg'
 
-
 interface UploadMediaFileProps {
     onImageUpload: (imageUrl: string) => void
 }

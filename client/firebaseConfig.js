@@ -15,5 +15,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const storage = getStorage(app)
 
-
 export {firebaseConfig, storage}

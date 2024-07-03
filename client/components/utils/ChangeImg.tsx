@@ -1,16 +1,9 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, Pressable, ActivityIndicator } from 'react-native';
-// import { getStorage } from 'firebase/storage';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import pickAndUploadImage from '../utils/PickUploadImg';
 import ImageChoice from './ImageChoice'; 
 import { storage } from '@/firebaseConfig';
-// import { firebaseConfig } from '../../firebaseConfig';
-// import { initializeApp } from 'firebase/app';
-
-
-// initializeApp(firebaseConfig);
-// const storage = getStorage();
 
 interface ChangeImgModalProps {
   visible: boolean;
