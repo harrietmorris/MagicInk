@@ -9,8 +9,8 @@ import OrangeButton from '../style/OrangeButton';
 import ReadingLevelPicker from '../utils/ReadingLevelPicker';
 import UploadMediaFile from './UploadMedia';
 import ImageChoice from '../utils/ImageChoice';
-import BlueButton from '../style/BlueButton';
 import RenderImage from './RenderImg';
+import GreenButton from '../style/GreenButton';
 
 const ProfileForm = () => {
 
@@ -55,8 +55,8 @@ const ProfileForm = () => {
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
       <View>
-        <Text className='text-4xl font-extrabold color-green mb-10'>Create New Profile</Text>
-        <Text className='text-2xl font-bold mb-2 dark:text-white'>Name</Text>
+        <Text className='text-4xl font-extrabold dark:color-green color-dark-orange mb-5'>Create New Profile</Text>
+        <Text className='text-2xl font-bold mb-2 dark:text-white text-blue'>Name</Text>
         <Controller
           control={control}
           rules={{ required: 'Name is required' }}
@@ -76,7 +76,7 @@ const ProfileForm = () => {
         {errors.name && <Text className='text-dark-orange text-center'>{errors.name.message}</Text>}
 
         
-        <Text className="text-2xl font-bold mt-2 dark:text-white">Picture</Text>
+        <Text className="text-2xl font-bold mt-8 dark:text-white text-blue">Picture</Text>
         <View className='justify-center content-center items-center'> 
         <RenderImage
                 imageUrl={currentImg}
@@ -84,12 +84,12 @@ const ProfileForm = () => {
               />
          </View>
         <View className='flex-row content-center justify-center items-center mt-2'> 
-        <BlueButton onPress={() => setImgModalVisible(true) } title={'Choose'} />
-        <Text className="text-2xl font-bold dark:text-white text-center mt-2 mb-2"> or </Text>
+        <GreenButton onPress={() => setImgModalVisible(true) } title={'Choose'} />
+        <Text className="text-2xl font-bold dark:text-white text-grey text-center mt-2 mb-2"> or </Text>
         <UploadMediaFile onImageUpload={handleImageUpdate} />
         </View>
 
-        <Text className='text-2xl font-bold mb-2 mt-10 dark:text-white'>Choose Reading Level</Text>
+        <Text className='text-2xl font-bold mb-2 mt-10 dark:text-white text-blue'>Select Reading Level</Text>
         <Controller
           control={control}
           render={({ field: { onChange, value } }) => (
@@ -104,7 +104,7 @@ const ProfileForm = () => {
           defaultValue='value'
         />
 
-        <View className='justify-center content-center items-center mt-8'>
+        <View className='justify-center content-center items-center mt-12'>
           <OrangeButton title='Create Profile' onPress={handleSubmit(onSubmit)} />
         </View>
 

@@ -8,7 +8,7 @@ export interface ProfileType {
   id: number;
   userId: number;
   name: string;
-  picture: string | null;
+  picture: string;
   readingLevel: string;
   favs?: StoryType[];
   storiesList?: StoryType[];

@@ -8,7 +8,7 @@ interface FavButtonProps {
   storyId: number;
 }
 
-const FavButton: React.FC<FavButtonProps> = ({ storyId }) => {
+const FavButton = ({ storyId }: FavButtonProps) => {
   const { setSelectedProfile, selectedProfile } = useDataContext();
 
   const isFav = selectedProfile?.favs?.some((fav) => fav.id === storyId)
@@ -35,7 +35,7 @@ const FavButton: React.FC<FavButtonProps> = ({ storyId }) => {
 
   return (
     <Pressable onPress={toggleFav}>
-      {isFav ? <AntDesign name="heart" size={24} color="red" /> :<AntDesign name="hearto" size={24} color="red" /> }
+      {isFav ? <AntDesign name="heart" size={20} color="red" /> :<AntDesign name="hearto" size={20} color="red" /> }
     </Pressable>
   );
 };

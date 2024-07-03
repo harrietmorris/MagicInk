@@ -88,7 +88,7 @@ const Settings = () => {
               )}
             </View>
             <View className='absolute z-10 top-5 right-0'>
-              <Feather name='edit' size={30} color={'black'} />
+              <Feather name='edit' size={30} color={colorScheme === 'dark' ? '#FFFFFF' : '#000000'} />
             </View>
           </Pressable>
         </View>

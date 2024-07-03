@@ -1,10 +1,11 @@
-import { View, Text, Pressable, Image } from 'react-native';
+import { View, Text, Pressable, Image, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { StoryType } from '@/types';
 import FavButton from '../buttons/favButton';
 import DeleteStoryBtn from '../buttons/DeleteStoryBtn';
 import { getStoryImage } from '../../services/apiStoryImage';
 import MoreStory from '../buttons/moreStorybtn';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface StoryItemProps {
   story: StoryType;
@@ -25,11 +26,10 @@ const StoryItem = ({ story, handlePress, buttonColor }: StoryItemProps) => {
   }, []);
 
   return (
-    <View>
+    <View className='pr-8'>
       <Pressable
-        // TODO: fix this hack to get light-orange to work
-        className={`w-[200px] h-[200px]
-          } aspect-square rounded-lg ml-5 p-2 flex items-center justify-center`}
+        className={`w-[220px] h-[220px]
+          } aspect-square rounded-lg  flex justify-end`}
         onPress={() => handlePress(story)}
       >
         <Image
@@ -37,13 +37,20 @@ const StoryItem = ({ story, handlePress, buttonColor }: StoryItemProps) => {
             uri: imageURL,
           }}
           className='rounded-lg'
-          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
         />
-        <Text className='text-base text-black text-center text-lg font-bold bg-white'>{story.title}</Text>
-        <View className='absolute top-2 left-2'>
+        <View className=' rounded-b-lg text-lg font-black text-center'>
+          <LinearGradient
+            className='rounded-b-lg pt-10'
+            colors={['transparent', '#4682B4']}
+          >
+            <Text className='text-white rounded-b-lg text-lg font-black text-center px-2'>{story.title}</Text>
+          </LinearGradient>
+        </View>
+        <View className='absolute top-2 left-2 bg-white/[0.6] items-center justify-center rounded-full w-8 h-8' >
           <DeleteStoryBtn storyId={story.id} />
         </View>
-        <View className='absolute top-2 right-2'>
+        <View className='absolute top-2 right-2 bg-grey/[0.6] items-center justify-center rounded-full w-8 h-8' >
           <FavButton storyId={story.id} />
         </View>
         <View className='absolute bottom-2 left-2'>

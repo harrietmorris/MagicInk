@@ -5,7 +5,7 @@ import HomeScreen from '@/components/Home/HomeScreen';
 
 const homeScreen = () => {
   return (
-    <View className={`flex flex-col flex-1 dark:bg-dark-grey`}> 
+    <View className='flex-1 flex-col dark:bg-dark-grey justify-between p-8'> 
         <HomeScreen />
     </View>
   );

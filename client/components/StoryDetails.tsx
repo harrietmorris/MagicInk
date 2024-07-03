@@ -7,6 +7,7 @@ import OrangeButton from './style/OrangeButton';
 import DeleteStoryBtn from './buttons/DeleteStoryBtn';
 import { updateStory } from '@/services/apiService';
 import * as Speech from 'expo-speech';
+import OptionsButton from './style/Options';
 
 const voice = 'en-gb-x-gbg-local';
 
@@ -83,7 +84,7 @@ const StoryDetails = () => {
   };
 
   return (
-    <SafeAreaView className='mx-8 mt-20 flex-1'>
+    <SafeAreaView className='mx-8 mt-10 flex-1'>
       {selectedStory ? (
         <>
           <View className='flex flex-row justify-between mb-5 items-center'>
@@ -95,14 +96,14 @@ const StoryDetails = () => {
             </Pressable>
             <FavButton storyId={selectedStory.id} />
           </View>
-          <Text className='text-3xl mb-5 text-green font-black tracking-tighter'>{selectedStory.title}</Text>
-          <ScrollView>
-            <Text className='text-black dark:text-white text-base'>{storyText}</Text>
+          <Text className='text-4xl mb-3 text-green font-black tracking-tighter text-center'>{selectedStory.title}</Text>
+          <ScrollView className=''>
+            <Text className='text-black text-2xl dark:text-white leading-10'>{storyText}</Text>
           { selectedStory.chooseYourStory
           && selectedStory.currentBreakpoint < selectedStory.breakpoints
           && lastOptions.map((option, index) => (
-            <View className='p-1' key={index}>
-              <OrangeButton title={option} onPress={() => {handleContinueStory(option);}} />
+            <View className='p-2' key={index}>
+              <OptionsButton title={option} onPress={() => {handleContinueStory(option);}} />
             </View>
           ))}
           </ScrollView>
