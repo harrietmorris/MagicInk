@@ -53,9 +53,6 @@ const StoryItem = ({ story, handlePress, buttonColor }: StoryItemProps) => {
         <View className='absolute top-2 right-2 bg-grey/[0.6] items-center justify-center rounded-full w-8 h-8' >
           <FavButton storyId={story.id} />
         </View>
-        <View className='absolute bottom-2 left-2'>
-          <MoreStory story={story}></MoreStory>
-        </View>
       </Pressable>
     </View>
   );

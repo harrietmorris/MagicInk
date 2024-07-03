@@ -8,6 +8,7 @@ import DeleteStoryBtn from './buttons/DeleteStoryBtn';
 import { updateStory } from '@/services/apiService';
 import * as Speech from 'expo-speech';
 import OptionsButton from './style/Options';
+import MoreStory from './buttons/moreStorybtn';
 
 const voice = 'en-gb-x-gbg-local';
 
@@ -105,7 +106,9 @@ const StoryDetails = () => {
             <View className='p-2' key={index}>
               <OptionsButton title={option} onPress={() => {handleContinueStory(option);}} />
             </View>
-          ))}
+          )) || <View className='p-2 items-center'>
+          <MoreStory story={selectedStory}></MoreStory>
+        </View>}
           </ScrollView>
         </>
       ) : (

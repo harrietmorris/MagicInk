@@ -6,13 +6,14 @@ import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import PopUp from '../utils/PopUp';
 import { router } from 'expo-router';
+import OrangeButton from '../style/OrangeButton';
 
 interface FavButtonProps {
     story: StoryType;
 }
 
 const MoreStory: React.FC<FavButtonProps> = ({ story }) => {
-    const { selectedProfile, setSelectedProfile, selectedStory, setSelectedStory } = useDataContext();
+    const { selectedProfile, setSelectedStory } = useDataContext();
     const [modalVisible, setModalVisible] = useState(false);
 
 
@@ -32,9 +33,7 @@ const MoreStory: React.FC<FavButtonProps> = ({ story }) => {
 
     return (
         <View>
-            <Pressable onPress={() => setModalVisible(true)}>
-                <AntDesign name="pluscircleo" size={24} color="black" />
-            </Pressable>
+            <OrangeButton onPress={() => setModalVisible(true)} title={'Continue story...'}></OrangeButton>
             <PopUp
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
