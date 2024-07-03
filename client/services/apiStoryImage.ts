@@ -4,7 +4,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 const app = initializeApp(firebaseConfig);
 const firebaseApp = getApp();
-const storyImageStorage = getStorage(firebaseApp, process.env.FIREBASE_STORY_API);
+const storyImageStorage = getStorage(firebaseApp, process.env.FIREBASE_DEMO);
 
 
 export const storeStoryImage = async (imageURL: string, filepath: string) => {
@@ -23,7 +23,7 @@ export const storeStoryImage = async (imageURL: string, filepath: string) => {
 
 
 export const getStoryImage = async (storyId: number) => {
-  const gsRef = ref(storyImageStorage, `gs://magicink-427207-story-image/${storyId}.jpeg`);
+  const gsRef = ref(storyImageStorage, `gs://magicink-427207-story-image-demo/${storyId}.jpeg`);
   const firebaseImage = await getDownloadURL(gsRef);
   return firebaseImage;
 };
