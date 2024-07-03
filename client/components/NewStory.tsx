@@ -69,15 +69,21 @@ export default function NewStory() {
 
   return (
     <>
-      <SurpriseButton />
-      <Text>
-        <Text className='tracking-tighter font-black text-2xl text-black dark:text-white'>
-          Let Your Imagination Run
+      <View className='items-center mt-8 '>
+        <SurpriseButton/>
+      </View>
+
+      <View className='items-center mt-2 '>
+        <Text >
+          <Text className='tracking-tighter font-black text-2xl text-black dark:text-white'>
+            Let Your Imagination Run
+          </Text>
+          <Text className='tracking-tighter font-black text-2xl text-green'> Wild!</Text>
         </Text>
-        <Text className='tracking-tighter font-black text-2xl text-green'> Wild!</Text>
-      </Text>
-      <View className='m-2'>
-        <Text className='text-lg text-black dark:text-white m-2'>Choose Reading Level</Text>
+      </View>
+      
+      <View className='mt-2'>
+        <Text className='text-lg text-black dark:text-white mt-2'>Choose Reading Level</Text>
         <Controller
           name='readingLevel'
           control={control}
@@ -87,8 +93,8 @@ export default function NewStory() {
           )}
         />
       </View>
-      <View className='m-2'>
-        <Text className='text-lg text-black dark:text-white m-2'>Choose Your Location</Text>
+      <View className='mt-2'>
+        <Text className='text-lg text-black dark:text-white mt-2'>Choose Your Location</Text>
         <Controller
           name='location'
           control={control}
@@ -97,8 +103,8 @@ export default function NewStory() {
           )}
         />
       </View>
-      <View className='m-2'>
-        <Text className='text-lg text-black dark:text-white m-2'>How long do you want to read for?</Text>
+      <View className='mt-2'>
+        <Text className='text-lg text-black dark:text-white mt-2'>How long do you want to read for?</Text>
         <Controller
           name='readingTime'
           control={control}

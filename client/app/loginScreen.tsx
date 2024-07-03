@@ -41,7 +41,7 @@ export default function loginScreen() {
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-white dark:bg-grey text-black dark:text-white  mb-2'
+                  className='rounded-full px-5 py-4 text-lg border-green border-2 bg-white dark:bg-grey text-black dark:text-white  mb-2'
                   placeholder='Username'
                   placeholderTextColor='grey'
                   onBlur={onBlur}
@@ -57,7 +57,7 @@ export default function loginScreen() {
               control={control}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
-                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-white dark:bg-grey text-black dark:text-white mb-2'
+                  className='rounded-full px-5 py-4 text-lg border-green border-2 bg-white dark:bg-grey text-black dark:text-white mb-2'
                   placeholder='Password'
                   placeholderTextColor='grey'
                   onBlur={onBlur}

@@ -8,7 +8,7 @@ interface MultiSelectComponentProps {
   selectOne?: boolean;
 }
 
-const  MultiSelectComponent: React.FC<MultiSelectComponentProps> = ({itemOptions, value, onChange}) => {
+const  MultiSelectComponent= ({itemOptions, value, onChange}:MultiSelectComponentProps ) => {
 
   const [selectedItems, setSelectedItems] = useState<string[]>(value);
 
@@ -21,14 +21,14 @@ const  MultiSelectComponent: React.FC<MultiSelectComponentProps> = ({itemOptions
   };
 
   return (
-    <View className='justify-center h-20'>
+    <View className='justify-center'>
       <FlatList
         horizontal={true}
         data={itemOptions}
         keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (
           <Pressable
-          className={`h-full flex justify-center p-3 mx-2 bg-yellow rounded-lg
+          className={`flex justify-center p-4 mr-4 bg-yellow rounded-lg
             ${selectedItems.includes(item) ? 'bg-blue' : ''}`}
             onPress={() => {       
               toggleItemSelection(item);
