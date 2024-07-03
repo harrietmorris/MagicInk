@@ -5,12 +5,16 @@ import { useDataContext } from '@/context/globalContext';
 import { removeStoryFromProfile } from '@/services/apiService';
 import PopUp from '../utils/PopUp';
 import { router } from 'expo-router';
+import { useColorScheme } from 'nativewind';
 
 interface DeleteStoryProps {
   storyId: number;
 }
 
 const DeleteStoryBtn = ({ storyId }: DeleteStoryProps): React.JSX.Element => {
+  const { colorScheme } = useColorScheme();
+  const iconColor = colorScheme === 'dark' ? '#fff' : '#333233';
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const { setSelectedProfile, selectedProfile } = useDataContext();
@@ -33,7 +37,7 @@ const DeleteStoryBtn = ({ storyId }: DeleteStoryProps): React.JSX.Element => {
   return (
     <View>
       <Pressable onPress={() => setModalVisible(true)}>
-        <FontAwesome size={24} name='trash' color='#333233' />
+        <FontAwesome size={24} name='trash' color={iconColor} />
       </Pressable>
       <PopUp
         modalVisible={modalVisible}
