@@ -4,6 +4,7 @@ import { StoryType } from '@/types';
 import FavButton from '../buttons/favButton';
 import DeleteStoryBtn from '../buttons/DeleteStoryBtn';
 import { getStoryImage } from '../../services/apiStoryImage';
+import MoreStory from '../buttons/moreStorybtn';
 
 interface StoryItemProps {
   story: StoryType;
@@ -44,6 +45,9 @@ const StoryItem = ({ story, handlePress, buttonColor }: StoryItemProps) => {
         </View>
         <View className='absolute top-2 right-2'>
           <FavButton storyId={story.id} />
+        </View>
+        <View className='absolute bottom-2 left-2'>
+          <MoreStory story={story}></MoreStory>
         </View>
       </Pressable>
     </View>

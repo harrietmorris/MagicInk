@@ -1,6 +1,6 @@
-import {createPrompt, createContinuationPrompt } from '../prompt';
+import {createPrompt, createContinuationPrompt, promptForMore } from '../prompt';
 import model from '../gemini';
-import { StoryRequestBody } from '../serverTypes';
+import { StoryRequestBody, CreateStoryRequestBody } from '../serverTypes';
 import * as Koa from "koa"
 import prisma from '../models';
 
@@ -128,4 +128,34 @@ export async function continueStory(ctx: Koa.Context) {
   }
 }
 
+export async function addMoreStory(ctx: Koa.Context) {
+  const profileId = parseInt(ctx.params.profileId);
+  const storyId = parseInt(ctx.params.storyId);
+  const { title, storyString, prompt, readingTime, readingLevel, themes } = ctx.request.body as CreateStoryRequestBody
+
+  const oldStory = ctx.request.body
+  console.log(oldStory)
+  if (!ctx.request.body) {
+    ctx.status = 400;
+    ctx.body = 'Bad request';
+    return;
+  }
+  try {
+    const newChapter = promptForMore (title, storyString, prompt, readingTime, readingLevel, themes )
+    const result = await model.generateContent(newChapter);
+    const response = await result.response;
+    const text = response.text();
+    const rx = new RegExp("##[\\d\\D]*?\n\n", "g");
+    const storyText = text.replace(rx, '');
+    const updatedStory = await prisma.story.update({
+      where: { id: storyId },
+      data: { storyString: storyText }
+    })
+    ctx.body = updatedStory
+  } catch (e) {
+    console.error(e);
+    ctx.status = 500;
+    ctx.body = 'Error updating story';
+  }
+}
 
