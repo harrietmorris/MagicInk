@@ -105,8 +105,8 @@ const StoryDetails = () => {
             <Text className='text-black dark:text-white text-base'>{storyText}</Text>
           { selectedStory.chooseYourStory
           && selectedStory.currentBreakpoint < selectedStory.breakpoints
-          && lastOptions.map((option) => (
-            <View className='p-1'>
+          && lastOptions.map((option, index) => (
+            <View className='p-1' key={index}>
               <OrangeButton title={option} onPress={() => {handleContinueStory(option);}} />
             </View>
           ))}
