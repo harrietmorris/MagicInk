@@ -8,7 +8,7 @@ import DropButton from './DropButton';
 import RenderImage from './RenderImg'; 
 
 const ChangeProfilesButton = () => {
-  const { profiles, selectedProfile, setSelectedProfile } = useDataContext();
+  const { profiles, selectedProfile, setSelectedProfile, setSelectedStory } = useDataContext();
   const [modalVisible, setModalVisible] = useState(false);
   const [buttonLayout, setButtonLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const buttonRef = useRef<View>(null);
@@ -18,6 +18,7 @@ const ChangeProfilesButton = () => {
       const profileId = profile.id;
       const fetchedProfile = await getSelectedProfile(profileId);
       setSelectedProfile(fetchedProfile);
+      setSelectedStory(null);
       setModalVisible(false);
     } catch (error) {
       console.error('Error fetching profile', error);
