@@ -15,7 +15,7 @@ function NewProfileButton({ route }: NewProfileButtonProps) {
 
   return (
     <Pressable
-      className='bg-dark-orange rounded-full px-4 py-4 flex items-center justify-center w-60 m-8'
+      className='bg-dark-orange rounded-full p-4 flex items-center justify-center w-60 m-8 h-20'
       onPress={reRouter}
     >
       <Text className='text-white text-3xl font-bold'>+ New Profile</Text>

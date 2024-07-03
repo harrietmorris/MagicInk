@@ -24,7 +24,7 @@ const StoryList = ({ storyArray, color }: StoryItemProps) => {
     return (
         <SafeAreaView  >
             <ScrollView horizontal={true} >
-                <View className='flex flex-row' >
+                <View className='flex flex-row ' >
                     {storyArray && storyArray.map((story, index) => {
                       let buttonColor;
                       if (!color) buttonColor = colors[index % 3];
