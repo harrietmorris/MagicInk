@@ -84,7 +84,7 @@ const StoryDetails = () => {
   };
 
   return (
-    <SafeAreaView className='mx-8 mt-20 flex-1'>
+    <SafeAreaView className='mx-8 mt-10 flex-1'>
       {selectedStory ? (
         <>
           <View className='flex flex-row justify-between mb-5 items-center'>
