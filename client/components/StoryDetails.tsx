@@ -20,12 +20,7 @@ const StoryDetails = () => {
   const [currentChunk, setCurrentChunk] = useState(0);
   const { selectedStory, selectedProfile, setSelectedStory } = useDataContext();
   let lastOptions: string[] | RegExpMatchArray = [];
-  
-  if (!selectedStory) {
-    router.replace('/newStoryScreen');
-    return null;
-  }
-  
+
   let storyText = selectedStory?.storyString || '';
   if (storyText && selectedStory) {
     storyText = storyText.replaceAll('*', '');
@@ -82,7 +77,7 @@ const StoryDetails = () => {
     router.replace('/loadingScreen');
     const optionNumber = option.split(':')[0];
     const response = await updateStory(selectedProfile.id, selectedStory.id, optionNumber);
-    const storyDetails = response.storyDetails;
+    const storyDetails = response!.storyDetails;
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
   };
