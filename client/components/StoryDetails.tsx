@@ -1,5 +1,5 @@
 import { Text, ScrollView, SafeAreaView, View, Pressable } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { router } from 'expo-router';
 import FavButton from './buttons/favButton';
@@ -7,6 +7,8 @@ import OrangeButton from './style/OrangeButton';
 import DeleteStoryBtn from './buttons/DeleteStoryBtn';
 import { updateStory } from '@/services/apiService';
 import * as Speech from 'expo-speech';
+import { getLastReadLocation, saveLastReadLocation } from '@/storage';
+
 
 const voice = 'en-gb-x-gbg-local';
 
@@ -19,6 +21,7 @@ const StoryDetails = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [currentChunk, setCurrentChunk] = useState(0);
   const { selectedStory, selectedProfile, setSelectedStory } = useDataContext();
+  const scrollViewRef = useRef(null);
   let lastOptions: string[] | RegExpMatchArray = [];
 
   let storyText = selectedStory?.storyString || '';
@@ -48,6 +51,19 @@ const StoryDetails = () => {
       setIsSpeaking(false);
     }
   }, [currentChunk, isSpeaking]);
+
+  useEffect(() => {
+    if (!selectedStory || !selectedProfile) return;
+    const location = getLastReadLocation(selectedProfile.id, selectedStory.id);
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ y: location, animated: false });
+    }
+  }, [selectedStory]);
+
+  function handleRead(location: number) {
+    if (!selectedStory || !selectedProfile) return;
+    saveLastReadLocation(selectedProfile.id, selectedStory.id, location);
+  }
 
   useEffect(() => {
     if (isSpeaking && chunks.length > 0) {
@@ -96,7 +112,11 @@ const StoryDetails = () => {
             <FavButton storyId={selectedStory.id} />
           </View>
           <Text className='text-3xl mb-5 text-green font-black tracking-tighter'>{selectedStory.title}</Text>
-          <ScrollView>
+          <ScrollView
+          ref={scrollViewRef}
+          onScroll={(event) => handleRead(event.nativeEvent.contentOffset.y)}
+          scrollEventThrottle={16}
+          >
             <Text className='text-black dark:text-white text-base'>{storyText}</Text>
           { selectedStory.chooseYourStory
           && selectedStory.currentBreakpoint < selectedStory.breakpoints
