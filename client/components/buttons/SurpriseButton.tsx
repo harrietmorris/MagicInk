@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDataContext } from '@/context/globalContext';
-import { createStory } from '@/services/apiService';
+import { createImage, createStory } from '@/services/apiService';
 import { themeOptions, locationOptions, readingTimeOptions } from '../../constants/Surprise';
 import { router } from 'expo-router';
 import OrangeButton from '../style/OrangeButton';
+import { storeStoryImage } from '../utils/getStoryImage';
 
 const SurpriseButton = () => {
   const { setSelectedStory, selectedProfile } = useDataContext();
@@ -32,8 +33,12 @@ const SurpriseButton = () => {
       readingLevels,
       randomLocation,
       readingTimeOptions[randomReadingTime],
-      randomThemes.join(', ')
+      randomThemes.join(', '),
     );
+
+    const image_url = await createImage(readingLevels, randomLocation, randomThemes.join(', '));
+    const filename = `${storyDetails.id}.jpeg`;
+    await storeStoryImage(image_url, filename);
 
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
