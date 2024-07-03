@@ -29,18 +29,22 @@ const SurpriseButton = () => {
     router.replace('/loadingScreen');
 
     const profId = selectedProfile?.id ? selectedProfile.id : 1;
-    const { storyDetails } = await createStory(
+
+    const promiseStory = createStory(
       profId,
       readingLevels,
       randomLocation,
       readingTimeOptions[randomReadingTime],
       randomThemes.join(', '),
     );
-
-    await createAndStoreStoryImage(storyDetails, readingLevels, randomLocation, randomThemes.join(', '));
+    const promiseImage = createImage(readingLevels, randomLocation, randomThemes.join(', '));
+    const [{ storyDetails }, image_url] = await Promise.all([promiseStory, promiseImage]);
 
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
+
+    const filename = `${storyDetails.id}.jpeg`;
+    await storeStoryImage(image_url, filename);
   };
 
   return <OrangeButton title='Surprise Me!' onPress={handleSuprise} />;
