@@ -1,7 +1,8 @@
-import { Text, Pressable, Image, View } from 'react-native';
+import { Text, Pressable, View } from 'react-native';
 import React from 'react';
 import { useRouter } from 'expo-router';
-import { profilePictures } from '@/constants/profilePictures';
+import RenderImage from './RenderImg';
+
 
 interface DropButtonProps {
   route: string;
@@ -19,14 +20,16 @@ const DropButton = ({ route, profileName, onPress, profilePic }: DropButtonProps
   };
 
   return (
-    <Pressable className=' flex-row-reverse items-center justify-between' onPress={reRouter}>
+    <Pressable className='flex-row-reverse items-center justify-between' onPress={reRouter}>
     <View className='p-2.5 items-center justify-center'>
-        <Image
-                className='w-[50px] h-[50px]'
-                source={profilePictures.filter((pic) => pic.id === profilePic)[0].src}
-              />
+      <RenderImage
+        imageUrl={profilePic}
+        style={{ width: 50, height: 50, borderRadius: 50 }}
+      />
     </View>
-    <Text className='text-white text-lg font-bold px-10' numberOfLines={1} adjustsFontSizeToFit={true}>{profileName}</Text>
+    <Text className='text-white text-lg font-bold px-10' numberOfLines={1} adjustsFontSizeToFit={true}>
+      {profileName}
+    </Text>
   </Pressable>
   );
 };
