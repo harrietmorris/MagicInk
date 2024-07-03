@@ -96,7 +96,7 @@ const StoryDetails = () => {
             </Pressable>
             <FavButton storyId={selectedStory.id} />
           </View>
-          <Text className='text-5xl mb-5 text-green font-black tracking-tighter text-center'>{selectedStory.title}</Text>
+          <Text className='text-4xl mb-5 text-green font-black tracking-tighter text-center'>{selectedStory.title}</Text>
           <ScrollView className=''>
             <Text className='text-black text-2xl dark:text-white leading-10'>{storyText}</Text>
           { selectedStory.chooseYourStory

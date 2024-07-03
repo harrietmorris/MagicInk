@@ -27,7 +27,7 @@ const HomeScreen = () => {
     <>
     <View className='flex flex-col'>
       <View className='mb-8 mt-6'>
-        <Text className='tracking-tighter dark:text-green text-dark-orange text-3xl font-black'>
+        <Text className='tracking-tighter dark:text-green text-green text-3xl font-black'>
           {selectedProfile.name},
         </Text>
         <Text className='tracking-tighter dark:text-white text-3xl font-black'>Ready To Make Magic?</Text>

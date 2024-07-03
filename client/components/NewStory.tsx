@@ -74,7 +74,7 @@ export default function NewStory() {
           <Text className='tracking-tighter font-black text-2xl text-black dark:text-white'>
             Let Your Imagination Run
           </Text>
-          <Text className='tracking-tighter font-black text-3xl text-green'> Wild!</Text>
+          <Text className='tracking-tighter font-black text-2xl text-green'> Wild!</Text>
         </Text>
       </View>
 
