@@ -56,7 +56,7 @@ const index = () => {
             color={GoogleSigninButton.Color.Light}
             onPress={signIn}
           />
-          {/* <BypassLoginButton /> */}
+          <BypassLoginButton />
           <Pressable onPress={handleLogout}>
             <Text>Logout</Text>
           </Pressable>
