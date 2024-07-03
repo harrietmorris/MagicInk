@@ -7,10 +7,11 @@ export function createImagePrompt(readingLevel: string, location: string, themes
     ${persona}
 
     Generate a image for a childrens story based on the following parameters:
+    This should just be an image. Do not add any text or make it look like a book.
+    
     - The story is about: "${themes}"
     - The story image must be age appropriate for children with a Lexile reading level of ${readingLevel}
     - The story must be located in ${location}
-    This should just be an image. Do not add any text or make it look like a book.
   `;
   return starting_prompt;
 }
