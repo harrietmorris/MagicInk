@@ -1,12 +1,8 @@
 import { View, Text, Pressable, Alert, ActivityIndicator } from 'react-native'
-import { firebaseConfig } from '../../firebaseConfig'
+import { storage } from '../../firebaseConfig'
 import React, { useState } from 'react'
-import { initializeApp } from 'firebase/app'
-import { getStorage } from 'firebase/storage'
 import pickAndUploadImage from '../utils/PickUploadImg'
 
-const app = initializeApp(firebaseConfig)
-const storage = getStorage(app)
 
 interface UploadMediaFileProps {
     onImageUpload: (imageUrl: string) => void
