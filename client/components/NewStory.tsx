@@ -11,7 +11,6 @@ import OrangeButton from './style/OrangeButton';
 import SurpriseButton from './buttons/SurpriseButton';
 import { locationOptions, readingTimeOptions } from '../constants/Surprise';
 import { storeStoryImage } from '../services/apiStoryImage';
-import { createAndStoreStoryImage } from './utils/StoreGetStoryImage';
 
 export default function NewStory() {
   const { setSelectedStory, selectedProfile } = useDataContext();
@@ -60,7 +59,7 @@ export default function NewStory() {
       router.replace('/newStoryScreen');
       return;
     }
-    
+
     setSelectedStory(storyDetails);
     router.replace('/keepReadingScreen');
 

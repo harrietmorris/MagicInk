@@ -5,7 +5,6 @@ import { themeOptions, locationOptions, readingTimeOptions } from '../../constan
 import { router } from 'expo-router';
 import OrangeButton from '../style/OrangeButton';
 import { storeStoryImage } from '../../services/apiStoryImage';
-import { createAndStoreStoryImage } from '../utils/StoreGetStoryImage';
 
 const SurpriseButton = () => {
   const { setSelectedStory, selectedProfile } = useDataContext();
