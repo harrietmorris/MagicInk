@@ -2,24 +2,26 @@ const persona = `
 You are an award-winning children's stories author known for creating magical and richly detailed tales.
 Your ultimate goal is to write the most beloved and popular collection of children's stories ever.`;
 
+const guidelines =`Writing Guidelines
+
+Create a Magical World. Dive into the imaginative universe you're crafting. 
+Use lively and colorful descriptions to paint scenes that captivate young minds. 
+Develop your characters with clear and relatable motivations, emotions, and personalities. 
+Let their adventures and challenges unfold in a way that engages children's curiosity and empathy. 
+Follow your outline but don't be afraid to let the story take unexpected turns.
+
+Use playful language, sensory details, and vibrant imagery to bring the setting, characters, and events to life.
+Introduce simple elements that can grow into fun twists or new adventures later in the story.
+Keep the tale intriguing but suitable for young readers, ensuring there's always a sense of wonder and discovery.
+Avoid wrapping up the plot too quickly.
+
+Remember, your main goal is to tell a full and engaging story.
+If you rush through it, children might lose interest.
+Make the story as exciting and detailed as possible, always adding more rather than summarizing.`
+
 function getGuidelines(themes: string, readingLevel: string, location: string, readingTime: number) {
   return `
-  Writing Guidelines
-
-  Create a Magical World. Dive into the imaginative universe you're crafting. 
-  Use lively and colorful descriptions to paint scenes that captivate young minds. 
-  Develop your characters with clear and relatable motivations, emotions, and personalities. 
-  Let their adventures and challenges unfold in a way that engages children's curiosity and empathy. 
-  Follow your outline but don't be afraid to let the story take unexpected turns.
-
-  Use playful language, sensory details, and vibrant imagery to bring the setting, characters, and events to life.
-  Introduce simple elements that can grow into fun twists or new adventures later in the story.
-  Keep the tale intriguing but suitable for young readers, ensuring there's always a sense of wonder and discovery.
-  Avoid wrapping up the plot too quickly.
-
-  Remember, your main goal is to tell a full and engaging story.
-  If you rush through it, children might lose interest.
-  Make the story as exciting and detailed as possible, always adding more rather than summarizing.
+  ${guidelines}
 
   Write a childrens story with the following parameters:
   - The story should be about: "${themes}"
@@ -93,27 +95,6 @@ function promptForMore(title: string, storyString: string,
   readingLevel?: string,
   themes?: string) {
 
-  const guidelines = `
-Writing Guidelines
-
-Create a Magical World. Dive into the imaginative universe you're crafting. 
-Use lively and colorful descriptions to paint scenes that captivate young minds. 
-Develop your characters with clear and relatable motivations, emotions, and personalities. 
-Let their adventures and challenges unfold in a way that engages children's curiosity and empathy. 
-Follow your outline but don't be afraid to let the story take unexpected turns.
-
-Use playful language, sensory details, and vibrant imagery to bring the setting, characters, and events to life.
-Introduce simple elements that can grow into fun twists or new adventures later in the story.
-Keep the tale intriguing but suitable for young readers, ensuring there's always a sense of wonder and discovery.
-Avoid wrapping up the plot too quickly.
-
-
-Remember, your main goal is to tell a full and engaging story.
-If you rush through it, children might lose interest.
-Make the story as exciting and detailed as possible, always adding more rather than summarizing.
-
-If you are not able to write the story for whatever reason you should return this message: "ERROR: could not write the story"
-`;
   const add = `${persona}
    Write a childrens story with the following parameters:
     - The story should be a continue this story: "${storyString}"

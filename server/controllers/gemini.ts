@@ -133,8 +133,6 @@ export async function addMoreStory(ctx: Koa.Context) {
   const storyId = parseInt(ctx.params.storyId);
   const { title, storyString, prompt, readingTime, readingLevel, themes } = ctx.request.body as CreateStoryRequestBody
 
-  const oldStory = ctx.request.body
-  console.log(oldStory)
   if (!ctx.request.body) {
     ctx.status = 400;
     ctx.body = 'Bad request';
