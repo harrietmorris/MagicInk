@@ -23,7 +23,7 @@ export const storeStoryImage = async (imageURL: string, filepath: string) => {
 
 
 export const getStoryImage = async (storyId: number) => {
-  const gsRef = ref(storyImageStorage, `gs://magicink-427207-story-image/${storyId}.jpeg`);
+  const gsRef = ref(storyImageStorage, `${process.env.FIREBASE_STORY_API}/${storyId}.jpeg`);
   const firebaseImage = await getDownloadURL(gsRef);
   return firebaseImage;
 };
