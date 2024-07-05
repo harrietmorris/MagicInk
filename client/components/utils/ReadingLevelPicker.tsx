@@ -9,28 +9,30 @@ interface ReadingLevelPickerProps {
   onValueChange: (value: string) => void;
 }
 
-const ReadingLevelPicker: React.FC<ReadingLevelPickerProps> = ({ selectedValue, onValueChange }) => {
+const ReadingLevelPicker = ({ selectedValue, onValueChange }: ReadingLevelPickerProps) => {
   const { colorScheme } = useColorScheme();
   return (
-      <View className='w-full rounded-full px-4 py-1 border-2 border-green bg-white dark:bg-grey'>
-        <Picker
-          style={{ color: colorScheme === 'dark' ? 'white' : 'black' }}
-          selectedValue={selectedValue}
-          onValueChange={onValueChange}
-          dropdownIconColor={colorScheme === 'dark' ? 'white' : 'black'}
-          selectionColor={colorScheme === 'dark' ? '#333233' : 'white'}
-        >
-          {Object.keys(readingLevelOptions).map((level) => (
-            <Picker.Item key={level} label={`${level}`} value={level} 
+    <View className='w-full rounded-full px-4 py-1 border-2 border-green bg-white dark:bg-grey'>
+      <Picker
+        style={{ color: colorScheme === 'dark' ? 'white' : 'black' }}
+        selectedValue={selectedValue}
+        onValueChange={onValueChange}
+        dropdownIconColor={colorScheme === 'dark' ? 'white' : 'black'}
+        selectionColor={colorScheme === 'dark' ? '#333233' : 'white'}
+      >
+        {Object.keys(readingLevelOptions).map((level) => (
+          <Picker.Item
+            key={level}
+            label={`${level}`}
+            value={level}
             style={{
               backgroundColor: colorScheme === 'dark' ? '#333233' : '#ffffff',
               color: colorScheme === 'dark' ? 'white' : 'black',
             }}
-            />
-          ))}
-        </Picker>
-      </View>
-
+          />
+        ))}
+      </Picker>
+    </View>
   );
 };
 
