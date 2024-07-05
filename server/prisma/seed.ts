@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 async function main() {
   const defaultUser = await prisma.user.findUnique({
     where: {
-      email: 'default@example.com',
+      email: 'magicInk@email.com',
     },
   });
 
