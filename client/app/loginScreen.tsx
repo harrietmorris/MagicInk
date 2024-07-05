@@ -17,7 +17,7 @@ export default function loginScreen() {
 
   useEffect(() => {
     async function setup() {
-      const user = await getUser(1);
+      const user = await getUser(1); //see readme seed data for explanation 
       setUser(user);
     }
     setup();

@@ -19,7 +19,7 @@ To visualise the database:
   npx prisma studio -p 5553
   (the android emulator and prisma studio both use port 5555 by default)
 
-To seed a default user (while authentication is currently mocked):
+To seed a default user while authentication is currently mocked, and we default to this (getUser(1) in loginScreen):
   npm run seed
 
 To run the backend:
