@@ -34,8 +34,20 @@ Create a `client/.env` file with the following content:
 
 
 ### Server Setup
+To generate prisma database:
+  npx prisma generate
+  npx prisma migrate dev --name magicink
+
+To visualise the database:
+  npx prisma studio -p 5553
+  (the android emulator and prisma studio both use port 5555 by default)
+
+To seed a default user while authentication is currently mocked, and we default to this (getUser(1) in loginScreen):
+  npm run seed
+
 To run the backend:
-  `npm run dev`
+  npm run dev
+
 
 create a `server/.env` file with the following content:
 ```
@@ -44,6 +56,3 @@ DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/magicink?schema=public"
 ```
 Run the following commands to create the database and generate the prisma client:
 ```
-
-npx prisma generate
-npx prisma migrate dev --name magicink
