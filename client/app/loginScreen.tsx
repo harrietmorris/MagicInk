@@ -78,6 +78,7 @@ export default function loginScreen() {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
+                secureTextEntry={true}
               />
             )}
             name='password'
