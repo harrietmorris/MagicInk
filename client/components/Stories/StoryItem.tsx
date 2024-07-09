@@ -18,8 +18,13 @@ const StoryItem = ({ story, handlePress, buttonColor }: StoryItemProps) => {
   useEffect(() => {
     if (story.id) {
       (async () => {
-        const result = await getStoryImage(story.id);
-        setImageURL(result);
+        try {
+          const result = await getStoryImage(story.id);
+          setImageURL(result);
+        } catch (error) {
+          console.error('Error fetching the story image:', error);
+          setImageURL("");
+        }
       })();
     }
   }, []);
@@ -39,17 +44,14 @@ const StoryItem = ({ story, handlePress, buttonColor }: StoryItemProps) => {
           style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
         />
         <View className=' rounded-b-lg text-lg font-black text-center'>
-          <LinearGradient
-            className='rounded-b-lg pt-10'
-            colors={['transparent', '#4682B4']}
-          >
+          <LinearGradient className='rounded-b-lg pt-10' colors={['transparent', '#4682B4']}>
             <Text className='text-white rounded-b-lg text-lg font-black text-center px-2'>{story.title}</Text>
           </LinearGradient>
         </View>
-        <View className='absolute top-2 left-2 bg-white/[0.6] items-center justify-center rounded-full w-8 h-8' >
+        <View className='absolute top-2 left-2 bg-white/[0.6] items-center justify-center rounded-full w-8 h-8'>
           <DeleteStoryBtn storyId={story.id} />
         </View>
-        <View className='absolute top-2 right-2 bg-grey/[0.6] items-center justify-center rounded-full w-8 h-8' >
+        <View className='absolute top-2 right-2 bg-grey/[0.6] items-center justify-center rounded-full w-8 h-8'>
           <FavButton storyId={story.id} />
         </View>
       </Pressable>

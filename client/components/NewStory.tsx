@@ -54,8 +54,8 @@ export default function NewStory() {
 
     const [{ status, storyDetails }, image_url] = await Promise.all([promiseStory, promiseImage]);
 
-    if (status === 204) {
-      alert('Error creating story. please review your inputs and try again.');
+    if (status === 204 && !image_url) {
+      alert('Error creating story or image. Please review your inputs and try again.');
       router.replace('/newStoryScreen');
       return;
     }
@@ -64,7 +64,12 @@ export default function NewStory() {
     router.replace('/keepReadingScreen');
 
     const filename = `${storyDetails.id}.jpeg`;
-    await storeStoryImage(image_url, filename);
+    try {
+      await storeStoryImage(image_url, filename);
+    } catch (error) {
+      console.error('Error storing the story image:', error);
+      alert('Error storing the story image. Please try again later.');
+    }
   }
 
   return (
