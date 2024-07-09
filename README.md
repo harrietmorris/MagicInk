@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/harrietmorris/MagicInk">
-    <img src="client\assets\images\magicInkLogo.png" alt="Logo" height="80">
+    <img src="client\assets\images\magicInkLogo.png" alt="Logo" height="110">
   </a>
 </div>
 
@@ -110,17 +110,17 @@ To run the server:
 [React_Native_URL]: https://reactnative.dev/
 [Expo_Router]: https://img.shields.io/badge/Expo_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
 [Expo_Router_URL]: https://docs.expo.dev/router/introduction/
-[NativeWind]: hhttps://img.shields.io/badge/NativeWind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[NativeWind]: https://img.shields.io/badge/NativeWind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
 [NativeWind_URL]: https://www.nativewind.dev/v4/getting-started/react-native
 [TypeScript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [TypeScript_URL]: https://www.typescriptlang.org/
 [Koajs]: https://img.shields.io/badge/Koa.js-404D59?style=for-the-badge
 [Koajs_URL]: https://koajs.com/
-[Prisma]: https://img.shields.io/badge/Koa.js-404D59?style=for-the-badge
+[Prisma]: https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white
 [Prisma_URL]: https://www.prisma.io/
-[PostgreSQL]: https://img.shields.io/badge/Koa.js-404D59?style=for-the-badge
+[PostgreSQL]: https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white
 [PostgreSQL_URL]: https://www.postgresql.org/
-[Android]: https://img.shields.io/badge/Koa.js-404D59?style=for-the-badge
+[Android]: https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white
 [Android_URL]: https://developer.android.com/studio
 [Figma]: https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white
 [Figma_URL]: https://www.figma.com/
