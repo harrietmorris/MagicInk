@@ -11,9 +11,11 @@
 An interactive children's story teller Android application that harnesses the power of AI to generate custom stories.
 
 Watch
+
 <div align="center">
-  [![Watch the video](https://img.youtube.com/vi/0U4ymymIpPU/0.jpg)](https://www.youtube.com/watch?v=0U4ymymIpPU)
+  <iframe width="600" height="400" src="https://www.youtube.com/embed/0U4ymymIpPU" title="MagicInk demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
+
 
 ### Built With
 
@@ -28,17 +30,16 @@ Watch
 [![Figma][Figma]][Figma_URL]
 [![Prettier][Prettier]](https://prettier.io/)
 
-
 ## Mobile App Set Up
 
 ### Android
 
-* Set up your Android device or Android Emulator using [Expo Go](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=physical)
-
+- Set up your Android device or Android Emulator using [Expo Go](https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=physical)
 
 ### Client Setup
 
 Dependencies for _client_:
+
 ```
 from the root directory:
 
@@ -47,32 +48,34 @@ npm i
 ```
 
 Firebase Storage:
-  To create a new firebase cloud storage follow [Get Started](https://firebase.google.com/docs/storage/web/start)
+To create a new firebase cloud storage follow [Get Started](https://firebase.google.com/docs/storage/web/start)
 
 Corcel Image Generative AI Setup:
-  To create a Corcel API key, follow [Getting Started](https://docs.corcel.io/reference/the-corcel-api)
+To create a Corcel API key, follow [Getting Started](https://docs.corcel.io/reference/the-corcel-api)
 
 Create a `client/.env` file with the following content:
-  ```
-  FIREBASE_API=<firebase-api-key>
-  FIREBASE_PROFILE_IMAGE_BUCKET=<project-id.firebaseapp.com>
-  FIREBASE_AUTHDOMAIN=<https://project-id.firebaseio.com>
-  FIREBASE_PROJECTID=<project-id>
-  FIREBASE_MSGSENDERID=<sender-id>
-  FIREBASE_APPID=<app-id>
-  FIREBASE_MEASUREMENTID=<G-measurement-id>
-  FIREBASE_STORY_IMAGE_BUCKET=<'gs://projectId-myCustomBucket'>
-  CORTEXT_API=<corcel-api-key>
-  ```
+
+```
+FIREBASE_API=<firebase-api-key>
+FIREBASE_PROFILE_IMAGE_BUCKET=<project-id.firebaseapp.com>
+FIREBASE_AUTHDOMAIN=<https://project-id.firebaseio.com>
+FIREBASE_PROJECTID=<project-id>
+FIREBASE_MSGSENDERID=<sender-id>
+FIREBASE_APPID=<app-id>
+FIREBASE_MEASUREMENTID=<G-measurement-id>
+FIREBASE_STORY_IMAGE_BUCKET=<'gs://projectId-myCustomBucket'>
+CORTEXT_API=<corcel-api-key>
+```
 
 To run the client:
-* Once your Android device/emulator is running, start the development server:
-  `npx expo start`
 
+- Once your Android device/emulator is running, start the development server:
+  `npx expo start`
 
 ### Server Setup
 
 Dependencies for _server_:
+
 ```
 from the root directory:
 
@@ -81,33 +84,32 @@ npm i
 ```
 
 To generate prisma database:
-  `npx prisma generate`
-  `npx prisma migrate dev --name magicink`
+`npx prisma generate`
+`npx prisma migrate dev --name magicink`
 
 To visualise the database:
-  `npx prisma studio -p 5553`
-  (the android emulator and prisma studio both use port 5555 by default)
+`npx prisma studio -p 5553`
+(the android emulator and prisma studio both use port 5555 by default)
 
 To seed a default user while authentication is currently mocked, and we default to this (getUser(1) in loginScreen):
-  `npm run seed`
+`npm run seed`
 
 Gemini Story Generative AI Setup:
-  To create a Gemini API key, follow [Getting Started](https://ai.google.dev/gemini-api)
-
+To create a Gemini API key, follow [Getting Started](https://ai.google.dev/gemini-api)
 
 create a `server/.env` file with the following content:
+
 ```
 GEMINI_API_KEY=your_gemini_api_key
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/magicink?schema=public"
 ```
 
 To run the server:
-  `npm run dev`
-
+`npm run dev`
 
 ### Contributors:
-[Regina Czech](https://github.com/reginaczech), [Harriet Morris](https://github.com/harrietmorris), [Badreddine El Rhoul](https://github.com/Badrhoul), [Sebastian Delgado von Euw](https://github.com/sebastiandve)
 
+[Regina Czech](https://github.com/reginaczech), [Harriet Morris](https://github.com/harrietmorris), [Badreddine El Rhoul](https://github.com/Badrhoul), [Sebastian Delgado von Euw](https://github.com/sebastiandve)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
