@@ -13,9 +13,12 @@ An interactive children's story teller Android application that harnesses the po
 Watch
 
 <div align="center">
-  <iframe width="600" height="400" src="https://www.youtube.com/embed/0U4ymymIpPU" title="MagicInk demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <video src="https://www.youtube.com/watch?v=0U4ymymIpPU" width="400" />
 </div>
 
+<!-- <div align="center">
+  [![Watch the video](https://img.youtube.com/vi/0U4ymymIpPU/0.jpg)](https://www.youtube.com/watch?v=0U4ymymIpPU)
+</div> -->
 
 ### Built With
 
