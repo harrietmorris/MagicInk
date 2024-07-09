@@ -80,6 +80,17 @@ cd server
 npm i
 ```
 
+To generate prisma database:
+`npx prisma generate`
+`npx prisma migrate dev --name magicink`
+
+To visualise the database:
+`npx prisma studio -p 5553`
+(the android emulator and prisma studio both use port 5555 by default)
+
+To seed a default user while authentication is currently mocked, and we default to this (getUser(1) in loginScreen):
+`npm run seed`
+
 Gemini Story Generative AI Setup:
 To create a Gemini API key, follow [Getting Started](https://ai.google.dev/gemini-api)
 
