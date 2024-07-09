@@ -102,6 +102,10 @@ To run the server:
   `npm run dev`
 
 
+### Contributors:
+[Regina Czech](https://github.com/reginaczech), [Harriet Morris](https://github.com/harrietmorris), [Badreddine El Rhoul](https://github.com/Badrhoul), [Sebastian Delgado von Euw](https://github.com/sebastiandve)
+
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
