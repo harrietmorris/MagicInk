@@ -8,7 +8,7 @@ export interface ProfileType {
   id: number;
   userId: number;
   name: string;
-  picture?: string | null;
+  picture: string;
   readingLevel: string;
   favs?: StoryType[];
   storiesList?: StoryType[];
@@ -22,6 +22,9 @@ export interface StoryType {
   model?: string;
   readingTime: number;
   themes: string[];
+  chooseYourStory: boolean;
+  breakpoints: number;
+  currentBreakpoint: number;
 }
 
 export type FormData = {
@@ -45,4 +48,9 @@ export interface DataContextProps {
 
   selectedStory: StoryType | null;
   setSelectedStory: React.Dispatch<React.SetStateAction<StoryType | null>>;
+}
+
+export interface ProfilePicture {
+  id: string;
+  src: any;
 }

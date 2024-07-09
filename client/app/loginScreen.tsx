@@ -1,10 +1,10 @@
 import { useDataContext } from '@/context/globalContext';
 import { getUser } from '@/services/apiService';
 import { UserType } from '@/types';
-import { Link, router } from 'expo-router';
+import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { View, Text, Pressable, TextInput } from 'react-native';
+import { View, Text, Pressable, TextInput, Image, Dimensions } from 'react-native';
 
 export default function loginScreen() {
   const {
@@ -17,7 +17,7 @@ export default function loginScreen() {
 
   useEffect(() => {
     async function setup() {
-      const user = await getUser(1);
+      const user = await getUser(1); //see readme seed data for explanation 
       setUser(user);
     }
     setup();
@@ -27,55 +27,79 @@ export default function loginScreen() {
     router.replace('/profilesScreen');
   };
 
+  const { width, height } = Dimensions.get('window');
+
+  const imgHeight = height / 2;
+
   return (
     <>
-      <View className='p-8 flex flex-col flex-1 bg-dark-grey'>
-        {
-          <>
-            <Text className='text-4xl font-extrabold text-green mb-10 text-center'>magicInk</Text>
-            <Text className='text-2xl font-extrabold text-white text-center'>
-              Step into a realm of endless adventures!
-            </Text>
-            <Text className='text-2xl font-bold mt-12 mb-4 text-white'>Username</Text>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-[#333333] text-white mb-2'
-                  placeholder='Username'
-                  placeholderTextColor='white'
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-              name='email'
-              defaultValue=''
-            />
-            <Text className='text-2xl font-bold mt-12 mb-4 text-white'>Password</Text>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  className='rounded-full px-5 py-2 text-lg border-green border-2 bg-grey text-white mb-2'
-                  placeholder='Password'
-                  placeholderTextColor='white'
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-              name='password'
-              defaultValue=''
-            />
-            <View className='justify-center content-center items-center mt-8'>
-              <Pressable className='bg-dark-orange rounded-full px-4 py-2 w-44' onPress={handleSubmit(onSubmit)}>
-                <Text className='text-white text-lg font-bold text-center'>Login</Text>
-              </Pressable>
-            </View>
-          </>
-        }
+      <View className='flex-1 dark:bg-dark-grey items-center'>
+        <View className='w-full'>
+          <Image
+            source={require('../assets/images/magicInkLogo.png')}
+            className='w-full'
+            style={{ height: imgHeight }}
+            resizeMode='cover'
+          ></Image>
+        </View>
+
+        <View className='flex-1 w-full flex-col justify-around bg-[#FEF7D8] dark:bg-dark-grey pb-8 pt-4'>
+          <View className='px-8 py-2 flex w-full'>
+          <Text className='text-2xl font-extrabold text-black dark:text-white text-center'>
+            Step into a realm of endless adventures!
+          </Text>
+          <Text className='text-lg font-bold text-black dark:text-white mt-2'>Username</Text>
+      
+          <Controller
+            
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                className='rounded-full px-4 py-3 w-full text-lg border-blue border-2 bg-white dark:bg-grey text-black dark:text-white '
+                placeholder='Username'
+                placeholderTextColor='grey'
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name='email'
+            defaultValue=''
+          />
+         
+       
+        
+          <Text className='text-lg font-bold text-black dark:text-white mt-2'>Password</Text>
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                className='rounded-full px-4 py-3 w-full text-lg border-blue border-2 bg-white dark:bg-grey text-black dark:text-white mb-2'
+                placeholder='Password'
+                placeholderTextColor='grey'
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                secureTextEntry={true}
+              />
+            )}
+            name='password'
+            defaultValue=''
+          />
+           
+          <View className='justify-center content-center items-center'>
+            <Pressable className='bg-blue rounded-full px-4 py-2 w-44 mt-4' onPress={handleSubmit(onSubmit)}>
+              <Text className='text-white text-lg font-bold text-center'>Login</Text>
+            </Pressable>
+          </View>
+
+          <View className='content-center items-center'>
+            <Text className='font-bold dark:text-white'>Don't have an account?</Text>
+            <Text className='text-dark-orange font-bold'>Register here</Text>
+          </View>
+        </View>
+      </View>
       </View>
     </>
-  );
+  )
 }

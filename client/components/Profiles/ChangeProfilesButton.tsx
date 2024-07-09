@@ -1,105 +1,84 @@
-import { View, Text, Pressable, StyleSheet, Modal, FlatList, Image } from 'react-native';
-import React, { useState } from 'react';
+import { View, Pressable, Modal, FlatList } from 'react-native';
+import React, { useRef, useState } from 'react';
 import { useDataContext } from '@/context/globalContext';
 import { ProfileType } from '@/types';
-import ProfileButton from './ProfileButton';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { getSelectedProfile } from '@/services/apiService';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import DropButton from './DropButton';
+import RenderImage from './RenderImg'; 
 
 const ChangeProfilesButton = () => {
   const { profiles, selectedProfile, setSelectedProfile, setSelectedStory } = useDataContext();
   const [modalVisible, setModalVisible] = useState(false);
+  const [buttonLayout, setButtonLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const buttonRef = useRef<View>(null);
 
+  const handleProfilePress = async (profile: ProfileType) => {
+    try {
+      const profileId = profile.id;
+      const fetchedProfile = await getSelectedProfile(profileId);
+      setSelectedProfile(fetchedProfile);
+      setSelectedStory(null);
+      setModalVisible(false);
+    } catch (error) {
+      console.error('Error fetching profile', error);
+    }
+  };
 
-    const handleProfilePress = async (profile: ProfileType) => {
-      try {
-        let profileId = profile.id;
-        const fetchedProfile = await getSelectedProfile(profileId);
-        setSelectedProfile(fetchedProfile);
-        setModalVisible(false);
-      } catch (error) {
-        console.error('Error fetching profile', error);
-      }
-    };
+  const handlePressIn = () => {
+    buttonRef.current?.measure((width, height, py) => {
+      setButtonLayout({ x: width, y: py, width, height });
+      setModalVisible(true);
+    });
+  };
 
-    return (
-      <View >
-        <Pressable className='' onPress={() => setModalVisible(true)}>
-          {selectedProfile ? (
-            selectedProfile.picture ? (
-              <Image source={{ uri: selectedProfile.picture }}/>
-            ) : (
-              <FontAwesome6 name="face-grin-tongue" size={30} color="#91EE91" />
-            )
+ 
+  return (
+    <View className='px-2.5'>
+      <Pressable ref={buttonRef} onPressIn={handlePressIn}>
+        {selectedProfile ? (
+          selectedProfile.picture ? (
+            <RenderImage
+              imageUrl={selectedProfile!.picture}
+              style={{ width: 50, height: 50, borderRadius: 50 }}
+            />
           ) : (
             <FontAwesome6 name="face-grin-tongue" size={30} color="#91EE91" />
-          )}
-        </Pressable>
-        <Modal
-          transparent={true}
-          visible={modalVisible}
-          animationType='fade'
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.modalContainer}>
+          )
+        ) : (
+          <FontAwesome6 name="face-grin-tongue" size={30} color="#91EE91" />
+        )}
+      </Pressable>
+      <Modal
+        transparent={true}
+        visible={modalVisible}
+        animationType='fade'
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <Pressable className='flex flex-col justify-start items-center h-screen' onPress={() => setModalVisible(false)}>
+          <View
+            className="absolute bg-dark-grey dark:bg-grey rounded w-60 opacity-90"
+            style={{ top: buttonLayout.y + buttonLayout.height, right: buttonLayout.x }}
+          >
             <FlatList
+              ItemSeparatorComponent={() => <View className='border-b-2 border-grey dark:border-dark-grey' />}
               data={profiles}
+              className='divide-x-2 divide-white'
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
-                <ProfileButton
+                <DropButton
                   profileName={item.name}
+                  profilePic={item.picture || ''}
                   onPress={() => handleProfilePress(item)}
                   route={'/homeScreen'}
                 />
               )}
             />
           </View>
-        </Modal>
-      </View>
-    );
-  };
-
-const styles = StyleSheet.create({
-  // circleButton: {
-  //   backgroundColor: '#28a745',
-  //   borderRadius: 50,
-  //   width: 50,
-  //   height: 50,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  // profileImage: {
-  //   width: 50,
-  //   height: 50,
-  //   borderRadius: 50,
-  // },
-  // profileInitial: {
-  //   color: '#fff',
-  //   fontSize: 24,
-  // },
-  // circleButtonText: {
-  //   color: '#fff',
-  //   fontSize: 24,
-  // },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  // profileButton: {
-  //   backgroundColor: '#fff',
-  //   padding: 15,
-  //   marginVertical: 5,
-  //   width: 200,
-  //   borderRadius: 5,
-  // },
-  // profileButtonText: {
-  //   fontSize: 18,
-  //   fontWeight: 'bold',
-  //   color: '#000',
-  // },
-});
+        </Pressable>
+      </Modal>
+    </View>
+  );
+};
 
 export default ChangeProfilesButton;

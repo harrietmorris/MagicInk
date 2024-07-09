@@ -1,22 +1,38 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import React from 'react';
+import { View, Text, TextInput, ScrollView} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useDataContext } from '@/context/globalContext';
-import { readingLevelOptions } from '@/constants/readingLevels';
 import { Controller, useForm } from 'react-hook-form';
 import { ProfileType } from '@/types';
 import { newProfile } from '@/services/apiService';
-import { Picker } from '@react-native-picker/picker';
 import { router } from 'expo-router';
 import OrangeButton from '../style/OrangeButton';
-import { FontAwesome } from '@expo/vector-icons';
+import ReadingLevelPicker from '../utils/ReadingLevelPicker';
+import UploadMediaFile from './UploadMedia';
+import ImageChoice from '../utils/ImageChoice';
+import RenderImage from './RenderImg';
+import GreenButton from '../style/GreenButton';
 
 const ProfileForm = () => {
+
   const { profiles, setProfiles, setSelectedProfile, user } = useDataContext();
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<Partial<ProfileType>>();
+    setValue,
+  } = useForm<Partial<ProfileType>>({
+    defaultValues: {
+      picture: '1'
+    },
+  });
+
+  const [imgModalVisible, setImgModalVisible] = useState(false);
+  const [currentImg, setCurrentImg] = useState<string>('1');
+
+  useEffect(() => {
+    setValue('picture', currentImg);
+  }, [currentImg, setValue]);
+
 
   const onSubmit = async (data: Partial<ProfileType>) => {
     try {
@@ -31,19 +47,24 @@ const ProfileForm = () => {
     }
   };
 
+  const handleImageUpdate = (newImg: string) => {
+    setCurrentImg(newImg);
+  };
+
+
   return (
-    <>
+    <ScrollView contentContainerStyle={{ padding: 16 }}>
       <View>
-        <Text className='text-4xl font-extrabold color-green mb-10'>Create New Profile</Text>
-        <Text className='text-2xl font-bold mb-2 text-white'>Name</Text>
+        <Text className='text-4xl font-extrabold dark:color-green color-dark-orange mb-5'>Create New Profile</Text>
+        <Text className='text-2xl font-bold mb-2 dark:text-white text-blue'>Name</Text>
         <Controller
           control={control}
           rules={{ required: 'Name is required' }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextInput
-              className='rounded-full px-5 py-3 text-lg border-green border-2 bg-grey text-white mb-2'
+              className='rounded-full px-5 py-4 text-lg border-green border-2 bg-white dark:bg-grey dark:text-white mb-2'
               placeholder='Name'
-              placeholderTextColor='white'
+              placeholderTextColor='grey'
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -54,55 +75,49 @@ const ProfileForm = () => {
         />
         {errors.name && <Text className='text-dark-orange text-center'>{errors.name.message}</Text>}
 
-        {/* TODO: implement avatar feature - either by user upload or pre-selected options? */}
-        <Text className='text-2xl font-bold mt-12 mb-2 text-white'>Picture</Text>
-        <View className='justify-center content-center items-center mb-10'>
-          <FontAwesome size={100} name='smile-o' color='#91EE91' />
+        
+        <Text className="text-2xl font-bold mt-8 dark:text-white text-blue">Picture</Text>
+        <View className='justify-center content-center items-center'> 
+        <RenderImage
+                imageUrl={currentImg}
+                style={{ width: 150, height: 150, borderRadius: 150 }}
+              />
+         </View>
+        <View className='flex-row content-center justify-center items-center mt-2'> 
+        <GreenButton onPress={() => setImgModalVisible(true) } title={'Choose'} />
+        <Text className="text-2xl font-bold dark:text-white text-grey text-center mt-2 mb-2"> or </Text>
+        <UploadMediaFile onImageUpload={handleImageUpdate} />
         </View>
 
-        <Text className='text-2xl font-bold mb-2 text-white'>Choose Reading Level</Text>
+        <Text className='text-2xl font-bold mb-2 mt-10 dark:text-white text-blue'>Select Reading Level</Text>
         <Controller
           control={control}
-          rules={{ required: 'Reading level is required' }}
           render={({ field: { onChange, value } }) => (
-            <View style={styles.pickerContainer}>
-              <Picker
-                style={styles.picker}
+            <View >
+              <ReadingLevelPicker
                 selectedValue={value}
-                dropdownIconColor='#91EE91'
                 onValueChange={(itemValue) => onChange(itemValue)}
-              >
-                {Object.keys(readingLevelOptions).map((level) => (
-                  <Picker.Item key={level} label={`${level}`} value={level} />
-                ))}
-              </Picker>
+              />
             </View>
           )}
           name='readingLevel'
-          defaultValue=''
+          defaultValue='value'
         />
-        {errors.readingLevel && <Text className='text-dark-orange text-center'>{errors.readingLevel.message}</Text>}
+
+        <View className='justify-center content-center items-center mt-12'>
+          <OrangeButton title='Create Profile' onPress={handleSubmit(onSubmit)} />
+        </View>
+
+        <ImageChoice
+          imgVisible={imgModalVisible}
+          currentImg={currentImg}
+          onClose={() => setImgModalVisible(false)}
+          onSave={handleImageUpdate}
+        />
       </View>
-      <View className='justify-center content-center items-center mt-8'>
-        <OrangeButton title='Create Profile' onPress={handleSubmit(onSubmit)} />
-      </View>
-    </>
+      </ScrollView>
   );
 };
 
-//TODO: review styling with nativeWind with Picker components
-const styles = StyleSheet.create({
-  pickerContainer: {
-    borderWidth: 2,
-    borderRadius: 100,
-    borderColor: '#91EE91',
-    backgroundColor: '#333333',
-    paddingHorizontal: 5,
-    marginVertical: 10,
-  },
-  picker: {
-    color: '#FFFFFF',
-  },
-});
 
 export default ProfileForm;

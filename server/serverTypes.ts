@@ -3,8 +3,8 @@ export type StoryRequestBody = {
   location: string;
   readingTime: number;
   themes: string;
-  simpleLanguage: boolean;
-  words: number[];
+  chooseYourStory: boolean;
+  breakpoints: number;
 };
 
 
@@ -34,7 +34,11 @@ export interface CreateStoryRequestBody {
   model?: string;
   readingTime: number;
   readingLevel: string;
+  location: string;
   themes: string;
+  chooseYourStory: boolean;
+  currentBreakpoint: number;
+  breakpoints: number;
 }
 
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Pressable } from 'react-native';
 
 interface MultiSelectComponentProps {
   itemOptions: string[];
@@ -8,7 +8,7 @@ interface MultiSelectComponentProps {
   selectOne?: boolean;
 }
 
-const  MultiSelectComponent: React.FC<MultiSelectComponentProps> = ({itemOptions, value, onChange}) => {
+const  MultiSelectComponent= ({itemOptions, value, onChange}:MultiSelectComponentProps ) => {
 
   const [selectedItems, setSelectedItems] = useState<string[]>(value);
 
@@ -21,21 +21,21 @@ const  MultiSelectComponent: React.FC<MultiSelectComponentProps> = ({itemOptions
   };
 
   return (
-    <View className='justify-center h-20'>
+    <View className='justify-center'>
       <FlatList
         horizontal={true}
         data={itemOptions}
         keyExtractor={(item) => item.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity
-          className={`h-full flex justify-center p-3 mx-2 bg-yellow rounded-lg
+          <Pressable
+          className={`flex justify-center p-4 mr-4 bg-yellow rounded-lg
             ${selectedItems.includes(item) ? 'bg-blue' : ''}`}
             onPress={() => {       
               toggleItemSelection(item);
             }}
           >
             <Text className={`text-base text-black ${selectedItems.includes(item) ? 'text-white' : ''}`}>{item}</Text>
-          </TouchableOpacity>
+          </Pressable>
         )}
       />
     </View>

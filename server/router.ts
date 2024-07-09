@@ -1,6 +1,6 @@
 import Router from '@koa/router';
-import postNewStory from './controllers/gemini';
-import { addToFavs, createProfile, getProfile, updateProfile, deleteProfile, removeFromFavs } from './controllers/profile';
+import { postNewStory, continueStory } from './controllers/gemini';
+import { addToFavs, createProfile, getProfile, updateProfile, deleteProfile, removeFromFavs, removeStoryFromProfile } from './controllers/profile';
 import { getStoryById } from './controllers/story';
 import { createUser, getUserInfo, getUserProfiles, loginUser } from './controllers/user';
 
@@ -8,6 +8,7 @@ const router = new Router();
 
 //gemini
 router.post('/profiles/:profId/story', postNewStory);
+router.patch('/profiles/:profId/story/:storyId/:optionSelected', continueStory);
 
 //prisma
 router.post('/user', createUser)
@@ -22,6 +23,7 @@ router.patch('/profiles/:profileId', updateProfile);
 
 router.put('/profiles/:profileId/favs/:storyId', addToFavs);
 router.delete('/profiles/:profileId/favs/:storyId', removeFromFavs);
+router.delete('/profiles/:profileId/story/:storyId', removeStoryFromProfile);
 
 router.get('/stories/:storyId', getStoryById);
 

@@ -1,5 +1,4 @@
-import { Text, Pressable, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { Pressable } from 'react-native'
 import { useDataContext } from '@/context/globalContext';
 import { ProfileType, StoryType } from '@/types';
 import { addToFavs, removeFromFavs } from '@/services/apiService';
@@ -9,7 +8,7 @@ interface FavButtonProps {
   storyId: number;
 }
 
-const FavButton: React.FC<FavButtonProps> = ({ storyId }) => {
+const FavButton = ({ storyId }: FavButtonProps) => {
   const { setSelectedProfile, selectedProfile } = useDataContext();
 
   const isFav = selectedProfile?.favs?.some((fav) => fav.id === storyId)
@@ -24,7 +23,6 @@ const FavButton: React.FC<FavButtonProps> = ({ storyId }) => {
       } else {
         updatedProfile = await addToFavs(selectedProfile!.id, storyId);
       }
-      // console.log(updatedProfile.favs.map(fav => fav.id))
       setSelectedProfile((prevProfile) => ({
         ...prevProfile!,
         favs: updatedProfile!.favs,
@@ -37,7 +35,7 @@ const FavButton: React.FC<FavButtonProps> = ({ storyId }) => {
 
   return (
     <Pressable onPress={toggleFav}>
-      {isFav ? <AntDesign name="heart" size={24} color="red" /> :<AntDesign name="hearto" size={24} color="red" /> }
+      {isFav ? <AntDesign name="heart" size={20} color="red" /> :<AntDesign name="hearto" size={20} color="red" /> }
     </Pressable>
   );
 };

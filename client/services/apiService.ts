@@ -1,3 +1,4 @@
+import { createImagePrompt } from '@/components/utils/imageGenPrompt';
 import { ProfileType, StoryType, UserType } from '../types';
 import axios, { AxiosResponse, isCancel, AxiosError } from 'axios';
 
@@ -50,8 +51,8 @@ export const createStory = async (
   location: string,
   readingTime: number,
   themes: string,
-  simpleLanguage: boolean = false,
-  words: number[] = [],
+  chooseYourStory: boolean = false,
+  breakpoints: number = 0,
 ) => {
   try {
     const response = await axios.post(`${BASE_URL}/profiles/${profId}/story`, {
@@ -59,14 +60,26 @@ export const createStory = async (
       location,
       readingTime,
       themes,
-      simpleLanguage,
-      words,
-      profId,
+      chooseYourStory,
+      breakpoints,
     });
     return {status: response.status, storyDetails: response.data};
   } catch (error) {
     console.error('Error creating story', error);
     throw error;
+  }
+}
+
+export const updateStory = async (
+  profId: number,
+  storyId: number,
+  optionSelected: string,
+) => {
+  try {
+    const response = await axios.patch(`${BASE_URL}/profiles/${profId}/story/${storyId}/${optionSelected}`);
+    return {status: response.status, storyDetails: response.data};
+  } catch (error) {
+    console.error('Error updating story', error);
   }
 }
 
@@ -115,5 +128,43 @@ export const removeFromFavs = async (profileId: number, storyId: number): Promis
   } catch (error) {
     console.error('Error removing story from favorites', error);
     throw error;
+  }
+};
+
+export const removeStoryFromProfile = async (profileId: number, storyId: number): Promise<ProfileType> => {
+  try {
+    const response: AxiosResponse<ProfileType> = await axios.delete(`${BASE_URL}/profiles/${profileId}/story/${storyId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error removing story from favorites', error);
+    throw error;
+  }
+};
+
+export const createImage = async (readingLevel: string, location: string, themes: string) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: process.env.CORTEXT_API ?? "",
+    },
+    body: JSON.stringify({
+      messages: createImagePrompt(readingLevel, location, themes),
+      model: 'cortext-image',
+      size: '1024x1024',
+      quality: 'standard',
+      provider: 'OpenAI',
+      steps: 30,
+      cfg_scale: 8,
+    }),
+  };
+
+  try {
+    const response = await fetch('https://api.corcel.io/v1/image/cortext/text-to-image', options);
+    const data = await response.json();
+    return data[0].image_url;
+  } catch (error) {
+    console.error('Error generating image', error);
   }
 };

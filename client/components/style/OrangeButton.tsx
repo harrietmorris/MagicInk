@@ -11,7 +11,7 @@ interface OrangeButtonProps {
 const StyledPressable = styled(Pressable);
 const StyledText = styled(Text);
 
-const OrangeButton: React.FC<OrangeButtonProps> = ({ onPress, title, style }) => {
+const OrangeButton = ({ onPress, title, style }: OrangeButtonProps) => {
     return (
         <StyledPressable
             onPress={onPress}

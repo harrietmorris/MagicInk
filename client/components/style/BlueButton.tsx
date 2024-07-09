@@ -11,7 +11,7 @@ interface BlueButtonProps {
 const StyledPressable = styled(Pressable);
 const StyledText = styled(Text);
 
-const BlueButton: React.FC<BlueButtonProps> = ({ onPress, title, style }) => {
+const BlueButton = ({ onPress, title, style }: BlueButtonProps) => {
     return (
         <StyledPressable
             onPress={onPress}
