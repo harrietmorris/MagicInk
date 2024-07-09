@@ -10,7 +10,7 @@
 
 An interactive children's story teller Android application that harnesses the power of AI to generate custom stories.
 
-![MagicInk Gif][product-gif]
+<iframe width="853" height="480" src="https://www.youtube.com/embed/0U4ymymIpPU" title="MagicInk demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ### Built With
 
@@ -78,15 +78,15 @@ npm i
 ```
 
 To generate prisma database:
-  npx prisma generate
-  npx prisma migrate dev --name magicink
+  `npx prisma generate`
+  `npx prisma migrate dev --name magicink`
 
 To visualise the database:
-  npx prisma studio -p 5553
+  `npx prisma studio -p 5553`
   (the android emulator and prisma studio both use port 5555 by default)
 
 To seed a default user while authentication is currently mocked, and we default to this (getUser(1) in loginScreen):
-  npm run seed
+  `npm run seed`
 
 Gemini Story Generative AI Setup:
   To create a Gemini API key, follow [Getting Started](https://ai.google.dev/gemini-api)
