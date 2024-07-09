@@ -66,6 +66,8 @@ export default function loginScreen() {
             name='email'
             defaultValue=''
           />
+         
+       
         
           <Text className='text-lg font-bold text-black dark:text-white mt-2'>Password</Text>
           <Controller
@@ -84,57 +86,11 @@ export default function loginScreen() {
             name='password'
             defaultValue=''
           />
+           
           <View className='justify-center content-center items-center'>
             <Pressable className='bg-blue rounded-full px-4 py-2 w-44 mt-4' onPress={handleSubmit(onSubmit)}>
               <Text className='text-white text-lg font-bold text-center'>Login</Text>
             </Pressable>
-
-          </View>
-
-          <View className='px-8 py-2 flex w-full'>
-            <Text className='text-lg font-bold text-black dark:text-white'>Username</Text>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  className='rounded-full px-4 py-3 w-full text-lg border-blue border-2 bg-white dark:bg-grey text-black dark:text-white '
-                  placeholder='Username'
-                  placeholderTextColor='grey'
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-              name='email'
-              defaultValue=''
-            />
-          </View>
-
-          <View className='px-8 py-2 flex w-full'>
-            <Text className='text-lg font-bold text-black dark:text-white mt-2'>Password</Text>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  className='rounded-full px-4 py-3 w-full text-lg border-blue border-2 bg-white dark:bg-grey text-black dark:text-white'
-                  placeholder='Password'
-                  placeholderTextColor='grey'
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-              name='password'
-              defaultValue=''
-            />
-          </View>
-
-          <View className='px-8 py-2 flex w-full'>
-            <View className='content-center items-center'>
-              <Pressable className='bg-blue rounded-full px-4 py-2 w-44' onPress={handleSubmit(onSubmit)}>
-                <Text className='text-white text-lg font-bold text-center'>Login</Text>
-              </Pressable>
-            </View>
           </View>
 
           <View className='content-center items-center'>
@@ -143,6 +99,7 @@ export default function loginScreen() {
           </View>
         </View>
       </View>
+      </View>
     </>
-  );
+  )
 }
