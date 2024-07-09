@@ -105,7 +105,7 @@ To run the server:
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[product-gif]: 
+[product-gif]: client\assets\images\magicInkLogo.png
 [React_Native]: https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React_Native_URL]: https://reactnative.dev/
 [Expo_Router]: https://img.shields.io/badge/Expo_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
