@@ -1,5 +1,30 @@
-# MagicInk
-Senior thesis project - interactive storyteller app
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/harrietmorris/MagicInk">
+    <img src="client\assets\images\magicInkLogo.png" alt="Logo" height="80">
+  </a>
+</div>
+
+# About
+
+An interactive children's story teller Android application that harnesses the power of AI to generate custom stories.
+
+![MagicInk Gif][product-gif]
+
+### Built With
+
+[![React_Native][React_Native]][React_Native_URL]
+[![Expo_Router][Expo_Router]][Expo_Router_URL]
+[![NativeWind][NativeWind]][NativeWind_URL]
+[![TypeScript][TypeScript]][TypeScript_URL]
+[![Koajs][Koajs]][Koajs_URL]
+[![PostgreSQL][PostgreSQL]][PostgreSQL_URL]
+[![Prisma][Prisma]][Prisma_URL]
+[![Android][Android]][Android_URL]
+[![Figma][Figma]][Figma_URL]
+[![Prettier][Prettier]](https://prettier.io/)
+
 
 ## Mobile App Set Up
 
@@ -9,9 +34,14 @@ Senior thesis project - interactive storyteller app
 
 
 ### Client Setup
-To run the client:
-* Once your Android device/emulator is running, start the development server:
-  `npx expo start`
+
+Dependencies for _client_:
+```
+from the root directory:
+
+cd client
+npm i
+```
 
 Firebase Storage:
   To create a new firebase cloud storage follow [Get Started](https://firebase.google.com/docs/storage/web/start)
@@ -32,8 +62,21 @@ Create a `client/.env` file with the following content:
   CORTEXT_API=<corcel-api-key>
   ```
 
+To run the client:
+* Once your Android device/emulator is running, start the development server:
+  `npx expo start`
+
 
 ### Server Setup
+
+Dependencies for _server_:
+```
+from the root directory:
+
+cd server
+npm i
+```
+
 To generate prisma database:
   npx prisma generate
   npx prisma migrate dev --name magicink
@@ -45,8 +88,8 @@ To visualise the database:
 To seed a default user while authentication is currently mocked, and we default to this (getUser(1) in loginScreen):
   npm run seed
 
-To run the backend:
-  npm run dev
+Gemini Story Generative AI Setup:
+  To create a Gemini API key, follow [Getting Started](https://ai.google.dev/gemini-api)
 
 
 create a `server/.env` file with the following content:
@@ -54,5 +97,31 @@ create a `server/.env` file with the following content:
 GEMINI_API_KEY=your_gemini_api_key
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/magicink?schema=public"
 ```
-Run the following commands to create the database and generate the prisma client:
-```
+
+To run the server:
+  `npm run dev`
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[product-gif]: 
+[React_Native]: https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React_Native_URL]: https://reactnative.dev/
+[Expo_Router]: https://img.shields.io/badge/Expo_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
+[Expo_Router_URL]: https://docs.expo.dev/router/introduction/
+[NativeWind]: hhttps://img.shields.io/badge/NativeWind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[NativeWind_URL]: https://www.nativewind.dev/v4/getting-started/react-native
+[TypeScript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+[TypeScript_URL]: https://www.typescriptlang.org/
+[Koajs]: https://img.shields.io/badge/Koa.js-404D59?style=for-the-badge
+[Koajs_URL]: https://koajs.com/
+[Prisma]: https://img.shields.io/badge/Koa.js-404D59?style=for-the-badge
+[Prisma_URL]: https://www.prisma.io/
+[PostgreSQL]: https://img.shields.io/badge/Koa.js-404D59?style=for-the-badge
+[PostgreSQL_URL]: https://www.postgresql.org/
+[Android]: https://img.shields.io/badge/Koa.js-404D59?style=for-the-badge
+[Android_URL]: https://developer.android.com/studio
+[Figma]: https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white
+[Figma_URL]: https://www.figma.com/
+[Prettier]: https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E
