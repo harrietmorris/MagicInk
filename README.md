@@ -10,15 +10,9 @@
 
 An interactive children's story teller Android application that harnesses the power of AI to generate custom stories.
 
-Watch
+### Watch Here
 
-<div align="center">
-  <video src="https://www.youtube.com/watch?v=0U4ymymIpPU" width="400" />
-</div>
-
-<!-- <div align="center">
-  [![Watch the video](https://img.youtube.com/vi/0U4ymymIpPU/0.jpg)](https://www.youtube.com/watch?v=0U4ymymIpPU)
-</div> -->
+[![Watch the video](https://img.youtube.com/vi/0U4ymymIpPU/0.jpg)](https://www.youtube.com/watch?v=0U4ymymIpPU)
 
 ### Built With
 
