@@ -45,9 +45,50 @@ export default function loginScreen() {
 
         <View className='flex-1 w-full flex-col justify-around bg-[#FEF7D8] dark:bg-dark-grey pb-8 pt-4'>
           <View className='px-8 py-2 flex w-full'>
-            <Text className='text-2xl font-extrabold text-blue dark:text-white text-center'>
-              Step into a realm of endless adventures!
-            </Text>
+          <Text className='text-2xl font-extrabold text-black dark:text-white text-center'>
+            Step into a realm of endless adventures!
+          </Text>
+          <Text className='text-lg font-bold text-black dark:text-white mt-2'>Username</Text>
+      
+          <Controller
+            
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                className='rounded-full px-4 py-3 w-full text-lg border-blue border-2 bg-white dark:bg-grey text-black dark:text-white '
+                placeholder='Username'
+                placeholderTextColor='grey'
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name='email'
+            defaultValue=''
+          />
+        
+          <Text className='text-lg font-bold text-black dark:text-white mt-2'>Password</Text>
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                className='rounded-full px-4 py-3 w-full text-lg border-blue border-2 bg-white dark:bg-grey text-black dark:text-white mb-2'
+                placeholder='Password'
+                placeholderTextColor='grey'
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                secureTextEntry={true}
+              />
+            )}
+            name='password'
+            defaultValue=''
+          />
+          <View className='justify-center content-center items-center'>
+            <Pressable className='bg-blue rounded-full px-4 py-2 w-44 mt-4' onPress={handleSubmit(onSubmit)}>
+              <Text className='text-white text-lg font-bold text-center'>Login</Text>
+            </Pressable>
+
           </View>
 
           <View className='px-8 py-2 flex w-full'>
