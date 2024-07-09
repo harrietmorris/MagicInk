@@ -10,7 +10,7 @@
 
 An interactive children's story teller Android application that harnesses the power of AI to generate custom stories.
 
-<iframe width="853" height="480" src="https://www.youtube.com/embed/0U4ymymIpPU" title="MagicInk demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![Watch the video](https://img.youtube.com/vi/0U4ymymIpPU/0.jpg)](https://www.youtube.com/watch?v=0U4ymymIpPU)
 
 ### Built With
 
