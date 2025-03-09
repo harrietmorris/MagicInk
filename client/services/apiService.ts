@@ -83,6 +83,15 @@ export const updateStory = async (
   }
 }
 
+export const continueStory = async (profileId: number, storyId: number, story: StoryType)=>{
+  try {
+    const response = await axios.put(BASE_URL+`/profiles/${profileId}/story/${storyId}`, story)
+    return response.data;
+  } catch (e){
+    console.error('Error adding to story,', e)
+  }
+}
+
 export async function updateProfile(profile: ProfileType) {
   try {
     const response = await axios.patch(BASE_URL + `/profiles/${profile.id}`, profile);

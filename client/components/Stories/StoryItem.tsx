@@ -4,6 +4,7 @@ import { StoryType } from '@/types';
 import FavButton from '../buttons/favButton';
 import DeleteStoryBtn from '../buttons/DeleteStoryBtn';
 import { getStoryImage } from '../../services/apiStoryImage';
+import MoreStory from '../buttons/moreStorybtn';
 import { LinearGradient } from 'expo-linear-gradient';
 
 interface StoryItemProps {
